@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <title>Kochbuck</title>
+        <meta charset="utf-8">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            function getAllPostsFetch() {
+                const main = document.getElementById("main");
+                async function fetchData() {
+                    const response = await fetch("http://localhost:8800/api/essi");
+                    const data = await response.json();
+                    renderToDom(data);
+                }
+                fetchData();
+            }
+
+            function getAllPosts() {
+                const main = document.getElementById("main");
+                $.ajax({
+                    type: 'GET', 
+                    url: 'http://localhost:8800/api/essi',
+                    success: function(data) {
+                        renderToDom(data);
+                    }, error: function (data) {
+                    }
+                });
+            }
+
+            function renderToDom(data) {
+                const main = document.getElementById("main");
+                main.innerHTML = "";
+                data.map(p => {
+                    main.appendChild(createHtmlElement(p))
+                })
+            }
+
+            function createHtmlElement(data) {
+                if (!data || typeof data !== 'object') {
+                    throw new Error('Invalid input data');
+                }
+
+                // Create a container div
+                const container = document.createElement('div');
+
+                // Create title element if it exists in the data
+                if (data.title) {
+                    const titleEl = document.createElement('h2');
+                    titleEl.textContent = data.title;
+                    container.appendChild(titleEl);
+                }
+
+                // Create text element if it exists in the data
+                if (data.desc) {
+                    const titleText = document.createElement('h3');
+                    titleText.textContent = "Beschreibung";
+                    container.appendChild(titleText);
+
+                    const textEl = document.createElement('p');
+                    textEl.textContent = data.desc;
+                    container.appendChild(textEl);
+                }
+
+                // Create text element if it exists in the data
+                if (data.recipe) {
+                    const titleText = document.createElement('h3');
+                    titleText.textContent = "Rezept";
+                    container.appendChild(titleText);
+
+                    const textEl = document.createElement('p');
+                    textEl.textContent = data.recipe;
+                    container.appendChild(textEl);
+                }
+
+                // Create image element if it exists in the data
+                if (data.image) {
+                    const imageEl = document.createElement('img');
+                    imageEl.src = data.image;
+                    container.appendChild(imageEl);
+                }
+
+                return container;
+            }
+
+            function getSinglePost() {
+                
+            }
+        </script>
+        <style>
+            html, body {
+                padding: 20px;
+                margin: 0;
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+
+            img {
+                max-width: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Kochbuch</h1>
+        <button onclick="getAllPosts()">
+            Alle Rezepte anzeigen
+        </button>
+        <input type="text" placeholder="Rezept id">
+        <button onclick="getSinglePost()">
+            Alle Rezepte anzeigen
+        </button>
+        <main id="main">
+
+        </main>
+    </body>
+</html>
