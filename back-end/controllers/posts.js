@@ -16,7 +16,8 @@ export const getPosts = (req, res) => {
     })
 }
 
-export const getPost = (req, res) => { 
+export const getPost = (req, res) => {
+    
     const q = {
         text: "SELECT * FROM fed_schema.essi WHERE id = ($1)",
         values: [req.params.id]

@@ -27,6 +27,20 @@
                 });
             }
 
+            function getSinglePost() {
+                const main = document.getElementById("main");
+                const rezept_id = document.getElementById("post_id");
+                console.log(rezept_id.value)
+                $.ajax({
+                    type: 'GET', 
+                    url: 'http://localhost:8800/api/essi/:' + rezept_id.value,
+                    success: function(data) {
+                        renderToDom(data);
+                    }, error: function (data) {
+                    }
+                });
+            }
+
             function renderToDom(data) {
                 const main = document.getElementById("main");
                 main.innerHTML = "";
@@ -81,10 +95,6 @@
 
                 return container;
             }
-
-            function getSinglePost() {
-                
-            }
         </script>
         <style>
             html, body {
@@ -103,7 +113,7 @@
         <button onclick="getAllPosts()">
             Alle Rezepte anzeigen
         </button>
-        <input type="text" placeholder="Rezept id">
+        <input type="text" id="post_id" placeholder="Rezept id">
         <button onclick="getSinglePost()">
             Alle Rezepte anzeigen
         </button>
