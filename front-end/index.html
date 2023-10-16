@@ -5,16 +5,6 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
-            function getAllPostsFetch() {
-                const main = document.getElementById("main");
-                async function fetchData() {
-                    const response = await fetch("http://localhost:8800/api/essi");
-                    const data = await response.json();
-                    renderToDom(data);
-                }
-                fetchData();
-            }
-
             function getAllPosts() {
                 const main = document.getElementById("main");
                 $.ajax({
@@ -23,22 +13,41 @@
                     success: function(data) {
                         renderToDom(data);
                     }, error: function (data) {
+                        noDataReceived();
                     }
                 });
             }
 
             function getSinglePost() {
                 const main = document.getElementById("main");
-                const rezept_id = document.getElementById("post_id");
-                console.log(rezept_id.value)
+                let rezept_id = document.getElementById("post_id").value;
+                console.log(rezept_id)
+                !rezept_id ? rezept_id = 0 : {}
+                console.log(rezept_id)
+                
                 $.ajax({
                     type: 'GET', 
-                    url: 'http://localhost:8800/api/essi/:' + rezept_id.value,
+                    url: 'http://localhost:8800/api/essi/' + rezept_id,
                     success: function(data) {
-                        renderToDom(data);
+                        renderToDom([data]);
+                        console.log(data)
                     }, error: function (data) {
+                        noDataReceived();
                     }
                 });
+            }
+
+            function noDataReceived() {
+                const main = document.getElementById("main");
+                main.innerHTML = "";
+
+                const div = document.createElement('div');
+                const h3 = document.createElement('h3');
+                h3.textContent = "Leider kein Futti heute :(";
+
+                // Attach h1 to div and then div to the "main" element
+                div.appendChild(h3);
+                main.appendChild(div);
             }
 
             function renderToDom(data) {
@@ -62,6 +71,24 @@
                     const titleEl = document.createElement('h2');
                     titleEl.textContent = data.title;
                     container.appendChild(titleEl);
+                }
+
+                // rating
+                if (data.rating) {
+                    const titleText = document.createElement('h3');
+                    titleText.textContent = "Bewertung";
+                    container.appendChild(titleText);
+
+                    let rating = data.rating > 5 ? 5 : data.rating
+
+                    const rating_h4 = document.createElement('h2');
+
+                    for (let i = 1; i <= rating; i++) {
+                        const star = document.createTextNode("✾")
+                        rating_h4.appendChild(star);
+                    }
+                    rating_h4.classList.add("rating")
+                    container.appendChild(rating_h4);
                 }
 
                 // Create text element if it exists in the data
@@ -98,9 +125,41 @@
         </script>
         <style>
             html, body {
-                padding: 20px;
+                padding: 0px;
                 margin: 0;
                 font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+
+            .rating {
+                color: #8EAF9D;
+            }
+
+            #wrapper {
+                min-height: 100%;
+                width: 800px;
+                margin-left: calc(50% - 400px);
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            }
+
+            #header {
+                width: 100%;
+                background-color: #D7DAE5;
+            }
+            
+            #header > div {
+                padding: 0px 40px 0 40px;
+                display: flex;
+                gap: 20px;
+                align-items: center;
+            }
+
+            #content {
+                padding: 10px 40px 0 40px;
+                width: calc(800px - 80px);
+            }
+
+            button, input {
+                height: 50px;
             }
 
             img {
@@ -109,16 +168,24 @@
         </style>
     </head>
     <body>
-        <h1>Kochbuch</h1>
-        <button onclick="getAllPosts()">
-            Alle Rezepte anzeigen
-        </button>
-        <input type="text" id="post_id" placeholder="Rezept id">
-        <button onclick="getSinglePost()">
-            Alle Rezepte anzeigen
-        </button>
-        <main id="main">
+        <div id="wrapper">
+            <div id="header">
+                <div>
+                    <h1>Kochbuch</h1>
+                    <button onclick="getAllPosts()">
+                        Alle Rezepte anzeigen
+                    </button>
+                    <input type="text" id="post_id" placeholder="Rezept id">
+                    <button onclick="getSinglePost()">
+                        Suchen
+                    </button>
+                </div>
+            </div>
+            <div id="content">
+                <main id="main">
 
-        </main>
+                </main>
+            </div>
+        </div>
     </body>
 </html>
