@@ -1,0 +1,70 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background-color: var(--night);
+
+  text-align: justify;
+}
+
+a {
+  color: var(--green-1);
+}
+
+a:active {
+  color: var(--green-2);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.card-hover {
+  border: 1px solid var(--green-1);
+}
+
+.card-hover:hover {
+  cursor: pointer;
+  border: 1px solid var(--green-2);
+  background-color: var(--secondary-color-dark);
+}
+
+.toc-row {
+  overflow: hidden;
+  position: relative;
+}
+
+.before-toc-link {
+  padding-right: .25ch;
+}
+
+.toc-link::after {
+  position: absolute;
+  padding-left: .25ch;
+  content: " . . . . . . . . . . . . . . . . . . . "
+      ". . . . . . . . . . . . . . . . . . . . . . . "
+      ". . . . . . . . . . . . . . . . . . . . . . . "
+      ". . . . . . . . . . . . . . . . . . . . . . . "
+      ". . . . . . . . . . . . . . . . . . . . . . . "
+      ". . . . . . . . . . . . . . . . . . . . . . . "
+      ". . . . . . . . . . . . . . . . . . . . . . . ";
+  text-align: right;
+}
+
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 7px 29px 0px;
+}
+
+.text-input-field {
+  border-color: transparent;
+}
