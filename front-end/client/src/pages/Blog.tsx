@@ -1,23 +1,23 @@
-import React, { useEffect, useState, useContext } from "react"
+import { useEffect } from "react"
 import Container from "react-bootstrap/esm/Container"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
 import axios from "axios"
-import { Link, useLocation } from "react-router-dom"
-import TableOfContents from "../components/TableOfContents"
+import { useLocation } from "react-router-dom"
+import TableOfContents from "../components/TableOfContents.tsx"
 import Recipe from "../components/Recipe.tsx"
 import Recipes from "../components/Recipes.tsx"
-import { PostContext } from '../context/postContext.tsx';
+import { usePostContext } from '../context/postContext.tsx';
 
 const Blog = () => {
     const location = useLocation();
-    const { currentPostId, setCurrentPostId } = useContext(PostContext)
+    const { currentPostId, setCurrentPostId } = usePostContext()
     
     useEffect(() => {
-        const postIdFromUrl = location.pathname.split("/")[1]
+        const postIdFromUrl: string = location.pathname.split("/")[1]
         
-        setCurrentPostId(postIdFromUrl == "" ? 0 : postIdFromUrl)
+        setCurrentPostId(postIdFromUrl == "" ? 0 : parseInt(postIdFromUrl))
 
         console.log("> Blog: new cpi: " + currentPostId)
     }, [location])
@@ -28,7 +28,7 @@ const Blog = () => {
                 const res = await axios.get("/essi/")
                 console.log(res)
             } catch(err) {
-                console.log(err.response)
+                console.log(err)
             }
         }
         fetchData()
@@ -41,7 +41,7 @@ const Blog = () => {
                     
                     <Col sm={8}>
                         <Row>
-                            {currentPostId != "" ? <Recipe></Recipe> : <Recipes></Recipes> }
+                            {currentPostId ? <Recipe></Recipe> : <Recipes></Recipes> }
                         </Row>
                     </Col>
                     <Col sm={4}>
