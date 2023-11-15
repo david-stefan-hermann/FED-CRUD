@@ -61,20 +61,15 @@ const Recipe = () => {
                     to={"edit"}
                     className="text-decoration-none mb-4" 
                 ><PencilFill /> Diesen Beitrag bearbeiten</Link>
-            </Row>
-            <Row>
-                <Col sm={6}>
-                    <Image
-                        width="50%"
-                        src={process.env.PUBLIC_URL + ("/posts/" + post?.id + ".png")}
-                        fluid
-                    ></Image>
-                </Col>
-                <Col sm={6}>
-                    <ReactMarkdown>{post?.desc}</ReactMarkdown>
-                </Col>
-            </Row>
-            <Row>
+           
+                <ReactMarkdown>{post?.desc}</ReactMarkdown>
+
+                <Image
+                    width="50%"
+                    src={process.env.PUBLIC_URL + ("/posts/" + post?.id + ".png")}
+                    fluid
+                ></Image>
+                
                 <hr className="my-4"></hr>
                 <h2>Zubereitung</h2>
                 <ReactMarkdown>{post?.recipe}</ReactMarkdown>
