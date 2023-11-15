@@ -2,7 +2,6 @@ import { db } from "../db.js"
 
 
 export const getLinks = (req, res) => {
-    console.log("getPosts - api")
     const q = {
         text: "SELECT id, title FROM fed_schema.essi"
     }
