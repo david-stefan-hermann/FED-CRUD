@@ -19,16 +19,28 @@ const Blog = () => {
     
     useEffect(() => {
         setCurrentPostId(postIdFromUrl == "" ? 0 : postIdFromUrl)
+
+        const fetchData = async () => {
+            try {
+                const res = await axios.get("/essi/")
+                console.log(res)
+            } catch(err) {
+                console.log(err.response)
+            }
+        }
+        fetchData()
+
     }, [postIdFromUrl])
 
     console.log("Blog: " + postIdFromUrl)
     console.log(currentPostId > 0)
+
     return (
         <main>
             <Container>
-                <Row className="text-light my-3">
+                <Row className="my-3">
                     <Col sm={4}>
-                        <Row className="text-light px-2 my-3">
+                        <Row className="px-2 my-3">
                             <TableOfContents></TableOfContents>
                         </Row>
                     </Col>

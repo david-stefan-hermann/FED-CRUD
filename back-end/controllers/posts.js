@@ -2,7 +2,7 @@ import { db } from "../db.js"
 
 
 export const getPosts = (req, res) => {
-
+    console.log("getPosts - api")
     const q = {
         text: "SELECT * FROM fed_schema.essi"
     }

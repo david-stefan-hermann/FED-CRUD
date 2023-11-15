@@ -38,6 +38,7 @@ const PostEditor = (props) => {
         if (props.creatingNewPost == true) {
 
         } else {
+            /*
             const fetchData = async () => {
                 try {
                     const res = await axios.get("/posts/" + postIdFromUrl)
@@ -48,6 +49,7 @@ const PostEditor = (props) => {
                 }
             }
             fetchData()
+            */
         }
         console.log("> pe: post " + post.title)
 
@@ -192,7 +194,7 @@ const PostEditor = (props) => {
                 <Col sm={6}>
                     { post?.short ? 
                         <>
-                        <Container className="box-shadow px-4 primary-color rounded-top">
+                        <Container className="box-shadow px-4 background-dark rounded-top">
                             Vorschau
                         </Container>
                         <Container className="box-shadow p-4 mb-4 rounded-bottom">
@@ -227,7 +229,7 @@ const PostEditor = (props) => {
                 <Col sm={6}>
                     { post?.content ? 
                         <>
-                        <Container className="box-shadow px-4 primary-color rounded-top">
+                        <Container className="box-shadow px-4 background-dark rounded-top">
                             Vorschau
                         </Container>
                         <Container className="box-shadow p-4 rounded-bottom">

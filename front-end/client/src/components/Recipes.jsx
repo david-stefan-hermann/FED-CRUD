@@ -15,16 +15,15 @@ const Recipes = () => {
     const [ posts, setPosts ] = useState([])
     const navigate = useNavigate()
 
-    // loading the correct sub site
-    const { replaceSpaces, setCurrentPostTitle, parentId, setParentId, setCurrentPostId, currentPostId } = useContext(PostContext)
+    const { replaceSpaces, setCurrentPostTitle, setCurrentPostId, currentPostId } = useContext(PostContext)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get("/posts/", { params: { parentId: currentPostId }})
+                const res = await axios.get("/essi/")
                 setPosts(res.data)
             } catch(err) {
-                console.log(err)
+                console.log(err.response)
             }
         }
         fetchData()
@@ -38,7 +37,7 @@ const Recipes = () => {
 
     return (
         <>
-            { posts.length >= 0 ? <h3>Rezepte</h3> : ""}
+            { posts.length >= 1 ? <h3>Rezepte</h3> : ""}
             { isLoading ? <LoadingSpinner></LoadingSpinner> : null }
             {posts.map(post => {
                 return (

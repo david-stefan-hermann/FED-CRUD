@@ -18,6 +18,7 @@ const Recipe = () => {
     const { currentPostId, setParentId } = useContext(PostContext)
     
     useEffect(() => {
+        /*
         const fetchData = async () => {
             try {
                 const res = await axios.get("/posts/" + currentPostId)
@@ -29,6 +30,7 @@ const Recipe = () => {
             }
         }
         fetchData()
+        */
         setIsLoading(false)
     }, [currentPostId])
 

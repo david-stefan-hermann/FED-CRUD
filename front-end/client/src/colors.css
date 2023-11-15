@@ -1,65 +1,37 @@
 :root {
-    --primary-color: #214F4B;
-    --secondary-color: #4B6858;
-    --secondary-color-dark: #2f4858;
-    --another-color: #f6ae2d;
-    --another-color-dark: #f26419;
-    --background-color: #efefef;
-    --white: #FFF;
-    --green-1: #8DE969;
-    --green-2: #CBEF43;
-    --night: #191923;
+    --background-dark: #478ccc;
+    --background-light: #feffec;
+    --dark: #00142B;
+    --yellow: #FFB61F;
+    --yellow-dark: #D76901;
+    --blue-medium: #79BDBD;
+    --blue-light: #D3F9E5;
 }
 
-.primary-color {
-    background-color: var(--primary-color);
-}
-.secondary-color {
-    background-color: var(--secondary-color);
-}
-.secondary-color-dark {
-    background-color: var(--secondary-color-dark);
-}
-.another-color {
-    background-color: var(--another-color);
-}
-.another-color-dark {
-    background-color: var(--another-color-dark);
-}
-.background-color {
-    background-color: var(--background-color);
-}
-.background-color2 {
-    background-color: var(--white);
-}
-.night-color {
-    background-color: var(--night);
+.background-light {
+    background-color: var(--background-light);
 }
 
-.primary-color-text {
-    color: var(--primary-color);
+.background-dark {
+    background-color: var(--background-dark);
 }
-.secondary-color-text {
-    color: var(--secondary-color);
-}
-.secondary-color-dark-text {
-    color: var(--secondary-color-dark);
-}
-.another-color-text {
-    color: var(--another-color);
-}
-.another-color-dark-text {
-    color: var(--another-color-dark);
-}
-.background-color-text {
-    color: var(--background-color) !important;
+
+.dark-color {
+    background-color: var(--dark);
 }
 
 .not-active {
-    color: var(--green-1);
+    color: var(--yellow);
 }
 
 .active {
-    color: var(--green-2);
+    color: var(--yellow-dark);
 }
 
+.c-light {
+    color: #fff !important;
+}
+
+.c-dark {
+    color: var(--dark) !important;
+}
