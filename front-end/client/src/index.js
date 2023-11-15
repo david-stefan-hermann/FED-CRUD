@@ -6,7 +6,7 @@ import './colors.css'
 import App from './App';
 import { disableReactDevTools } from "@fvilers/disable-react-devtools"
 
-import { PostContextProvider } from './context/postContext';
+import { PostContextProvider } from './context/postContext.tsx';
 
 if (process.env.NODE_ENV === 'production') disableReactDevTools()
 

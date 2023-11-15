@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from "react"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import LoadingSpinner from "./LoadingSpinner"
+import LoadingSpinner from "./LoadingSpinner.tsx"
 import { DatabaseFillAdd } from "react-bootstrap-icons"
 
 import axios from "axios"
 import { Link } from "react-router-dom"
-import { PostContext } from "../context/postContext"
+import { PostContext } from "../context/postContext.tsx"
 
 const TableOfContents = () => {
     const [ isLoading, setIsLoading ] = useState(true)
@@ -32,14 +32,12 @@ const TableOfContents = () => {
         <>
             <h3>Table Of Contents</h3>
             { isLoading ? <LoadingSpinner></LoadingSpinner> : null }
-            {console.log("toc: " + postLinks.length)}
             { postLinks.map(link => {  
                 return (
-                    <Row className="toc-row">
+                    <Row key={"toc-" + link.id} className="toc-row">
                         <Col sm={12}>                            
                             <Link 
                                 to={"/" + link.id + "/" + replaceSpaces(link.title)}
-                                key={"toc-" + link.id} 
                                 className={ link.id == currentPostId ? "active toc-link" : "toc-link text-decoration-none"} 
                             >{link.title}</Link>
                         </Col>

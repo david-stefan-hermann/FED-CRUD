@@ -2,15 +2,13 @@ import React, { useEffect, useState, useContext } from "react"
 import Container from "react-bootstrap/esm/Container"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Image from "react-bootstrap/esm/Image"
-import Button from 'react-bootstrap/Button'
 
 import axios from "axios"
 import { Link, useLocation } from "react-router-dom"
 import TableOfContents from "../components/TableOfContents"
-import Recipe from "../components/Recipe"
-import Recipes from "../components/Recipes"
-import { PostContext } from '../context/postContext';
+import Recipe from "../components/Recipe.tsx"
+import Recipes from "../components/Recipes.tsx"
+import { PostContext } from '../context/postContext.tsx';
 
 const Blog = () => {
     const location = useLocation();

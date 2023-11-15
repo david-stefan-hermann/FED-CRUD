@@ -1,48 +1,58 @@
 import React, { useContext, useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import axios from "axios"
+
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Image from "react-bootstrap/esm/Image"
-import LoadingSpinner from "./LoadingSpinner"
 import { PencilFill } from "react-bootstrap-icons"
 
-import axios from "axios"
-import { PostContext } from "../context/postContext"
-import { Link } from "react-router-dom"
+import { PostContext } from "../context/postContext.tsx"
+import LoadingSpinner from "./LoadingSpinner.tsx"
 import ReactMarkdown from 'react-markdown';
 import RecipeMetaData from "./RecipeMetaData.tsx"
 import RecipeImage from "./RecipeImage.tsx"
+import PostInterface from "../interfaces/postInterface.tsx"
 
 const Recipe = () => {
+    const postContext = useContext(PostContext)
+    // check if postContext is defined
+    if (!postContext) {
+        // handle if context is not available
+        return <LoadingSpinner></LoadingSpinner>;
+    }
+    const { currentPostId } = postContext
+
     const [ isLoading, setIsLoading ] = useState(true)
-    const [ post, setPost ] = useState({})
-    const { currentPostId } = useContext(PostContext)
-    
+    const [ post, setPost ] = useState<PostInterface | null>()
+
     useEffect(() => {
         console.log(" >> Recipe: id: " + currentPostId)
         const fetchData = async () => {
             try {
                 const res = await axios.get("/essi/" + currentPostId)
                 setPost(res.data)
-                console.log("recipe: " + post.title)
             } catch(err) {
-                console.log(err.response)
+                console.log(err)
             }
         }
         fetchData()
-        setIsLoading(false)
     }, [currentPostId])
+
+    useEffect(() => {
+        post === undefined ? setIsLoading(true) : setIsLoading(false)
+    }, [post])
 
     return (
         <Col sm={12}>
-            { isLoading ? <LoadingSpinner></LoadingSpinner> : null }
+            { (isLoading || !post) ? <LoadingSpinner></LoadingSpinner> : 
             <Row>
-                <h1 className='font-weight-light'>{post?.title}</h1>
+                <h1 className='font-weight-light'>{post.title}</h1>
                 
                 <RecipeMetaData 
-                rating={post?.rating} 
-                category={post?.category}
-                author={post?.author}
-                updated={post?.updated}
+                rating={post.rating} 
+                category={post.category}
+                author={post.author}
+                updated={post.updated}
                 ></RecipeMetaData>
 
                 <Link 
@@ -50,14 +60,15 @@ const Recipe = () => {
                     className="text-decoration-none mb-4" 
                 ><PencilFill /> Diesen Beitrag bearbeiten</Link>
            
-                <ReactMarkdown>{post?.desc}</ReactMarkdown>
+                <ReactMarkdown>{post.desc}</ReactMarkdown>
 
-                <RecipeImage image={post?.id}></RecipeImage>
+                <RecipeImage image={post.id.toString()} title={post.title}></RecipeImage>
                 
                 <hr className="my-4"></hr>
                 <h2>Zubereitung</h2>
-                <ReactMarkdown>{post?.recipe}</ReactMarkdown>
+                <ReactMarkdown>{post.recipe}</ReactMarkdown>
             </Row>
+            }
         </Col>
     )
 }

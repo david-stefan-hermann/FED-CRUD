@@ -7,7 +7,7 @@ import Moment from 'moment'
 const RecipeMetaData = (props: { rating: number; category: string; author: string; updated: Date}) => {
     
     // categories for badges
-    const categories = {
+    const categories: Record<string, string> = {
         "fleisch": "danger",
         "ungesund": "danger",
         "koriander": "warning",
@@ -22,9 +22,9 @@ const RecipeMetaData = (props: { rating: number; category: string; author: strin
             <h6>
             {
             Array.from({ length: 5 }, (_, idx) => (
-                <>
+                <span key={"rating-star-" + idx} >
                     {idx < props?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
-                </>
+                </span>
             ))
             }
             </h6>
@@ -32,10 +32,10 @@ const RecipeMetaData = (props: { rating: number; category: string; author: strin
             {/* display different badge per category. categories are hard coded */}
             <h6>
             {
-                props?.category?.split(',').map(cat => (
-                    <>
+                props?.category?.split(',').map((cat, idx) => (
+                    <span key={"cat-badge-" + idx}>
                         <Badge bg={cat.trim().toLowerCase() in categories ? categories[cat.toLowerCase().trim()] : "info"}>{cat.trim()}</Badge>&nbsp;
-                    </>
+                    </span>
                 ))
             }
             </h6>

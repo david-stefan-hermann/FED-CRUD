@@ -13,7 +13,7 @@ import { Trash, Upload, ArrowLeftCircleFill } from "react-bootstrap-icons"
 import axios from "axios"
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
 import ReactMarkdown from 'react-markdown';
-import LoadingSpinner from "../components/LoadingSpinner"
+import LoadingSpinner from "../components/LoadingSpinner.tsx"
 import moment from "moment"
 
 const PostEditor = (props) => {
