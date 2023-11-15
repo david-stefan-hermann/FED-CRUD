@@ -5,8 +5,7 @@ import Image from "react-bootstrap/esm/Image"
 import LoadingSpinner from "./LoadingSpinner"
 import { Link, useNavigate } from "react-router-dom"
 import ReactMarkdown from 'react-markdown';
-import { StarFill, Star } from "react-bootstrap-icons"
-import Badge from 'react-bootstrap/Badge';
+import RecipeMetaData from "./RecipeMetaData.tsx"
 
 import axios from "axios"
 import { PostContext } from "../context/postContext"
@@ -52,25 +51,12 @@ const Recipes = () => {
                                 <Col sm={7}>
                                     <h4 className='font-weight-light'>{post.title}</h4>
 
-                                    <h6>Bewertung: 
-                                    {
-                                    Array.from({ length: 5 }, (_, idx) => (
-                                        <>&nbsp;
-                                            {idx < post?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
-                                        </>
-                                    ))
-                                    }
-                                    </h6>
-
-                                    <h6>Kategorie:
-                                    {
-                                        post?.category?.split(',').map(cat => (
-                                            <>&nbsp;
-                                                <Badge bg="warning">{cat}</Badge>
-                                            </>
-                                        ))
-                                    }
-                                    </h6>
+                                    <RecipeMetaData 
+                                    rating={post?.rating} 
+                                    category={post?.category}
+                                    author={post?.author}
+                                    updated={post?.updated}
+                                    ></RecipeMetaData>
 
                                     <ReactMarkdown>{post.desc}</ReactMarkdown>
                                     

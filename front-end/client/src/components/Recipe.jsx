@@ -1,15 +1,16 @@
-import React, { useContext, useEffect, useState, useRef } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from "react-bootstrap/esm/Image"
 import LoadingSpinner from "./LoadingSpinner"
-import { PencilFill, StarFill, Star } from "react-bootstrap-icons"
-import Badge from 'react-bootstrap/Badge';
+import { PencilFill } from "react-bootstrap-icons"
 
 import axios from "axios"
 import { PostContext } from "../context/postContext"
 import { Link } from "react-router-dom"
 import ReactMarkdown from 'react-markdown';
+import RecipeMetaData from "./RecipeMetaData.tsx"
+import RecipeImage from "./RecipeImage.tsx"
 
 const Recipe = () => {
     const [ isLoading, setIsLoading ] = useState(true)
@@ -37,25 +38,12 @@ const Recipe = () => {
             <Row>
                 <h1 className='font-weight-light'>{post?.title}</h1>
                 
-                <h6>Bewertung: 
-                {
-                Array.from({ length: 5 }, (_, idx) => (
-                    <>&nbsp;
-                        {idx < post?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
-                    </>
-                ))
-                }
-                </h6>
-
-                <h6>Kategorie:
-                {
-                    post?.category?.split(',').map(cat => (
-                        <>&nbsp;
-                            <Badge bg="warning">{cat}</Badge>
-                        </>
-                    ))
-                }
-                </h6>
+                <RecipeMetaData 
+                rating={post?.rating} 
+                category={post?.category}
+                author={post?.author}
+                updated={post?.updated}
+                ></RecipeMetaData>
 
                 <Link 
                     to={"edit"}
@@ -64,11 +52,7 @@ const Recipe = () => {
            
                 <ReactMarkdown>{post?.desc}</ReactMarkdown>
 
-                <Image
-                    width="50%"
-                    src={process.env.PUBLIC_URL + ("/posts/" + post?.id + ".png")}
-                    fluid
-                ></Image>
+                <RecipeImage image={post?.id}></RecipeImage>
                 
                 <hr className="my-4"></hr>
                 <h2>Zubereitung</h2>
