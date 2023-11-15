@@ -6,13 +6,14 @@ import { DatabaseFillAdd } from "react-bootstrap-icons"
 
 import axios from "axios"
 import { Link } from "react-router-dom"
-import { PostContext } from "../context/postContext.tsx"
+import { usePostContext } from "../context/postContext.tsx"
+import LinkInterface from "../interfaces/linkInterface.tsx"
 
 
 const TableOfContents = () => {
-    const { replaceSpaces, currentPostId } = useContext(PostContext)
+    const { replaceSpaces, currentPostId } = usePostContext()
     const [ isLoading, setIsLoading ] = useState(true)
-    const [ postLinks, setPostLinks ] = useState([])
+    const [ postLinks, setPostLinks ] = useState<LinkInterface[]>()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,7 +21,7 @@ const TableOfContents = () => {
                 const res = await axios.get("/links/")
                 setPostLinks(res.data)
             } catch(err) {
-                console.log(err.response)
+                console.log(err)
             }
         }
         fetchData()
@@ -32,7 +33,7 @@ const TableOfContents = () => {
         <>
             <h3>Table Of Contents</h3>
             { isLoading ? <LoadingSpinner></LoadingSpinner> : null }
-            { postLinks.map(link => {  
+            { postLinks ? postLinks.map(link => {  
                 return (
                     <Row key={"toc-" + link.id} className="toc-row">
                         <Col sm={12}>                            
@@ -43,7 +44,7 @@ const TableOfContents = () => {
                         </Col>
                     </Row>
                 )
-            })}
+            }) : ""}
             <Row className="toc-row mt-3">
                 <Col sm={12}>
                     <Link 
