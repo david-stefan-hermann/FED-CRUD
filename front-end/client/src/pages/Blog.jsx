@@ -13,13 +13,18 @@ import Recipes from "../components/Recipes"
 import { PostContext } from '../context/postContext';
 
 const Blog = () => {
+    const location = useLocation();
     const { currentPostId, setCurrentPostId } = useContext(PostContext)
-
-    const postIdFromUrl = useLocation().pathname.split("/")[1]
     
     useEffect(() => {
+        const postIdFromUrl = location.pathname.split("/")[1]
+        
         setCurrentPostId(postIdFromUrl == "" ? 0 : postIdFromUrl)
 
+        console.log("> Blog: new cpi: " + currentPostId)
+    }, [location])
+
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const res = await axios.get("/essi/")
@@ -29,24 +34,21 @@ const Blog = () => {
             }
         }
         fetchData()
-
-    }, [postIdFromUrl])
-
-    console.log("Blog: " + postIdFromUrl)
-    console.log(currentPostId > 0)
+    }, [currentPostId])
 
     return (
         <main>
             <Container>
                 <Row className="my-3">
-                    <Col sm={4}>
-                        <Row className="px-2 my-3">
-                            <TableOfContents></TableOfContents>
-                        </Row>
-                    </Col>
+                    
                     <Col sm={8}>
                         <Row>
                             {currentPostId != "" ? <Recipe></Recipe> : <Recipes></Recipes> }
+                        </Row>
+                    </Col>
+                    <Col sm={4}>
+                        <Row className="px-2 my-3">
+                            <TableOfContents></TableOfContents>
                         </Row>
                     </Col>
                 </Row>

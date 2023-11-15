@@ -1,8 +1,5 @@
-import React, { useContext } from "react"
 import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
-import { Link } from "react-router-dom"
 
 const Header = () => {
 
@@ -15,8 +12,8 @@ const Header = () => {
                         ><img
                         alt=""
                         src={process.env.PUBLIC_URL + "/fed-logo.png"}
-                        width="50"
-                        height="50"
+                        width="70"
+                        height="70"
                         className=""
                     /></Navbar.Brand>
                     <Navbar.Brand 

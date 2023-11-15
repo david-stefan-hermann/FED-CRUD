@@ -2,10 +2,11 @@ import React, { useEffect, useState, useContext } from "react"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Image from "react-bootstrap/esm/Image"
-import Button from 'react-bootstrap/Button'
 import LoadingSpinner from "./LoadingSpinner"
 import { Link, useNavigate } from "react-router-dom"
 import ReactMarkdown from 'react-markdown';
+import { StarFill, Star } from "react-bootstrap-icons"
+import Badge from 'react-bootstrap/Badge';
 
 import axios from "axios"
 import { PostContext } from "../context/postContext"
@@ -15,7 +16,7 @@ const Recipes = () => {
     const [ posts, setPosts ] = useState([])
     const navigate = useNavigate()
 
-    const { replaceSpaces, setCurrentPostTitle, setCurrentPostId, currentPostId } = useContext(PostContext)
+    const { replaceSpaces, currentPostId } = useContext(PostContext)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,7 +33,7 @@ const Recipes = () => {
 
     const handleLink = (post) => {
         console.log("pl: l")
-        navigate("/" + post._id + "/" + replaceSpaces(post.title))
+        navigate("/" + post.id + "/" + replaceSpaces(post.title))
     }
 
     return (
@@ -46,11 +47,39 @@ const Recipes = () => {
                         onClick={() => handleLink(post)}>
                             <Row>
                                 <Col sm={5} className="ps-3">
-                                    <Image src={post.image} fluid ></Image>
+                                    <Image src={process.env.PUBLIC_URL + ("/posts/" + post?.id + ".png")} fluid ></Image>
                                 </Col>
                                 <Col sm={7}>
                                     <h4 className='font-weight-light'>{post.title}</h4>
-                                    <ReactMarkdown>{post.short}</ReactMarkdown>
+
+                                    <h6>Bewertung: 
+                                    {
+                                    Array.from({ length: 5 }, (_, idx) => (
+                                        <>&nbsp;
+                                            {idx < post?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
+                                        </>
+                                    ))
+                                    }
+                                    </h6>
+
+                                    <h6>Kategorie:
+                                    {
+                                        post?.category?.split(',').map(cat => (
+                                            <>&nbsp;
+                                                <Badge bg="warning">{cat}</Badge>
+                                            </>
+                                        ))
+                                    }
+                                    </h6>
+
+                                    <ReactMarkdown>{post.desc}</ReactMarkdown>
+                                    
+                                    <Link 
+                                        to={"/" + post.id + "/" + replaceSpaces(post.title)}
+                                        key={"recipes-" + post.id} 
+                                        className={ post.id == currentPostId ? "active" : "text-decoration-none"} 
+                                    >zum Rezept</Link>
+
                                 </Col>
                             </Row>
                         </Col>
