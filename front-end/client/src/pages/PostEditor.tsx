@@ -16,7 +16,7 @@ import ReactMarkdown from 'react-markdown';
 import LoadingSpinner from "../components/LoadingSpinner.tsx"
 import moment from "moment"
 
-const PostEditor = (props) => {
+const PostEditor = (props: {creatingNewPost: boolean}) => {
     const navigate = useNavigate()
     const [ isLoading, setIsLoading ] = useState(true)
     
@@ -117,23 +117,30 @@ const PostEditor = (props) => {
         }
     }
 
-    const handleChange = (e, type="") => {
-        if (type.length <= 0) {
-            // handle text inputs
-            setPost({
-                ...post,
-                [e.target.name]: e.target.value
-            })
-        } else if (type.localeCompare("switch") == 0) {
-            // handle switch
-            setPost({
-                ...post,
-                isprivate: !e.target.checked
-            })
-
-        }
+    const handleChange = (e: Event) => {
+        const target = e.target as HTMLTextAreaElement
+        
+        // handle text inputs
+        setPost({
+            ...post,
+            [target.name]: target.value
+        })
     }
 
+    const handleChangeSelect = (e: Event) => {
+        const target = e.target as HTMLSelectElement
+        
+        // handle text inputs
+        setPost({
+            ...post,
+            [target.name]: target.value
+        })
+    }
+
+    return (
+        <>Not implemented</>
+    )
+    /*
     return (
         <>
             { isLoading ? <LoadingSpinner></LoadingSpinner> : null }
@@ -242,7 +249,7 @@ const PostEditor = (props) => {
                 </Col>
             </Row>
         </>
-    )
+    )*/
 }
 
 export default PostEditor

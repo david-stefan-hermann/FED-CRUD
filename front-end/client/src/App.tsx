@@ -1,9 +1,9 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
-import Blog from "./pages/Blog";
+import Blog from "./pages/Blog.tsx";
 import Header from "./components/Header.tsx";
 import Footer from "./components/Footer.tsx";
-import PostEditor from "./pages/PostEditor";
+import PostEditor from "./pages/PostEditor.tsx";
 
 const Layout = () => {
   return (
