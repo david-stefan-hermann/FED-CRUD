@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import { useEffect, useState, useContext } from "react"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import LoadingSpinner from "./LoadingSpinner.tsx"
@@ -8,11 +8,11 @@ import axios from "axios"
 import { Link } from "react-router-dom"
 import { PostContext } from "../context/postContext.tsx"
 
+
 const TableOfContents = () => {
+    const { replaceSpaces, currentPostId } = useContext(PostContext)
     const [ isLoading, setIsLoading ] = useState(true)
     const [ postLinks, setPostLinks ] = useState([])
-
-    const { replaceSpaces, currentPostId } = useContext(PostContext)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,7 +38,7 @@ const TableOfContents = () => {
                         <Col sm={12}>                            
                             <Link 
                                 to={"/" + link.id + "/" + replaceSpaces(link.title)}
-                                className={ link.id == currentPostId ? "active toc-link" : "toc-link text-decoration-none"} 
+                                className={ link.id === currentPostId ? "active toc-link" : "toc-link text-decoration-none"} 
                             >{link.title}</Link>
                         </Col>
                     </Row>

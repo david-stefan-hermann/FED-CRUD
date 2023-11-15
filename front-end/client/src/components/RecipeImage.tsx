@@ -1,20 +1,12 @@
-import React, { useState, useContext } from "react"
+import { useState } from "react"
 import Image from "react-bootstrap/esm/Image"
-import { PostContext } from "../context/postContext"
-import LoadingSpinner from "./LoadingSpinner";
+import { usePostContext } from "../context/postContext"
 
 
 const RecipeImage = (props: { image: string; title: string }) => {
-    const postContext = useContext(PostContext)
-    // check if postContext is defined
-    if (!postContext) {
-        // handle if context is not available
-        return <LoadingSpinner></LoadingSpinner>;
-    }
-    const { replaceSpaces } = postContext
     const [ imageExists, setImageExists ] = useState(false)
-
-    const noImage = process.env.PUBLIC_URL + ("/posts/no-image.png")
+    const { replaceSpaces } = usePostContext()
+    const noImage = process.env.PUBLIC_URL + ("/no-image.png")
     const url = process.env.PUBLIC_URL + ("/posts/" + props.image + ".png")
 
     // check if image exists
@@ -25,10 +17,10 @@ const RecipeImage = (props: { image: string; title: string }) => {
             } else {
                 setImageExists(false)
             }
+            console.log("rimage: " + imageExists)
         })
         .catch(err => console.log("RecipeImage (fetch image): ", err.response))
     
-
     return (
         <>
             {

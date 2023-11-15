@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import { useEffect, useState } from "react"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import LoadingSpinner from "./LoadingSpinner.tsx"
@@ -8,21 +8,15 @@ import RecipeMetaData from "./RecipeMetaData.tsx"
 import RecipeImage from "./RecipeImage.tsx"
 
 import axios from "axios"
-import { PostContext } from "../context/postContext.tsx"
+import { usePostContext } from "../context/postContext.tsx"
 import PostInterface from "../interfaces/postInterface.tsx"
 
-const Recipes = () => {
-    const postContext = useContext(PostContext)
-    // check if postContext is defined
-    if (!postContext) {
-        // handle if context is not available
-        return <LoadingSpinner></LoadingSpinner>;
-    }
-    const { replaceSpaces, currentPostId } = postContext
 
+const Recipes = () => {
     const [ isLoading, setIsLoading ] = useState(true)
     const [ posts, setPosts ] = useState<PostInterface[]>()
     const navigate = useNavigate()
+    const { replaceSpaces, currentPostId } = usePostContext()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -75,7 +69,7 @@ const Recipes = () => {
                                     <Link 
                                         to={"/" + post.id + "/" + replaceSpaces(post.title)}
                                         key={"recipes-" + post.id} 
-                                        className={ post.id == currentPostId ? "active" : "text-decoration-none"} 
+                                        className={ post.id === currentPostId ? "active" : "text-decoration-none"} 
                                     >zum Rezept</Link>
 
                                 </Col>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
 
@@ -6,24 +6,18 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { PencilFill } from "react-bootstrap-icons"
 
-import { PostContext } from "../context/postContext.tsx"
+import { usePostContext } from "../context/postContext.tsx"
 import LoadingSpinner from "./LoadingSpinner.tsx"
 import ReactMarkdown from 'react-markdown';
 import RecipeMetaData from "./RecipeMetaData.tsx"
 import RecipeImage from "./RecipeImage.tsx"
 import PostInterface from "../interfaces/postInterface.tsx"
 
-const Recipe = () => {
-    const postContext = useContext(PostContext)
-    // check if postContext is defined
-    if (!postContext) {
-        // handle if context is not available
-        return <LoadingSpinner></LoadingSpinner>;
-    }
-    const { currentPostId } = postContext
 
+const Recipe = () => {
     const [ isLoading, setIsLoading ] = useState(true)
     const [ post, setPost ] = useState<PostInterface | null>()
+    const { currentPostId } = usePostContext()
 
     useEffect(() => {
         console.log(" >> Recipe: id: " + currentPostId)
