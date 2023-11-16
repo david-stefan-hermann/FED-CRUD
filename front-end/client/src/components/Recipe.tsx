@@ -40,9 +40,9 @@ const Recipe = () => {
         <Col sm={12}>
             { (isLoading || !post) ? <LoadingSpinner></LoadingSpinner> : 
             <Row>
-                <h1 className='font-weight-light'>{post.title}</h1>
-                
-                <RecipeMetaData 
+                <RecipeMetaData
+                big={true}
+                title={post.title}
                 rating={post.rating} 
                 category={post.category}
                 author={post.author}

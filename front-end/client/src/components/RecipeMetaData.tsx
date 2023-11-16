@@ -1,9 +1,11 @@
 import { StarFill, Star } from "react-bootstrap-icons"
 import Badge from 'react-bootstrap/Badge';
 import Moment from 'moment'
+import LikeCounter from "./LikeCounter";
+import { Row } from "react-bootstrap";
 
 
-const RecipeMetaData = (props: { rating: number; category: string; author: string; updated: Date}) => {
+const RecipeMetaData = (props: { big: boolean; title: string; rating: number; category: string; author: string; updated: Date}) => {
     
     // categories for badges
     const categories: Record<string, string> = {
@@ -17,16 +19,24 @@ const RecipeMetaData = (props: { rating: number; category: string; author: strin
 
     return (
         <>
-            {/* rating, display 5 stars and |rating| * filled star */}
-            <h6>
-            {
-            Array.from({ length: 5 }, (_, idx) => (
-                <span key={"rating-star-" + idx} >
-                    {idx < props?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
-                </span>
-            ))
+            {props.big ? 
+                <h1>{props?.title}</h1> :
+                <h3 className='font-weight-light'>{props?.title}</h3>
             }
-            </h6>
+            
+            {/* rating, display 5 stars and |rating| * filled star */}
+            <Row className="align-items-center">
+                <h6>
+                {
+                Array.from({ length: 5 }, (_, idx) => (
+                    <span key={"rating-star-" + idx} >
+                        {idx < props?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
+                    </span>
+                ))
+                }
+                <LikeCounter title={props.title}></LikeCounter>
+                </h6>
+            </Row>
 
             {/* display different badge per category. categories are hard coded */}
             <h6>

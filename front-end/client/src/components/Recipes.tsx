@@ -48,16 +48,17 @@ const Recipes = () => {
             {posts.map(post => {
                 return (
                     <Row key={"recipes-" + post.id}>
-                        <Col sm={12} className="ms-2 my-2 py-3 card-hover"
-                        onClick={() => handleLink(post)}>
+                        <Col sm={12} className="ms-2 my-2 py-3 card-hover">
                             <Row>
                                 <Col sm={5} className="ps-3">
-                                    <RecipeImage image={post.id.toString()} title={post.title}></RecipeImage>
+                                    <div onClick={() => handleLink(post)} className="cursor-pointer">
+                                        <RecipeImage image={post.id.toString()} title={post.title}></RecipeImage>
+                                    </div>
                                 </Col>
                                 <Col sm={7}>
-                                    <h4 className='font-weight-light'>{post.title}</h4>
-
-                                    <RecipeMetaData 
+                                    <RecipeMetaData
+                                    big={false}
+                                    title={post.title} 
                                     rating={post.rating} 
                                     category={post.category}
                                     author={post.author}

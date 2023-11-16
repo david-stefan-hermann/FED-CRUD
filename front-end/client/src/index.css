@@ -59,3 +59,9 @@ code {
 .text-input-field {
   border-color: transparent;
 }
+
+.likes {
+  top: -2px;
+  margin-left: 5px;
+  position: relative;
+}
