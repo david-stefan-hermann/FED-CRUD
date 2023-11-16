@@ -3,7 +3,7 @@ import { db } from "../db.js"
 
 export const getPosts = (req, res) => {
     const q = {
-        text: "SELECT * FROM fed_schema.essi"
+        text: "SELECT * FROM fed_schema.essi ORDER BY title ASC"
     }
 
     db.query(q)

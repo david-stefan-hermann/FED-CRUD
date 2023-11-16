@@ -15,20 +15,26 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
 import ReactMarkdown from 'react-markdown';
 import LoadingSpinner from "../components/LoadingSpinner.tsx"
 import moment from "moment"
+import EditorInputText from "../components/EditorInput.tsx"
+import EditorPreview from "../components/EditorPreview.tsx"
+import { usePostContext } from "../context/postContext.tsx"
 
 const PostEditor = (props: {creatingNewPost: boolean}) => {
     const navigate = useNavigate()
     const [ isLoading, setIsLoading ] = useState(true)
-    
+    const { newPost, setNewPost } = usePostContext()
+    /*
     const blankNewPost = {
         title: "",
-        short: "",
-        content: "",
+        author: "",
+        category: "",
+        updated: "",
+        rating: "",
+        desc: "",
         image: "",
-        isprivate: false,
-        parent: null,
-        user: null,
+        recipe: ""
     }
+
     const [ post, setPost ] = useState(blankNewPost)
     const [ postLinks, setPostLinks ] = useState([])
     const postIdFromUrl = useLocation().pathname.split("/")[1]
@@ -38,7 +44,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
         if (props.creatingNewPost == true) {
 
         } else {
-            /*
+            
             const fetchData = async () => {
                 try {
                     const res = await axios.get("/posts/" + postIdFromUrl)
@@ -49,7 +55,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 }
             }
             fetchData()
-            */
+            
         }
         console.log("> pe: post " + post.title)
 
@@ -137,8 +143,34 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
         })
     }
 
+    */
+
+
+    useEffect(() => {
+        setIsLoading(false)
+        const k = "title"
+        setNewPost({
+            ...newPost,
+            [k]: "Test"
+        })
+    }, [])
+
+
     return (
-        <>Not implemented</>
+        <>
+        { isLoading ? <LoadingSpinner></LoadingSpinner> : 
+        <Row className="p-5 m-3">                
+            <Col sm={6}>
+                <Link to="/" className="text-decoration-none ms-1"><ArrowLeftCircleFill />&nbsp; zurück</Link>
+                
+                <EditorInputText value={newPost.title} name={"title"} title={"Titel"} size={80}></EditorInputText>
+            </Col>
+            <Col sm={6}>
+                <EditorPreview value={newPost.title}></EditorPreview>
+            </Col>
+        </Row>
+        }
+        </>
     )
     /*
     return (

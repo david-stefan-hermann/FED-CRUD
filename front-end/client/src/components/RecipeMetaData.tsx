@@ -5,7 +5,7 @@ import LikeCounter from "./LikeCounter";
 import { Row } from "react-bootstrap";
 
 
-const RecipeMetaData = (props: { big: boolean; title: string; rating: number; category: string; author: string; updated: Date}) => {
+const RecipeMetaData = (props: { big: boolean; title: string; rating: number; category: string; author: string; updated: number}) => {
     
     // categories for badges
     const categories: Record<string, string> = {

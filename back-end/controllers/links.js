@@ -3,7 +3,7 @@ import { db } from "../db.js"
 
 export const getLinks = (req, res) => {
     const q = {
-        text: "SELECT id, title FROM fed_schema.essi"
+        text: "SELECT id, title FROM fed_schema.essi ORDER BY title ASC"
     }
 
     db.query(q)

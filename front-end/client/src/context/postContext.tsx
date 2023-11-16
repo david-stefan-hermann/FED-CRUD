@@ -1,8 +1,11 @@
 import { createContext, useState, useContext, FunctionComponent, ReactNode } from 'react';
+import PostInterface, { newBlankPost } from '../interfaces/postInterface';
 
 
 interface PostContextType {
   replaceSpaces: (str: string) => string | undefined
+  newPost: PostInterface
+  setNewPost: React.Dispatch<React.SetStateAction<PostInterface>>
   currentPostTitle: string
   setCurrentPostTitle: (title: string) => void
   currentPostId: number | null
@@ -16,8 +19,9 @@ interface PostContextProviderProps {
 }
 
 export const PostContextProvider: FunctionComponent<PostContextProviderProps> = ({ children }) => {
-  const [currentPostId, setCurrentPostId] = useState<number | null>(null)
-  const [currentPostTitle, setCurrentPostTitle] = useState<string>("")
+  const [ currentPostId, setCurrentPostId ] = useState<number | null>(null)
+  const [ currentPostTitle, setCurrentPostTitle ] = useState<string>("")
+  const [ newPost, setNewPost ] = useState<PostInterface>(newBlankPost)
 
   // Replaces spaces with dashes
   const replaceSpaces = (str: string): string | undefined => {
@@ -28,7 +32,7 @@ export const PostContextProvider: FunctionComponent<PostContextProviderProps> = 
   }
 
   return (
-    <PostContext.Provider value={{ replaceSpaces, currentPostTitle, setCurrentPostTitle, currentPostId, setCurrentPostId }}>
+    <PostContext.Provider value={{ replaceSpaces, newPost, setNewPost, currentPostTitle, setCurrentPostTitle, currentPostId, setCurrentPostId }}>
       {children}
     </PostContext.Provider>
   )
