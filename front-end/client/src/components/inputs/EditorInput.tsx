@@ -3,8 +3,9 @@ import { usePostContext } from "../../context/postContext";
 import { access } from "fs";
 import { useEffect, useState } from "react";
 import { Star, StarFill } from "react-bootstrap-icons";
+import PostInterface from "../../interfaces/postInterface";
 
-const EditorInputText = (props: {title: string; size: number; name: string; value: string}) => {
+const EditorInputText = (props: {title: string; size: number; name: string}) => {
     const { newPost, setNewPost } = usePostContext()
     
     const handleChange = (t: EventTarget) => {
@@ -21,7 +22,7 @@ const EditorInputText = (props: {title: string; size: number; name: string; valu
     return (
         <FloatingLabel label={props.title} >
             <Form.Control
-            name={props.name} value={props.value} onChange={e => handleChange(e.target)}
+            name={props.name} value={newPost[props.name as keyof PostInterface] as string} onChange={e => handleChange(e.target)}
             className="input-field mb-3" as="textarea" style={{ height: props.size + "px" }}
             />
         </FloatingLabel>
@@ -86,10 +87,10 @@ export const EditorInputRating = (props: {title: string}) => {
         let value: number = val
 
         // greater than 5 (max rating)
-        value = value > 5 ? 5 : value
+        value = value >= 5 ? 5 : value
 
         // smaller than 0 (min rating)
-        value = value < 5 ? 0 : value
+        value = value <= 0 ? 0 : value
 
         setNewPost({
             ...newPost,

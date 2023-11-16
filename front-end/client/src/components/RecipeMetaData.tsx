@@ -34,7 +34,8 @@ const RecipeMetaData = (props: { big: boolean; title: string; rating: number; ca
                     </span>
                 ))
                 }
-                <LikeCounter title={props.title}></LikeCounter>
+
+                { props.noDate ? "" : <LikeCounter title={props.title}></LikeCounter> }
                 </h6>
             </Row>
 

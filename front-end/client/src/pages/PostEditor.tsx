@@ -63,14 +63,14 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
         if (props.creatingNewPost) {
             // Post
             try {
-                await axios.post("/posts/", {newPost})
+                await axios.post("/essi/", {newPost})
             } catch(err) {
                 console.log(err)
             }
         } else {
             // Update
             try {
-                await axios.put("/posts/" + postIdFromUrl, {newPost})
+                await axios.put("/essi/" + postIdFromUrl, {newPost})
             } catch(err) {
                 console.log(err)
             }
@@ -90,16 +90,15 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
             <Row className="p-3 m-3">                
                 <Col sm={6}>
                     {/* title */}
-                    <EditorInputText name={"title"} value={newPost.title} title={"Titel"} size={60}></EditorInputText>
+                    <EditorInputText name={"title"} title={"Titel"} size={60}></EditorInputText>
                     {/* image */}
                     <EditorInputFile name={"image"} title={"Bild"}></EditorInputFile>
                     {/* categories */}
                     <CustomClickableBadgeHandler name={"category"} title={"Kategorie"}></CustomClickableBadgeHandler>
                     {/* author */}
+                    <EditorInputText name={"author"} title={"Autor"} size={60}></EditorInputText>
                     {/* rating */}
                     <EditorInputRating title={"Bewertung"}></EditorInputRating>
-                    {/* description */}
-                    {/* recipe */}
                 </Col>
                 <Col sm={6}>
                     {/* title, rating, categories, author, rating */}
@@ -113,11 +112,32 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                     noDate={true}
                     ></RecipeMetaData>
                     
-                    {/* image */}
-                    <EditorPreviewFile name="image"></EditorPreviewFile>
-
+                    <Row>
+                        <Col sm={6} className="mx-auto">
+                        {/* image */}
+                        <EditorPreviewFile name="image"></EditorPreviewFile>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+            <Row className="p-3 m-3">                
+                <Col sm={6}>
                     {/* description */}
+                    <EditorInputText name={"desc"} title={"Beschreibung"} size={200}></EditorInputText>
+                </Col>
+                <Col sm={6}>
+                    {/* description */}
+                    <ReactMarkdown>{newPost.desc}</ReactMarkdown>
+                </Col>
+            </Row>
+            <Row className="p-3 m-3">                
+                <Col sm={6}>
                     {/* recipe */}
+                    <EditorInputText name={"recipe"} title={"Rezept"} size={300}></EditorInputText>
+                </Col>
+                <Col sm={6}>
+                    {/* recipe */}
+                    <ReactMarkdown>{newPost.recipe}</ReactMarkdown>
                 </Col>
             </Row>
             <ControlBar creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} ></ControlBar>
