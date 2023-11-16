@@ -65,8 +65,30 @@ export const EditorInputFile = (props: {title: string; name: string}) => {
     
     return (
         <>
-            <Form.Label>{props.title}</Form.Label>
             <Form.Control className="input-field" name={props.name} type="file" onChange={e => handleChange(e.target)} accept="image/*" />
         </>
+    )
+}
+
+export const EditorInputSelect = (props: {title: string; name: string}) => {
+    const { newPost, setNewPost } = usePostContext()
+    
+    const handleChange = (t: EventTarget) => {
+        const target = t as HTMLTextAreaElement
+        setNewPost({
+            ...newPost,
+            [target.name]: target.value
+        })
+    }
+
+    return (
+        <FloatingLabel label={props.title} >
+            <Form.Select aria-label="Default select example">
+                <option>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </Form.Select>
+        </FloatingLabel>
     )
 }

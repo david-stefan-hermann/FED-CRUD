@@ -15,9 +15,10 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
 import ReactMarkdown from 'react-markdown';
 import LoadingSpinner from "../components/LoadingSpinner.tsx"
 import moment from "moment"
-import EditorInputText, { EditorInputFile } from "../components/EditorInput.tsx"
+import EditorInputText, { EditorInputFile, EditorInputSelect } from "../components/EditorInput.tsx"
 import EditorPreview, { EditorPreviewFile } from "../components/EditorPreview.tsx"
 import { usePostContext } from "../context/postContext.tsx"
+import CustomClickableBadgeHandler from "../components/CustomClickableBadge.tsx"
 
 const PostEditor = (props: {creatingNewPost: boolean}) => {
     const navigate = useNavigate()
@@ -162,6 +163,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 <Col sm={6}>    
                     <EditorInputText value={newPost.title} name={"title"} title={"Titel"} size={60}></EditorInputText>
                     <EditorInputFile name={"image"} title={"Bild"}></EditorInputFile>
+                    <CustomClickableBadgeHandler></CustomClickableBadgeHandler>
                 </Col>
                 <Col sm={6}>
                     <EditorPreview value={newPost.title}></EditorPreview>
