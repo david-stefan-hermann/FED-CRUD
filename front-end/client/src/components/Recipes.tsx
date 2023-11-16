@@ -63,6 +63,7 @@ const Recipes = () => {
                                     category={post.category}
                                     author={post.author}
                                     updated={post.updated}
+                                    noDate={false}
                                     ></RecipeMetaData>
 
                                     <ReactMarkdown>{post.desc}</ReactMarkdown>

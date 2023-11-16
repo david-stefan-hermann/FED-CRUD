@@ -3,6 +3,7 @@ import Image from "react-bootstrap/esm/Image"
 import { usePostContext } from "../context/postContext"
 import axios from "axios";
 import LoadingSpinner from "./LoadingSpinner";
+import PostInterface from "../interfaces/postInterface";
 
 
 const RecipeImage = (props: { image: string; title: string }) => {
@@ -54,19 +55,21 @@ const RecipeImage = (props: { image: string; title: string }) => {
 export default RecipeImage
 
 
-export const RecipeImageFromBuffer = (props: { image: Buffer | null; title: string }) => {
+export const RecipeImageNewPost = (props: { name: string; title: string }) => {
     const [ isLoading, setIsLoading ] = useState(true)
     const [ imageExists, setImageExists ] = useState(false)
     const [ imageUrl, setImgUrl ] = useState("")
-    const { replaceSpaces } = usePostContext()
+    const { replaceSpaces, newPost } = usePostContext()
     const noImage = process.env.PUBLIC_URL + ("/no-image.png")
+    
     
     // create blob and image url from buffer
     useEffect(() => {
-        const blob = props.image ? new Blob([props.image], { type: 'image/png' }) : null
+        const bufferData: Buffer = newPost[props.name as keyof PostInterface] as Buffer
+        const blob = bufferData ? new Blob([bufferData as BlobPart], { type: 'image/png' }) : null
         if (blob)
             setImgUrl(URL.createObjectURL(blob))
-    }, [props.image])
+    }, [newPost.image])
     
     
     // check if image exists

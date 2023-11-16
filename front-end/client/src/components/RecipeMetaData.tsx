@@ -5,7 +5,7 @@ import LikeCounter from "./LikeCounter";
 import { Row } from "react-bootstrap";
 
 
-const RecipeMetaData = (props: { big: boolean; title: string; rating: number; category: string; author: string; updated: number}) => {
+const RecipeMetaData = (props: { big: boolean; title: string; rating: number; category: string; author: string; updated: number; noDate: boolean}) => {
     
     // categories for badges
     const categories: Record<string, string> = {
@@ -51,8 +51,8 @@ const RecipeMetaData = (props: { big: boolean; title: string; rating: number; ca
             
             {/* Author and last updated */}
             <h6>
-            { props?.author },&nbsp;
-            { Moment(props.updated).format("DD.MM.YYYY, HH:mm") }
+            { props.author }
+            { props.noDate ? "" : <>,&nbsp;{Moment(props.updated).format("DD.MM.YYYY, HH:mm")}</> }
             </h6>
         </>
     )

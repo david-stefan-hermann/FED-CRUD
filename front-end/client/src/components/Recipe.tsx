@@ -47,6 +47,7 @@ const Recipe = () => {
                 category={post.category}
                 author={post.author}
                 updated={post.updated}
+                noDate={false}
                 ></RecipeMetaData>
 
                 <Link 

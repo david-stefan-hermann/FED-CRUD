@@ -1,6 +1,8 @@
-import { FloatingLabel, Form } from "react-bootstrap";
-import { usePostContext } from "../context/postContext";
+import { Col, FloatingLabel, Form } from "react-bootstrap";
+import { usePostContext } from "../../context/postContext";
 import { access } from "fs";
+import { useEffect, useState } from "react";
+import { Star, StarFill } from "react-bootstrap-icons";
 
 const EditorInputText = (props: {title: string; size: number; name: string; value: string}) => {
     const { newPost, setNewPost } = usePostContext()
@@ -20,7 +22,7 @@ const EditorInputText = (props: {title: string; size: number; name: string; valu
         <FloatingLabel label={props.title} >
             <Form.Control
             name={props.name} value={props.value} onChange={e => handleChange(e.target)}
-            className="input-field" as="textarea" style={{ height: props.size + "px" }}
+            className="input-field mb-3" as="textarea" style={{ height: props.size + "px" }}
             />
         </FloatingLabel>
     )
@@ -65,30 +67,47 @@ export const EditorInputFile = (props: {title: string; name: string}) => {
     
     return (
         <>
-            <Form.Control className="input-field" name={props.name} type="file" onChange={e => handleChange(e.target)} accept="image/*" />
+            <Form.Control className="input-field mb-3" name={props.name} type="file" onChange={e => handleChange(e.target)} accept="image/*" />
         </>
     )
 }
 
-export const EditorInputSelect = (props: {title: string; name: string}) => {
+
+export const EditorInputRating = (props: {title: string}) => {
     const { newPost, setNewPost } = usePostContext()
-    
-    const handleChange = (t: EventTarget) => {
-        const target = t as HTMLTextAreaElement
+    const [ localRating, setLocalRating ] = useState(0)
+
+    useEffect(() => {
+        setLocalRating(newPost.rating)
+    }, [newPost.rating])
+
+    const handleChange = (val: number) => {
+        // correct input
+        let value: number = val
+
+        // greater than 5 (max rating)
+        value = value > 5 ? 5 : value
+
+        // smaller than 0 (min rating)
+        value = value < 5 ? 0 : value
+
         setNewPost({
             ...newPost,
-            [target.name]: target.value
+            rating: value
         })
+            
     }
-
+    
     return (
-        <FloatingLabel label={props.title} >
-            <Form.Select aria-label="Default select example">
-                <option>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </Form.Select>
-        </FloatingLabel>
+        <Col sm={12} className="mb-3" >
+            <Form.Label className="me-2 mb-3">{props.title}</Form.Label>
+            {
+                Array.from({ length: 5 }, (_, idx) => (
+                    <span key={"rating-star-input-" + idx} onClick={() => handleChange(idx + 1)}>
+                    {idx < localRating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
+                </span>
+            ))
+        }
+        </Col>
     )
 }

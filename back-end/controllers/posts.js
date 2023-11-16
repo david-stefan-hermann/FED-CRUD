@@ -29,7 +29,7 @@ export const getPost = (req, res) => {
         return console.log(err)
     })
 }
-/*
+
 export const addPost = (req, res) => {
     res.json("posts - from controller")
 }
@@ -41,4 +41,3 @@ export const deletePost = (req, res) => {
 export const updatePost = (req, res) => {
     res.json("posts - from controller")
 }
-*/
