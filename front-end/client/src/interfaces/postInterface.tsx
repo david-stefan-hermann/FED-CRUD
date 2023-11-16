@@ -5,7 +5,7 @@ export default interface PostInterface {
   updated: number;
   rating: number;
   category: string;
-  image: string;
+  image: Buffer | null;
   desc: string;
   recipe: string;
 }
@@ -17,7 +17,7 @@ export const newBlankPost: PostInterface = {
   updated: Date.now(),
   rating: 0,
   category: "",
-  image: "",
+  image: null,
   desc: "",
   recipe: "",
 }

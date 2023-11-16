@@ -15,8 +15,8 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
 import ReactMarkdown from 'react-markdown';
 import LoadingSpinner from "../components/LoadingSpinner.tsx"
 import moment from "moment"
-import EditorInputText from "../components/EditorInput.tsx"
-import EditorPreview from "../components/EditorPreview.tsx"
+import EditorInputText, { EditorInputFile } from "../components/EditorInput.tsx"
+import EditorPreview, { EditorPreviewFile } from "../components/EditorPreview.tsx"
 import { usePostContext } from "../context/postContext.tsx"
 
 const PostEditor = (props: {creatingNewPost: boolean}) => {
@@ -148,28 +148,27 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
 
     useEffect(() => {
         setIsLoading(false)
-        const k = "title"
-        setNewPost({
-            ...newPost,
-            [k]: "Test"
-        })
+        
     }, [])
 
 
     return (
         <>
-        { isLoading ? <LoadingSpinner></LoadingSpinner> : 
-        <Row className="p-5 m-3">                
-            <Col sm={6}>
+        { isLoading ? <LoadingSpinner></LoadingSpinner> : <>
+            <Row className="p-3 m-3">
                 <Link to="/" className="text-decoration-none ms-1"><ArrowLeftCircleFill />&nbsp; zurück</Link>
-                
-                <EditorInputText value={newPost.title} name={"title"} title={"Titel"} size={80}></EditorInputText>
-            </Col>
-            <Col sm={6}>
-                <EditorPreview value={newPost.title}></EditorPreview>
-            </Col>
-        </Row>
-        }
+            </Row>
+            <Row className="p-3 m-3">                
+                <Col sm={6}>    
+                    <EditorInputText value={newPost.title} name={"title"} title={"Titel"} size={60}></EditorInputText>
+                    <EditorInputFile name={"image"} title={"Bild"}></EditorInputFile>
+                </Col>
+                <Col sm={6}>
+                    <EditorPreview value={newPost.title}></EditorPreview>
+                    <EditorPreviewFile value={newPost.image}></EditorPreviewFile>
+                </Col>
+            </Row>
+        </> }
         </>
     )
     /*

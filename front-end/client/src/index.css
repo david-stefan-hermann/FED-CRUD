@@ -53,11 +53,13 @@ code {
 }
 
 .box-shadow {
-  box-shadow: rgba(0, 0, 0, 0.45) 0px 7px 29px 0px;
+  /*
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 7px 19px 0px;
+  */
 }
 
-.text-input-field {
-  border-color: transparent;
+.input-field {
+  border: 1px solid var(--background-dark);
 }
 
 .likes {

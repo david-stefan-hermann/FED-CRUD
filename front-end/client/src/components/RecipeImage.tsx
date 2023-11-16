@@ -52,3 +52,57 @@ const RecipeImage = (props: { image: string; title: string }) => {
 }
 
 export default RecipeImage
+
+
+export const RecipeImageFromBuffer = (props: { image: Buffer | null; title: string }) => {
+    const [ isLoading, setIsLoading ] = useState(true)
+    const [ imageExists, setImageExists ] = useState(false)
+    const [ imageUrl, setImgUrl ] = useState("")
+    const { replaceSpaces } = usePostContext()
+    const noImage = process.env.PUBLIC_URL + ("/no-image.png")
+    
+    // create blob and image url from buffer
+    useEffect(() => {
+        const blob = props.image ? new Blob([props.image], { type: 'image/png' }) : null
+        if (blob)
+            setImgUrl(URL.createObjectURL(blob))
+    }, [props.image])
+    
+    
+    // check if image exists
+    useEffect(() => {
+        // this took way too long..
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(imageUrl)
+                setImageExists(true)
+            } catch(err) {
+                console.log(err)
+            }
+            setIsLoading(false)
+        }
+        fetchData()
+    }, [imageUrl])
+
+    return (
+        <>
+            {isLoading ? <LoadingSpinner></LoadingSpinner> : 
+                <>
+                {
+                imageExists ?
+                <Image
+                    src={imageUrl}
+                    alt={replaceSpaces(props.title)}
+                    fluid
+                ></Image> :
+                <Image
+                    src={noImage}
+                    alt={"Image does not exist."}
+                    fluid
+                ></Image>
+                }
+                </>
+            }
+        </>
+    )
+}
