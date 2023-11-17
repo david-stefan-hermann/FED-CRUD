@@ -8,6 +8,7 @@ import axios from "axios"
 import { Link } from "react-router-dom"
 import { usePostContext } from "../context/postContext.tsx"
 import LinkInterface from "../interfaces/linkInterface.tsx"
+import { Container } from "react-bootstrap"
 
 
 const TableOfContents = () => {
@@ -30,7 +31,7 @@ const TableOfContents = () => {
     }, [currentPostId])
 
     return (
-        <>
+        <Container className="background-dark p-5 rounded">
             <h3>Table Of Contents</h3>
             { isLoading ? <LoadingSpinner></LoadingSpinner> : null }
             { postLinks ? postLinks.map(link => {  
@@ -53,7 +54,7 @@ const TableOfContents = () => {
                     ><DatabaseFillAdd /> Beitrag hinzufügen</Link>
                 </Col>
             </Row>
-        </>
+        </Container>
     )
 }
 
