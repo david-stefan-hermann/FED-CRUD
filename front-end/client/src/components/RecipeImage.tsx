@@ -7,18 +7,19 @@ import PostInterface from "../interfaces/postInterface";
 
 
 const RecipeImage = (props: { image: string; title: string }) => {
-    const [ isLoading, setIsLoading ] = useState(true)
+    const [ isLoading, setIsLoading ] = useState(false)
     const [ imageExists, setImageExists ] = useState(false)
+    
     const { replaceSpaces } = usePostContext()
+    
     const noImage = process.env.PUBLIC_URL + ("/no-image.png")
-    const url = process.env.PUBLIC_URL + ("/posts/" + props.image + ".png")
 
     // check if image exists
     useEffect(() => {
         // this took way too long..
         const fetchData = async () => {
             try {
-                const res = await axios.get(url)
+                const res = await axios.get(props.image)
                 setImageExists(true)
             } catch(err) {
                 console.log(err)
@@ -26,8 +27,8 @@ const RecipeImage = (props: { image: string; title: string }) => {
             setIsLoading(false)
         }
         fetchData()
-    }, [url])
-    
+    }, [props.image])
+
     
     return (
         <>
@@ -36,7 +37,7 @@ const RecipeImage = (props: { image: string; title: string }) => {
                 {
                 imageExists ?
                 <Image
-                    src={url}
+                    src={props.image}
                     alt={replaceSpaces(props.title)}
                     fluid
                 ></Image> :
@@ -53,59 +54,3 @@ const RecipeImage = (props: { image: string; title: string }) => {
 }
 
 export default RecipeImage
-
-
-export const RecipeImageNewPost = (props: { name: string; title: string }) => {
-    const [ isLoading, setIsLoading ] = useState(true)
-    const [ imageExists, setImageExists ] = useState(false)
-    const [ imageUrl, setImgUrl ] = useState("")
-    const { replaceSpaces, newPost } = usePostContext()
-    const noImage = process.env.PUBLIC_URL + ("/no-image.png")
-    
-    
-    // create blob and image url from buffer
-    useEffect(() => {
-        const bufferData: Buffer = newPost[props.name as keyof PostInterface] as Buffer
-        const blob = bufferData ? new Blob([bufferData as BlobPart], { type: 'image/png' }) : null
-        if (blob)
-            setImgUrl(URL.createObjectURL(blob))
-    }, [newPost.image])
-    
-    
-    // check if image exists
-    useEffect(() => {
-        // this took way too long..
-        const fetchData = async () => {
-            try {
-                const res = await axios.get(imageUrl)
-                setImageExists(true)
-            } catch(err) {
-                console.log(err)
-            }
-            setIsLoading(false)
-        }
-        fetchData()
-    }, [imageUrl])
-
-    return (
-        <>
-            {isLoading ? <LoadingSpinner></LoadingSpinner> : 
-                <>
-                {
-                imageExists ?
-                <Image
-                    src={imageUrl}
-                    alt={replaceSpaces(props.title)}
-                    fluid
-                ></Image> :
-                <Image
-                    src={noImage}
-                    alt={"Image does not exist."}
-                    fluid
-                ></Image>
-                }
-                </>
-            }
-        </>
-    )
-}

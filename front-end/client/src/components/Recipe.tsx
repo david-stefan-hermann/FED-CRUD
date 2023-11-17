@@ -55,9 +55,9 @@ const Recipe = () => {
                     className="text-decoration-none mb-4" 
                 ><PencilFill /> Diesen Beitrag bearbeiten</Link>
            
-                <ReactMarkdown>{post.desc}</ReactMarkdown>
+                <ReactMarkdown>{post.short}</ReactMarkdown>
 
-                <RecipeImage image={post.id.toString()} title={post.title}></RecipeImage>
+                <RecipeImage image={post.image} title={post.title}></RecipeImage>
                 
                 <hr className="my-4"></hr>
                 <h2>Zubereitung</h2>

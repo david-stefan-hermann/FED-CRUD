@@ -11,12 +11,12 @@ import Alert from 'react-bootstrap/Alert';
 import { Trash, Upload, ArrowLeftCircleFill } from "react-bootstrap-icons"
 
 import axios from "axios"
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import ReactMarkdown from 'react-markdown';
 import LoadingSpinner from "../components/LoadingSpinner.tsx"
 import moment from "moment"
 import EditorInputText, { EditorInputFile, EditorInputRating } from "../components/inputs/EditorInput.tsx"
-import EditorPreview, { EditorPreviewFile } from "../components/inputs/EditorPreview.tsx"
+import { EditorPreviewFile } from "../components/inputs/EditorPreview.tsx"
 import { usePostContext } from "../context/postContext.tsx"
 import CustomClickableBadgeHandler from "../components/inputs/CustomClickableBadge.tsx"
 import RecipeMetaData from "../components/RecipeMetaData.tsx"
@@ -46,6 +46,9 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
     }, [props.creatingNewPost])
     
     const handleDelete = async() => {
+        if (!window.confirm("Soll dieser Beitrag wirklich gelöscht werden?"))
+            return
+
         try {
             await axios.delete("/essi/" + postIdFromUrl)
             navigate("/")
@@ -55,22 +58,31 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
     }
 
     const handleUpdate = async() => {
+
         setNewPost({
             ...newPost,
-            updated: Date.now()
+            updated: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
         })
 
         if (props.creatingNewPost) {
             // Post
+            if (!window.confirm("Soll der Beitrag veröffentlicht werden?"))
+                return
+
             try {
                 await axios.post("/essi/", {newPost})
+                navigate("/")
             } catch(err) {
                 console.log(err)
             }
         } else {
             // Update
+            if (!window.confirm("Soll der Beitrag geupdated werden?"))
+                return
+
             try {
                 await axios.put("/essi/" + postIdFromUrl, {newPost})
+                navigate("/")
             } catch(err) {
                 console.log(err)
             }
@@ -79,7 +91,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
 
     useEffect(() => {
         console.log("PostEditor np: " + JSON.stringify(newPost))
-        
+        console.log("PostEditor np: " + newPost.image)
     }, [newPost])
 
 
@@ -120,14 +132,14 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                     </Row>
                 </Col>
             </Row>
-            <Row className="p-3 m-3">                
+            <Row className="p-3 m-3">
                 <Col sm={6}>
                     {/* description */}
-                    <EditorInputText name={"desc"} title={"Beschreibung"} size={200}></EditorInputText>
+                    <EditorInputText name={"short"} title={"Beschreibung"} size={200}></EditorInputText>
                 </Col>
                 <Col sm={6}>
                     {/* description */}
-                    <ReactMarkdown>{newPost.desc}</ReactMarkdown>
+                    <ReactMarkdown>{newPost.short}</ReactMarkdown>
                 </Col>
             </Row>
             <Row className="p-3 m-3">                

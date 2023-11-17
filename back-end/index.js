@@ -1,5 +1,5 @@
 import express from "express"
-import cookieParser from "cookie-parser"
+import bodyParser from "body-parser"
 import cors from "cors"
 
 import postRoutes from "./routes/posts.js"
@@ -8,9 +8,17 @@ import catsRoutes from "./routes/cats.js"
 
 const app = express()
 
+// For JSON payloads
+app.use(bodyParser.json({ limit: '100mb' }));
+
+// For URL-encoded payloads
+app.use(bodyParser.urlencoded({ 
+    limit: '100mb', 
+    extended: true 
+}));
+
 app.use(cors())
 app.use(express.json())
-app.use(cookieParser())
 
 app.use("/api/essi", postRoutes)
 app.use("/api/links", linkRoutes)

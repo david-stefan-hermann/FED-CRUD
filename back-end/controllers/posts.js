@@ -31,13 +31,49 @@ export const getPost = (req, res) => {
 }
 
 export const addPost = (req, res) => {
-    res.json("posts - from controller")
+    const { newPost } = req.body
+
+    const q = {
+        text: "INSERT INTO fed_schema.essi (title, author, updated, rating, category, image, recipe, short) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+        values: [newPost.title, newPost.author, newPost.updated, newPost.rating, newPost.category, newPost.image, newPost.recipe, newPost.short]
+    }
+
+    db.query(q)
+    .then(result => {
+        return res.status(200).json("Post added successfully.")
+    })
+    .catch(err => {
+        return console.log(err)
+    })
 }
 
 export const deletePost = (req, res) => {
-    res.json("posts - from controller")
+    const q = {
+        text: "DELETE FROM fed_schema.essi WHERE fed_schema.essi.id = $1",
+        values: [req.params.id]
+    }
+    db.query(q)
+    .then(result => {
+        return res.status(200).json("Post deleted successfully.")
+    })
+    .catch(err => {
+        return console.log(err)
+    })
 }
 
 export const updatePost = (req, res) => {
-    res.json("posts - from controller")
+    const { newPost } = req.body
+
+    const q = {
+        text: "UPDATE fed_schema.essi SET title = $1, author = $2, updated = $3, rating = $4, category = $5, image = $6, recipe = $7, short = $8 WHERE id = $9",
+        values: [newPost.title, newPost.author, newPost.updated, newPost.rating, newPost.category, newPost.image, newPost.recipe, newPost.short, newPost.id]
+    }
+
+    db.query(q)
+    .then(result => {
+        return res.status(200).json("Post updated successfully.")
+    })
+    .catch(err => {
+        return console.log(err)
+    })
 }

@@ -52,7 +52,7 @@ const Recipes = () => {
                             <Row>
                                 <Col sm={5} className="ps-3">
                                     <div onClick={() => handleLink(post)} className="cursor-pointer">
-                                        <RecipeImage image={post.id.toString()} title={post.title}></RecipeImage>
+                                        <RecipeImage image={post.image} title={post.title}></RecipeImage>
                                     </div>
                                 </Col>
                                 <Col sm={7}>
@@ -66,7 +66,7 @@ const Recipes = () => {
                                     noDate={false}
                                     ></RecipeMetaData>
 
-                                    <ReactMarkdown>{post.desc}</ReactMarkdown>
+                                    <ReactMarkdown>{post.short}</ReactMarkdown>
                                     
                                     <Link 
                                         to={"/" + post.id + "/" + replaceSpaces(post.title)}

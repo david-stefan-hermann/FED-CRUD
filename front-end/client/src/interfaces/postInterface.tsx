@@ -2,11 +2,11 @@ export default interface PostInterface {
   id: number;
   title: string;
   author: string;
-  updated: number;
+  updated: string;
   rating: number;
   category: string;
-  image: Buffer | null;
-  desc: string;
+  image: string;
+  short: string;
   recipe: string;
 }
 
@@ -14,10 +14,10 @@ export const newBlankPost: PostInterface = {
   id: 999,
   title: "",
   author: "",
-  updated: Date.now(),
+  updated: "",
   rating: 0,
   category: "",
-  image: null,
-  desc: "",
+  image: "",
+  short: "",
   recipe: "",
 }

@@ -34,7 +34,7 @@ export default EditorInputText
 export const EditorInputFile = (props: {title: string; name: string}) => {
     const { newPost, setNewPost } = usePostContext()
 
-    const handleChange = (t: EventTarget) => {
+    const handleChange = async (t: EventTarget) => {
         const target = t as HTMLInputElement
         if (!target || !target.files)
             return
@@ -47,23 +47,20 @@ export const EditorInputFile = (props: {title: string; name: string}) => {
             return
         }
 
+        // convert to jpg
+
         // read file
-        const reader = new FileReader()
+        const toBase64 = (imageFile: File) => new Promise((resolve, reject) => {
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = () => resolve(reader.result)
+            reader.onerror = reject
+        })
 
-        reader.onload = function(loadEvent) {
-            if (!loadEvent.target)
-                return
-
-            const arrayBuffer = loadEvent.target.result
-
-            console.log("EditorInput: " +  arrayBuffer)
-
-            setNewPost({
-                ...newPost,
-                [target.name]: arrayBuffer
-            })
-        }
-        reader.readAsArrayBuffer(file)
+        setNewPost({
+            ...newPost,
+            [target.name]: await toBase64(file) as string
+        })
     }
     
     return (
