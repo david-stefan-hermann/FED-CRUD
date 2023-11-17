@@ -35,3 +35,7 @@
 .c-dark {
     color: var(--dark) !important;
 }
+
+.active-blue {
+    color: var(--background-dark) !important;
+}

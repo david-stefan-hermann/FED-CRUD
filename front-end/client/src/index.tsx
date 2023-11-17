@@ -13,7 +13,9 @@ if (process.env.NODE_ENV === 'production') disableReactDevTools()
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
+  <React.StrictMode>
     <PostContextProvider>
       <App />
     </PostContextProvider>
+  </React.StrictMode>
 );

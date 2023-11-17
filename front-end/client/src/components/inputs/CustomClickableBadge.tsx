@@ -8,10 +8,14 @@ export const CustomClickableBadgeHandler = (props: {name: string; title: string}
     const { newPost, setNewPost, replaceSpaces } = usePostContext()
     const [ isLoading, setIsLoading ] = useState(true)
     const [ categoryArray, setCategoryArray ] = useState<string[]>([])
+    const [ postCategories, setPostCategories ] = useState<string[]>([])
 
     useEffect(() => {
+        // remove duplicates
+        const uniqueArray = [...new Set(categoryArray)];
+
         // turn category array into csv string
-        const categoriesAsCSV = categoryArray.join(",").toLocaleLowerCase()
+        const categoriesAsCSV = uniqueArray.join(",").toLocaleLowerCase()
 
         setNewPost({
             ...newPost,
@@ -19,7 +23,6 @@ export const CustomClickableBadgeHandler = (props: {name: string; title: string}
         })
     }, [categoryArray])
 
-    const [ postCategories, setPostCategories ] = useState<string[]>([])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,7 +35,7 @@ export const CustomClickableBadgeHandler = (props: {name: string; title: string}
         }
         fetchData()
         setIsLoading(false)
-    }, [])
+    }, [props.name])
 
     return (
         <>

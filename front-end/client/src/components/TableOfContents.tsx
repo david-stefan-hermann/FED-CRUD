@@ -39,7 +39,7 @@ const TableOfContents = () => {
                         <Col sm={12}>                            
                             <Link 
                                 to={"/" + link.id + "/" + replaceSpaces(link.title)}
-                                className={ link.id === currentPostId ? "active toc-link" : "toc-link text-decoration-none"} 
+                                className={ link.id == currentPostId ? "active toc-link text-decoration-none" : "toc-link text-decoration-none"} 
                             >{link.title}</Link>
                         </Col>
                     </Row>
