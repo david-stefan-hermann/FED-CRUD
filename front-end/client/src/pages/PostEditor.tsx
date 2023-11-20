@@ -26,7 +26,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
     const [ isLoading, setIsLoading ] = useState(true)
     const { newPost, setNewPost } = usePostContext()
     
-    const postIdFromUrl = useLocation().pathname.split("/")[1]
+    const postIdFromUrl = useLocation().pathname.split("/")[2]
     
     // check if there is a post from url
     useEffect(() => {

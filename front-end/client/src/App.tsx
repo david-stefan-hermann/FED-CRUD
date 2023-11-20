@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
 
 import Blog from "./pages/Blog.tsx";
 import Header from "./components/Header.tsx";
@@ -22,26 +22,30 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Navigate replace to="/Rezepte" />
+      },
+      {
+        path: "/Rezepte/",
         element: <Blog></Blog>
       },
       {
-        path: "/:id",
+        path: "/Rezepte/:id",
         element: <Blog></Blog>
       },
       {
-        path: "/:id/:title",
+        path: "/Rezepte/:id/:title",
         element: <Blog></Blog>
       },
       {
-        path: "/create",
+        path: "/Rezepte/create",
         element: <PostEditor creatingNewPost={true}></PostEditor>
       },
       {
-        path: "/:id/edit",
+        path: "/Rezepte/:id/edit",
         element: <PostEditor creatingNewPost={false}></PostEditor>
       },
       {
-        path: "/:id/:title/edit",
+        path: "/Rezepte/:id/:title/edit",
         element: <PostEditor creatingNewPost={false}></PostEditor>
       }
     ]

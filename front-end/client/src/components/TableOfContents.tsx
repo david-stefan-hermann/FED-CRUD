@@ -31,7 +31,7 @@ const TableOfContents = () => {
     }, [currentPostId])
 
     return (
-        <Container className="background-dark p-5 rounded">
+        <Container className="px-5">
             <h3>Table Of Contents</h3>
             { isLoading ? <LoadingSpinner></LoadingSpinner> : null }
             { postLinks ? postLinks.map(link => {  

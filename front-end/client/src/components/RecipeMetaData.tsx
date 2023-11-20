@@ -14,7 +14,8 @@ const RecipeMetaData = (props: { big: boolean; title: string; rating: number; ca
         "koriander": "warning",
         "veggie": "success",
         "gesund": "success",
-        "herzhaft": "info"
+        "herzhaft": "info",
+        "pfui": "warning"
     }
 
     return (

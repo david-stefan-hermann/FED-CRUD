@@ -7,9 +7,13 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  overflow-x: hidden;
+
   background-color: var(--background-light);
   color: var(--dark);
+}
 
+p {
   text-align: justify;
 }
 

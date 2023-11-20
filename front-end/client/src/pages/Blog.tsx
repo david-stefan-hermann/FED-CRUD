@@ -15,7 +15,7 @@ const Blog = () => {
     const { currentPostId, setCurrentPostId } = usePostContext()
     
     useEffect(() => {
-        const postIdFromUrl: string = location.pathname.split("/")[1]
+        const postIdFromUrl: string = location.pathname.split("/")[2]
         
         setCurrentPostId(postIdFromUrl == "" ? 0 : parseInt(postIdFromUrl))
 
@@ -38,7 +38,6 @@ const Blog = () => {
         <main>
             <Container>
                 <Row className="my-3">
-                    
                     <Col sm={8}>
                         <Row>
                             {currentPostId ? <Recipe></Recipe> : <Recipes></Recipes> }

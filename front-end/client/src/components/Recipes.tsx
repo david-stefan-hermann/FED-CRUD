@@ -37,12 +37,11 @@ const Recipes = () => {
 
     const handleLink = (post: PostInterface) => {
         console.log("pl: l")
-        navigate("/" + post.id + "/" + replaceSpaces(post.title))
+        navigate("/Rezepte/" + post.id + "/" + replaceSpaces(post.title))
     }
 
     return (
         <>
-            { (posts && posts.length >= 1) ? <h3>Rezepte</h3> : ""}
             { (isLoading || !posts) ? <LoadingSpinner></LoadingSpinner> : 
             <>
             {posts.map(post => {
@@ -69,7 +68,7 @@ const Recipes = () => {
                                     <ReactMarkdown>{post.short}</ReactMarkdown>
                                     
                                     <Link 
-                                        to={"/" + post.id + "/" + replaceSpaces(post.title)}
+                                        to={"/Rezepte/" + post.id + "/" + replaceSpaces(post.title)}
                                         key={"recipes-" + post.id} 
                                         className={ post.id === currentPostId ? "active" : "text-decoration-none"} 
                                     >zum Rezept</Link>
