@@ -47,8 +47,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8800/api/",
-  "allowedhosts": "all",
+  "options": {
+    "allowedhosts": "all"
+  },
   "devDependencies": {
     "@types/node": "^20.9.0"
   }

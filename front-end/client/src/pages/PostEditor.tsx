@@ -33,7 +33,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
         if (!props.creatingNewPost) {
             const fetchData = async () => {
                 try {
-                    const res = await axios.get("/essi/" + postIdFromUrl)
+                    const res = await axios.get("http://localhost:8800/api/essi/" + postIdFromUrl)
                     
                     setNewPost(res.data)
                 } catch(err) {
@@ -50,7 +50,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
             return
 
         try {
-            await axios.delete("/essi/" + postIdFromUrl)
+            await axios.delete("http://localhost:8800/api/essi/" + postIdFromUrl)
             navigate("/")
         } catch(err) {
             console.log(err)
@@ -70,7 +70,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 return
 
             try {
-                await axios.post("/essi/", {newPost})
+                await axios.post("http://localhost:8800/api/essi/", {newPost})
                 navigate("/")
             } catch(err) {
                 console.log(err)
@@ -81,7 +81,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 return
 
             try {
-                await axios.put("/essi/" + postIdFromUrl, {newPost})
+                await axios.put("http://localhost:8800/api/essi/" + postIdFromUrl, {newPost})
                 navigate("/")
             } catch(err) {
                 console.log(err)

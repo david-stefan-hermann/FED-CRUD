@@ -27,7 +27,7 @@ export const CustomClickableBadgeHandler = (props: {name: string; title: string}
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get("/cats/")
+                const res = await axios.get("http://localhost:8800/api/cats/")
                 setPostCategories(res.data)
             } catch(err) {
                 console.log(err)

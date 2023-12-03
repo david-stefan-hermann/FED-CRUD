@@ -19,7 +19,7 @@ const TableOfContents = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get("/links/")
+                const res = await axios.get("http://localhost:8800/api/links/")
                 setPostLinks(res.data)
             } catch(err) {
                 console.log(err)

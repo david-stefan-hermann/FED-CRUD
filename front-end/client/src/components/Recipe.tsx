@@ -23,7 +23,7 @@ const Recipe = () => {
         console.log(" >> Recipe: id: " + currentPostId)
         const fetchData = async () => {
             try {
-                const res = await axios.get("/essi/" + currentPostId)
+                const res = await axios.get("http://localhost:8800/api/essi/" + currentPostId)
                 setPost(res.data)
             } catch(err) {
                 console.log(err)

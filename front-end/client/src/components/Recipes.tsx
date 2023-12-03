@@ -21,7 +21,7 @@ const Recipes = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get("/essi/")
+                const res = await axios.get("http://localhost:8800/api/essi/")
                 setPosts(res.data)
             } catch(err) {
                 console.log(err)
