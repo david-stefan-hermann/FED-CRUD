@@ -1,8 +1,14 @@
-import express from "express"
-import { getLinks } from "../controllers/links.ts"
+// Import Express module for routing
+import express from "express";
 
-const router = express.Router()
+// Import getLinks function from links controller
+import { getLinks } from "../controllers/links.ts";
 
-router.get("/", getLinks)
+// Create a new router instance
+const router = express.Router();
 
-export default router
+// Define a GET route on '/' path, handled by getLinks
+router.get("/", getLinks);
+
+// Export the router for use elsewhere in the app
+export default router;
