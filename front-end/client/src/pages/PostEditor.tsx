@@ -15,6 +15,8 @@ import { EditorPreviewFile } from "../components/inputs/EditorPreview.tsx"
 import { usePostContext } from "../context/postContext.tsx"
 import CustomClickableBadgeHandler from "../components/inputs/CustomClickableBadge.tsx"
 import RecipeMetaData from "../components/RecipeMetaData.tsx"
+import remarkGfm from 'remark-gfm'
+
 
 const PostEditor = (props: {creatingNewPost: boolean}) => {
     const navigate = useNavigate()
@@ -134,7 +136,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 </Col>
                 <Col sm={6}>
                     {/* description */}
-                    <ReactMarkdown>{newPost.short}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{newPost.short}</ReactMarkdown>
                 </Col>
             </Row>
             <Row className="p-3 m-3">                
@@ -144,7 +146,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 </Col>
                 <Col sm={6}>
                     {/* recipe */}
-                    <ReactMarkdown>{newPost.recipe}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{newPost.recipe}</ReactMarkdown>
                 </Col>
             </Row>
             <ControlBar creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} ></ControlBar>

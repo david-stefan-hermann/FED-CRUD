@@ -12,6 +12,7 @@ import ReactMarkdown from 'react-markdown'
 import RecipeMetaData from "./RecipeMetaData.tsx"
 import RecipeImage from "./RecipeImage.tsx"
 import PostInterface from "../interfaces/postInterface.tsx"
+import remarkGfm from 'remark-gfm'
 
 
 const Recipe = () => {
@@ -55,13 +56,13 @@ const Recipe = () => {
                     className="text-decoration-none mb-4" 
                 ><PencilFill /> Diesen Beitrag bearbeiten</Link>
            
-                <ReactMarkdown>{post.short}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.short}</ReactMarkdown>
 
                 <RecipeImage image={post.image} title={post.title}></RecipeImage>
                 
                 <hr className="my-4"></hr>
                 <h2>Zubereitung</h2>
-                <ReactMarkdown>{post.recipe}</ReactMarkdown>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.recipe}</ReactMarkdown>
             </Row>
             }
         </Col>

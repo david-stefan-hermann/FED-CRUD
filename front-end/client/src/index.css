@@ -71,3 +71,10 @@ code {
   margin-left: 5px;
   position: relative;
 }
+
+
+/* React Markdown Tables */
+th, td {
+  padding-left: 10px;
+  padding-right: 10px;
+}

@@ -10,6 +10,7 @@ import RecipeImage from "./RecipeImage.tsx"
 import axios from "axios"
 import { usePostContext } from "../context/postContext.tsx"
 import PostInterface from "../interfaces/postInterface.tsx"
+import remarkGfm from 'remark-gfm'
 
 
 const Recipes = () => {
@@ -65,7 +66,7 @@ const Recipes = () => {
                                     noDate={false}
                                     ></RecipeMetaData>
 
-                                    <ReactMarkdown>{post.short}</ReactMarkdown>
+                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.short}</ReactMarkdown>
                                     
                                     <Link 
                                         to={"/Rezepte/" + post.id + "/" + replaceSpaces(post.title)}
