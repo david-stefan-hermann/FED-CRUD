@@ -1,9 +1,9 @@
-import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet, Navigate } from "react-router-dom"
 
-import Blog from "./pages/Blog.tsx";
-import Header from "./components/Header.tsx";
-import Footer from "./components/Footer.tsx";
-import PostEditor from "./pages/PostEditor.tsx";
+import Blog from "./pages/Blog.tsx"
+import Header from "./components/Header.tsx"
+import Footer from "./components/Footer.tsx"
+import PostEditor from "./pages/PostEditor.tsx"
 
 const Layout = () => {
   return (
@@ -56,7 +56,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <RouterProvider router={router} />
-  );
+  )
 }
 
-export default App;
+export default App

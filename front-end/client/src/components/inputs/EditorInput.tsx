@@ -1,9 +1,8 @@
-import { Col, FloatingLabel, Form } from "react-bootstrap";
-import { usePostContext } from "../../context/postContext";
-import { access } from "fs";
-import { useEffect, useState } from "react";
-import { Star, StarFill } from "react-bootstrap-icons";
-import PostInterface from "../../interfaces/postInterface";
+import { Col, FloatingLabel, Form } from "react-bootstrap"
+import { usePostContext } from "../../context/postContext"
+import { useEffect, useState } from "react"
+import { Star, StarFill } from "react-bootstrap-icons"
+import PostInterface from "../../interfaces/postInterface"
 
 const EditorInputText = (props: {title: string; size: number; name: string}) => {
     const { newPost, setNewPost } = usePostContext()

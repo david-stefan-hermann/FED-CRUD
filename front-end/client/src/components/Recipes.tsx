@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import LoadingSpinner from "./LoadingSpinner.tsx"
 import { Link, useNavigate } from "react-router-dom"
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown'
 import RecipeMetaData from "./RecipeMetaData.tsx"
 import RecipeImage from "./RecipeImage.tsx"
 

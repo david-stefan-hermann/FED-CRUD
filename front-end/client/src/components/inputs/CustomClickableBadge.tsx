@@ -1,8 +1,8 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Badge, Col, Container, Form, Row } from "react-bootstrap";
-import LoadingSpinner from "../LoadingSpinner";
-import { usePostContext } from "../../context/postContext";
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { Badge, Col, Form } from "react-bootstrap"
+import LoadingSpinner from "../LoadingSpinner"
+import { usePostContext } from "../../context/postContext"
 
 export const CustomClickableBadgeHandler = (props: {name: string; title: string}) => {
     const { newPost, setNewPost, replaceSpaces } = usePostContext()
@@ -12,7 +12,7 @@ export const CustomClickableBadgeHandler = (props: {name: string; title: string}
 
     useEffect(() => {
         // remove duplicates
-        const uniqueArray = [...new Set(categoryArray)];
+        const uniqueArray = [...new Set(categoryArray)]
 
         // turn category array into csv string
         const categoriesAsCSV = uniqueArray.join(",").toLocaleLowerCase()

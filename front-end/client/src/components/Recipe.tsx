@@ -8,7 +8,7 @@ import { PencilFill } from "react-bootstrap-icons"
 
 import { usePostContext } from "../context/postContext.tsx"
 import LoadingSpinner from "./LoadingSpinner.tsx"
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown'
 import RecipeMetaData from "./RecipeMetaData.tsx"
 import RecipeImage from "./RecipeImage.tsx"
 import PostInterface from "../interfaces/postInterface.tsx"

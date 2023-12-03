@@ -1,9 +1,7 @@
-import { Badge } from "react-bootstrap";
-import LoadingSpinner from "../LoadingSpinner";
-import Image from "react-bootstrap/esm/Image"
-import RecipeImage from "../RecipeImage";
-import { usePostContext } from "../../context/postContext";
-import PostInterface from "../../interfaces/postInterface";
+import { Badge } from "react-bootstrap"
+import RecipeImage from "../RecipeImage"
+import { usePostContext } from "../../context/postContext"
+import PostInterface from "../../interfaces/postInterface"
 
 const EditorPreview = (props: {name: string}) => {
     const { newPost } = usePostContext()

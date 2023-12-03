@@ -1,18 +1,13 @@
-import React, { useEffect, useState, useContext } from "react"
-import Container from "react-bootstrap/esm/Container"
+import { useEffect, useState } from "react"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Image from "react-bootstrap/esm/Image"
 import Button from 'react-bootstrap/Button'
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Form from 'react-bootstrap/Form';
-import Alert from 'react-bootstrap/Alert';
 
 import { Trash, Upload, ArrowLeftCircleFill } from "react-bootstrap-icons"
 
 import axios from "axios"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown'
 import LoadingSpinner from "../components/LoadingSpinner.tsx"
 import moment from "moment"
 import EditorInputText, { EditorInputFile, EditorInputRating } from "../components/inputs/EditorInput.tsx"

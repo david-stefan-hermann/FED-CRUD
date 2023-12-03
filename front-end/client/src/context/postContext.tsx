@@ -1,5 +1,5 @@
-import { createContext, useState, useContext, FunctionComponent, ReactNode } from 'react';
-import PostInterface, { newBlankPost } from '../interfaces/postInterface';
+import { createContext, useState, useContext, FunctionComponent, ReactNode } from 'react'
+import PostInterface, { newBlankPost } from '../interfaces/postInterface'
 
 
 interface PostContextType {
@@ -12,7 +12,7 @@ interface PostContextType {
   setCurrentPostId: (id: number | null) => void
 }
 
-export const PostContext = createContext<PostContextType | undefined>(undefined);
+export const PostContext = createContext<PostContextType | undefined>(undefined)
 
 interface PostContextProviderProps {
   children: ReactNode

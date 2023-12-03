@@ -1,8 +1,8 @@
 import { StarFill, Star } from "react-bootstrap-icons"
-import Badge from 'react-bootstrap/Badge';
+import Badge from 'react-bootstrap/Badge'
 import Moment from 'moment'
-import LikeCounter from "./LikeCounter";
-import { Row } from "react-bootstrap";
+import LikeCounter from "./LikeCounter"
+import { Row } from "react-bootstrap"
 
 
 const RecipeMetaData = (props: { big: boolean; title: string; rating: number; category: string; author: string; updated: string; noDate: boolean}) => {
