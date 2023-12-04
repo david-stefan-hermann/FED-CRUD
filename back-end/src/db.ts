@@ -11,15 +11,3 @@ export const db = new Pool({
     password: "wD8sGZR#OqVgfg^LiQ^XdTW7$skpP*Q8mzW", // Password for the database user
     port: 5432, // Port number where the database server is listening
 })
-
-// Export a function for executing queries against the database
-export const queryDB = (query: string, values: any[]) => {
-    try {
-        // Attempt to execute a query with the given string and values
-        db.query(query, values)
-    } catch(err) {
-        // Log a message and the error if the connection or query execution fails
-        console.log("connection unsuccessful")
-        console.log(err)
-    }
-}
