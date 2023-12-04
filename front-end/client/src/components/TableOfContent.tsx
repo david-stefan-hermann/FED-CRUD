@@ -11,7 +11,7 @@ import LinkInterface from "../interfaces/linkInterface.tsx"
 import { Container } from "react-bootstrap"
 
 
-const TableOfContents = () => {
+const TableOfContent = () => {
     const { replaceSpaces, currentPostId } = usePostContext()
     const [ isLoading, setIsLoading ] = useState(true)
     const [ postLinks, setPostLinks ] = useState<LinkInterface[]>()
@@ -49,7 +49,7 @@ const TableOfContents = () => {
             <Row className="toc-row mt-3">
                 <Col sm={12}>
                     <Link 
-                        to="/create" 
+                        to="/Rezepte/create" 
                         className="text-decoration-none"
                     ><DatabaseFillAdd /> Beitrag hinzufügen</Link>
                 </Col>
@@ -58,4 +58,4 @@ const TableOfContents = () => {
     )
 }
 
-export default TableOfContents
+export default TableOfContent

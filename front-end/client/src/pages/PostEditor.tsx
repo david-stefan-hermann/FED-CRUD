@@ -40,6 +40,13 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
             fetchData()
         }
         setIsLoading(false)
+
+        // set updated as a fallback value for the case that it wont load on time when presing button
+        setNewPost({
+            ...newPost,
+            updated: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
+        })
+
     }, [props.creatingNewPost])
     
     const handleDelete = async() => {

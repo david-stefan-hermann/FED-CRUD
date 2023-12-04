@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col'
 
 import axios from "axios"
 import { useLocation } from "react-router-dom"
-import TableOfContents from "../components/TableOfContents.tsx"
+import TableOfContent from "../components/TableOfContent.tsx"
 import Recipe from "../components/Recipe.tsx"
 import Recipes from "../components/Recipes.tsx"
 import { usePostContext } from '../context/postContext.tsx'
@@ -46,7 +46,7 @@ const Blog = () => {
                     </Col>
                     <Col sm={4}>
                         <Row className="px-2 my-3">
-                            <TableOfContents></TableOfContents>
+                            <TableOfContent></TableOfContent>
                         </Row>
                     </Col>
                 </Row>
