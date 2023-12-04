@@ -61,7 +61,6 @@ const Recipe = () => {
                 <RecipeImage image={post.image} title={post.title}></RecipeImage>
                 
                 <hr className="my-4"></hr>
-                <h2>Zubereitung</h2>
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.recipe}</ReactMarkdown>
             </Row>
             }
