@@ -1,26 +1,30 @@
-// Import Request and Response types from the express module
 import { Request, Response } from "express"
-// Import the database instance from the local db module
-import { db } from "../db.ts"
+import { connectDB, closeDB } from "../db.ts"
+
+const collectionName = "recipes"
+
 
 // Export a function named getCats that handles HTTP requests for cat categories
-export const getCats = (req: Request, res: Response): void => {
-    // Define a query object to select the "category" column from the "essi" table in "fed_schema"
-    const q = {
-        text: "SELECT category FROM fed_schema.essi"
-    }
+export const getCats = async (req: Request, res: Response): Promise<void> => {
+    console.log("GET /cats")
 
-    // Execute the query against the database
-    db.query(q)
-    .then((result: { rows: { category: string }[] } ) => {
-        // On successful query execution, process the result and return a JSON response with status 200
-        return res.status(200).json(csvArrayToUniqueValues(result.rows))
-    })
-    .catch((err: Error) => {
-        // On error, log the error and send a 500 Internal Server Error response
-        console.error(err)
-        res.status(500).send("An error occurred while fetching categories")
-    })
+    try {
+        const database = await connectDB()
+        const collection = database.collection(collectionName)
+        const query = {}
+
+        const result = await collection.find(query).sort({category: 1}).toArray()
+        // Log the query results to the console
+        console.log(result)
+        // Return the query results as a JSON response with status 200
+        res.status(200).json(csvArrayToUniqueValues(result.map(obj => ({category: obj.category}))))
+    } catch (err) {
+        // Log any errors to the console
+        console.log(err)
+    } finally {
+        // Close the database connection
+        await closeDB()
+    }
 }
 
 // Define a helper function to convert an array of CSV strings to an array of unique values

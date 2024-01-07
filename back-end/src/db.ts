@@ -2,7 +2,7 @@
 import { MongoClient } from "mongodb"
 
 // Define the URI for the MongoDB instance
-const uri = "localhost:27017"
+const uri = "mongodb://localhost:27017"
 
 // Create a new MongoClient instance with the defined URI
 const client = new MongoClient(uri)
