@@ -1,13 +1,38 @@
-// Import the "pg" module to use PostgreSQL in the application
-import pg from "pg"
-// Destructure the Pool class from the pg module for creating a pool of connections
-const { Pool } = pg
+// Import MongoClient from the mongodb package
+import { MongoClient } from "mongodb"
 
-// Export a new instance of Pool, configured to connect to a specific PostgreSQL database
-export const db = new Pool({
-    user: "postgres", // Username to connect to the database
-    host: "localhost", // Host where the database is located
-    database: "fed-db", // Name of the database to connect to
-    password: "wD8sGZR#OqVgfg^LiQ^XdTW7$skpP*Q8mzW", // Password for the database user
-    port: 5432, // Port number where the database server is listening
-})
+// Define the URI for the MongoDB instance
+const uri = "localhost:27017"
+
+// Create a new MongoClient instance with the defined URI
+const client = new MongoClient(uri)
+
+// This function is used to connect to the MongoDB database
+export async function connectDB() {
+    try {
+        // Attempt to establish a connection to the MongoDB instance
+        await client.connect()
+
+        // If the connection is successful, select the 'fed' database
+        const database = client.db('fed')
+
+        // Return the database instance for further operations
+        return database
+    } catch (error) {
+        // If there's an error during the connection, log it and re-throw
+        console.error("Error connecting to database: ", error)
+        throw error
+    }
+}
+
+// This function is used to close the connection to the MongoDB database
+export async function closeDB() {
+    try {
+        // Attempt to close the connection to the MongoDB instance
+        await client.close()
+    } catch (error) {
+        // If there's an error during the disconnection, log it and re-throw
+        console.error("Error closing database connection: ", error)
+        throw error
+    }
+}
