@@ -18,7 +18,7 @@ const Blog = () => {
     useEffect(() => {
         const postIdFromUrl: string = location.pathname.split("/")[2]
         
-        setCurrentPostId(postIdFromUrl == "" ? 0 : parseInt(postIdFromUrl))
+        setCurrentPostId(postIdFromUrl == "" ? "" : postIdFromUrl)
 
         console.log("> Blog: new cpi: " + currentPostId)
     }, [location])

@@ -1,4 +1,7 @@
+import { ObjectId } from 'mongodb'
+
 export default interface PostInterface {
+  _id: string;
   id: number;
   title: string;
   author: string;
@@ -11,6 +14,7 @@ export default interface PostInterface {
 }
 
 export const newBlankPost: PostInterface = {
+  _id: (new ObjectId()).toString(),
   id: 999,
   title: "",
   author: "",

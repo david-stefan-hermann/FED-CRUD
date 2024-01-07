@@ -36,11 +36,11 @@ const TableOfContent = () => {
             { isLoading ? <LoadingSpinner></LoadingSpinner> : null }
             { postLinks ? postLinks.map(link => {  
                 return (
-                    <Row key={"toc-" + link.id} className="toc-row">
+                    <Row key={"toc-" + link._id} className="toc-row">
                         <Col sm={12}>                            
                             <Link 
-                                to={"/Rezepte/" + link.id + "/" + replaceSpaces(link.title)}
-                                className={ link.id == currentPostId ? "active toc-link text-decoration-none" : "toc-link text-decoration-none"} 
+                                to={"/Rezepte/" + link._id + "/" + replaceSpaces(link.title)}
+                                className={ link._id == currentPostId ? "active toc-link text-decoration-none" : "toc-link text-decoration-none"} 
                             >{link.title}</Link>
                         </Col>
                     </Row>

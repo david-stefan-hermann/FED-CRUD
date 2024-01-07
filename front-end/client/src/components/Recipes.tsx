@@ -38,7 +38,7 @@ const Recipes = () => {
 
     const handleLink = (post: PostInterface) => {
         console.log("pl: l")
-        navigate("/Rezepte/" + post.id + "/" + replaceSpaces(post.title))
+        navigate("/Rezepte/" + post._id + "/" + replaceSpaces(post.title))
     }
 
     return (
@@ -47,7 +47,7 @@ const Recipes = () => {
             <>
             {posts.map(post => {
                 return (
-                    <Row key={"recipes-" + post.id}>
+                    <Row key={"recipes-" + post._id}>
                         <Col sm={12} className="ms-2 my-2 py-3 card-hover">
                             <Row>
                                 <Col sm={5} className="ps-3">
@@ -69,9 +69,9 @@ const Recipes = () => {
                                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.short}</ReactMarkdown>
                                     
                                     <Link 
-                                        to={"/Rezepte/" + post.id + "/" + replaceSpaces(post.title)}
-                                        key={"recipes-" + post.id} 
-                                        className={ post.id === currentPostId ? "active" : "text-decoration-none"} 
+                                        to={"/Rezepte/" + post._id + "/" + replaceSpaces(post.title)}
+                                        key={"recipes-" + post._id} 
+                                        className={ post._id === currentPostId ? "active" : "text-decoration-none"} 
                                     >zum Rezept</Link>
 
                                 </Col>

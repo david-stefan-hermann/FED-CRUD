@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, FunctionComponent, ReactNode } from 'react'
 import PostInterface, { newBlankPost } from '../interfaces/postInterface'
+import { ObjectId } from 'mongodb'
 
 
 interface PostContextType {
@@ -8,8 +9,8 @@ interface PostContextType {
   setNewPost: React.Dispatch<React.SetStateAction<PostInterface>>
   currentPostTitle: string
   setCurrentPostTitle: (title: string) => void
-  currentPostId: number | null
-  setCurrentPostId: (id: number | null) => void
+  currentPostId: string
+  setCurrentPostId: (id: string) => void
 }
 
 export const PostContext = createContext<PostContextType | undefined>(undefined)
@@ -19,7 +20,7 @@ interface PostContextProviderProps {
 }
 
 export const PostContextProvider: FunctionComponent<PostContextProviderProps> = ({ children }) => {
-  const [ currentPostId, setCurrentPostId ] = useState<number | null>(null)
+  const [ currentPostId, setCurrentPostId ] = useState<string>("")
   const [ currentPostTitle, setCurrentPostTitle ] = useState<string>("")
   const [ newPost, setNewPost ] = useState<PostInterface>(newBlankPost)
 
