@@ -16,10 +16,14 @@ const RecipeImage = (props: { image: string; title: string }) => {
 
     // check if image exists
     useEffect(() => {
-        // this took way too long..
         const fetchData = async () => {
             try {
-                
+                if(props.image === "") {
+                    setImageExists(false)
+                    return
+                }
+                setImageExists(true)
+
             } catch(err) {
                 console.log(err)
             }
