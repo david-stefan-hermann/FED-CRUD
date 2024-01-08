@@ -15,7 +15,7 @@ export const getPosts = async (req: Request, res: Response) => {
 
         const result = await collection.find(query).sort({title: 1}).toArray()
         // Log the query results to the console
-        console.log(result)
+        // console.log(result)
         // Return the query results as a JSON response with status 200
         res.status(200).json(result)
     } catch (err) {
@@ -38,7 +38,7 @@ export const getPost = async (req: Request, res: Response) => {
 
         const result = await collection.findOne(query)
 
-        console.log(result)
+        // console.log(result)
         res.status(200).json(result)
     } catch (err) {
         console.log(err)
@@ -51,19 +51,30 @@ export const getPost = async (req: Request, res: Response) => {
 export const addPost = async (req: Request, res: Response) => {
     console.log("addPost: called")
 
+    if (!req.body.newPost) {
+        console.log("Error: newPost object not found in request body")
+        res.status(400).send("Error: newPost object not found in request body")
+        return
+    }
+
     try {
+        console.log("newPost yes")
         const database = await connectDB()
         const collection = database.collection(collectionName)
         
+        console.log("Add Post: " + req.body.newPost.title)
+        
+        const newPost = req.body.newPost
+
         const post = {
-            title: req.body.title,
-            author: req.body.author,
-            updated: req.body.updated,
-            rating: req.body.rating,
-            category: req.body.category,
-            image: req.body.image,
-            recipe: req.body.recipe,
-            short: req.body.short
+            title: newPost.title,
+            author: newPost.author,
+            updated: newPost.updated,
+            rating: newPost.rating,
+            category: newPost.category,
+            image: newPost.image,
+            recipe: newPost.recipe,
+            short: newPost.short
         }
 
         const result = await collection.insertOne(post)
@@ -101,22 +112,30 @@ export const deletePost = async (req: Request, res: Response) => {
 export const updatePost = async (req: Request, res: Response) => {
     console.log("updatePost: called")
 
+    if (!req.body.newPost) {
+        console.log("Error: newPost object not found in request body")
+        res.status(400).send("Error: newPost object not found in request body")
+        return
+    }
+    
     try {
         const database = await connectDB()
         const collection = database.collection(collectionName)
         
         const filter = {_id: new ObjectId(req.params.id)}
 
+        const newPost = req.body.newPost
+        
         const update = {
             $set: {
-                title: req.body.title,
-                author: req.body.author,
-                updated: req.body.updated,
-                rating: req.body.rating,
-                category: req.body.category,
-                image: req.body.image,
-                recipe: req.body.recipe,
-                short: req.body.short
+                title: newPost.title,
+                author: newPost.author,
+                updated: newPost.updated,
+                rating: newPost.rating,
+                category: newPost.category,
+                image: newPost.image,
+                recipe: newPost.recipe,
+                short: newPost.short
             }
         }
 

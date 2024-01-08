@@ -1,8 +1,5 @@
-import { ObjectId } from 'mongodb'
-
 export default interface PostInterface {
   _id: string;
-  id: number;
   title: string;
   author: string;
   updated: string;
@@ -14,8 +11,7 @@ export default interface PostInterface {
 }
 
 export const newBlankPost: PostInterface = {
-  _id: (new ObjectId()).toString(),
-  id: 999,
+  _id: "",
   title: "",
   author: "",
   updated: "",

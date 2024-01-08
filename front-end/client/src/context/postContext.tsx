@@ -1,6 +1,5 @@
 import { createContext, useState, useContext, FunctionComponent, ReactNode } from 'react'
 import PostInterface, { newBlankPost } from '../interfaces/postInterface'
-import { ObjectId } from 'mongodb'
 
 
 interface PostContextType {
