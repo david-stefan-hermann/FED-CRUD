@@ -1,3 +1,4 @@
+import React from "react"
 import { Col, FloatingLabel, Form } from "react-bootstrap"
 import { usePostContext } from "../../context/postContext"
 import { useEffect, useState } from "react"

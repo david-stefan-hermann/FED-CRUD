@@ -1,3 +1,4 @@
+import React from "react"
 import { StarFill, Star } from "react-bootstrap-icons"
 import Badge from 'react-bootstrap/Badge'
 import Moment from 'moment'

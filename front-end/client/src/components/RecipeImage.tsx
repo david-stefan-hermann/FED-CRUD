@@ -1,3 +1,4 @@
+import React from "react"
 import { useEffect, useState } from "react"
 import Image from "react-bootstrap/esm/Image"
 import { usePostContext } from "../context/postContext"
@@ -18,15 +19,6 @@ const RecipeImage = (props: { image: string; title: string }) => {
         // this took way too long..
         const fetchData = async () => {
             try {
-                const res = await axios.head(props.image, { cache: false })
-
-                if (res.headers['content-type'].startsWith('image/')) {
-                    // The resource is an image
-                    setImageExists(true)
-                } else {
-                    // The resource is not an image
-                    setImageExists(false)
-                }
                 
             } catch(err) {
                 console.log(err)

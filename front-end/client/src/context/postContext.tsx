@@ -1,3 +1,4 @@
+import React from "react"
 import { createContext, useState, useContext, FunctionComponent, ReactNode } from 'react'
 import PostInterface, { newBlankPost } from '../interfaces/postInterface'
 
