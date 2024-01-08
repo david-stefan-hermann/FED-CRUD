@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom"
 import ReactMarkdown from 'react-markdown'
 import RecipeMetaData from "./RecipeMetaData.tsx"
 import RecipeImage from "./RecipeImage.tsx"
+import useFetch, { FetchState } from "../hooks/useFetchItems.tsx"
 
 import axios from "axios"
 import { usePostContext } from "../context/postContext.tsx"
@@ -15,10 +16,14 @@ import remarkGfm from 'remark-gfm'
 
 const Recipes = () => {
     const [ isLoading, setIsLoading ] = useState(true)
-    const [ posts, setPosts ] = useState<PostInterface[]>()
+    //const [ posts, setPosts ] = useState<PostInterface[]>()
     const navigate = useNavigate()
     const { replaceSpaces, currentPostId } = usePostContext()
 
+    const { data: posts, fetchState } = useFetch()
+    
+
+    /*
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -31,6 +36,7 @@ const Recipes = () => {
         fetchData()
         setIsLoading(false)
     }, [currentPostId])
+    */
 
     useEffect(() => {
         posts === undefined ? setIsLoading(true) : setIsLoading(false)
@@ -43,9 +49,9 @@ const Recipes = () => {
 
     return (
         <>
-            { (isLoading || !posts) ? <LoadingSpinner></LoadingSpinner> : 
-            <>
-            {posts.map(post => {
+            { (fetchState === FetchState.Initial || fetchState === FetchState.Loading) ? <LoadingSpinner></LoadingSpinner> : <></>}
+            { fetchState === FetchState.Error ? <p>Es ist ein Fehler aufgetreten.</p> : <></>}
+            { fetchState === FetchState.Success ? posts.map(post => {
                 return (
                     <Row key={"recipes-" + post._id}>
                         <Col sm={12} className="ms-2 my-2 py-3 card-hover">
@@ -78,9 +84,7 @@ const Recipes = () => {
                             </Row>
                         </Col>
                     </Row>
-            )})}
-            </>
-            }
+            )}) : <></>}
         </>
     )
 }

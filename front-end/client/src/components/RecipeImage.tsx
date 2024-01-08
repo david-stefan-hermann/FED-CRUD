@@ -17,6 +17,7 @@ const RecipeImage = (props: { image: string; title: string }) => {
     useEffect(() => {
         // this took way too long..
         const fetchData = async () => {
+            
             try {
                 const res = await axios.get(props.image)
                 setImageExists(true)
