@@ -80,7 +80,8 @@ export const addPost = async (req: Request, res: Response) => {
         const result = await collection.insertOne(post)
         const id = result.insertedId
 
-        res.location(`/locations/${id}`)
+        res.setHeader('Access-Control-Expose-Headers', 'Location')
+        res.location(`/Rezepte/${id}`)
         res.status(201).json(id)
     } catch (err) {
         console.log(err)
@@ -140,7 +141,10 @@ export const updatePost = async (req: Request, res: Response) => {
         }
 
         await collection.updateOne(filter, update)
-        res.status(204).end()
+
+        res.setHeader('Access-Control-Expose-Headers', 'Location')
+        res.location(`/Rezepte/${new ObjectId(req.body.id)}`)
+        res.status(201).json(req.body.id)
     } catch (err) {
         console.log(err)
     } finally {

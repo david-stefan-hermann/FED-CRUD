@@ -21,7 +21,7 @@ import remarkGfm from 'remark-gfm'
 const PostEditor = (props: {creatingNewPost: boolean}) => {
     const navigate = useNavigate()
     const [ isLoading, setIsLoading ] = useState(true)
-    const { newPost, setNewPost } = usePostContext()
+    const { newPost, setNewPost, replaceSpaces } = usePostContext()
     
     const postIdFromUrl = useLocation().pathname.split("/")[2]
     
@@ -74,8 +74,9 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 return
 
             try {
-                await axios.post("http://localhost:8800/api/essi/", {newPost})
-                navigate("/")
+                const response = await axios.post("http://localhost:8800/api/essi/", {newPost})
+                const location = response.headers.location
+                navigate(location + "/" + replaceSpaces(newPost.title))
             } catch(err) {
                 console.log(err)
             }
@@ -85,8 +86,9 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 return
 
             try {
-                await axios.put("http://localhost:8800/api/essi/" + postIdFromUrl, {newPost})
-                navigate("/")
+                const response = await axios.put("http://localhost:8800/api/essi/" + postIdFromUrl, {newPost})
+                const location = response.headers.location
+                navigate("/Rezepte/" + postIdFromUrl + "/" + replaceSpaces(newPost.title))
             } catch(err) {
                 console.log(err)
             }
@@ -120,11 +122,11 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                     {/* title, rating, categories, author, rating */}
                     <RecipeMetaData
                     big={true}
-                    title={newPost.title}
-                    rating={newPost.rating} 
-                    category={newPost.category}
-                    author={newPost.author}
-                    updated={newPost.updated}
+                    title={newPost?.title}
+                    rating={newPost?.rating} 
+                    category={newPost?.category}
+                    author={newPost?.author}
+                    updated={newPost?.updated}
                     noDate={true}
                     ></RecipeMetaData>
                     
@@ -143,7 +145,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 </Col>
                 <Col sm={6}>
                     {/* description */}
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{newPost.short}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{newPost?.short}</ReactMarkdown>
                 </Col>
             </Row>
             <Row className="p-3 m-3">                
@@ -153,7 +155,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 </Col>
                 <Col sm={6}>
                     {/* recipe */}
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{newPost.recipe}</ReactMarkdown>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{newPost?.recipe}</ReactMarkdown>
                 </Col>
             </Row>
             <ControlBar creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} ></ControlBar>
