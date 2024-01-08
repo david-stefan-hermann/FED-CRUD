@@ -6,6 +6,7 @@ import Footer from "./components/Footer.tsx"
 import PostEditor from "./pages/PostEditor.tsx"
 import ErrorBoundary from "./pages/ErrorBoundary.tsx"
 import NotFound from "./pages/NotFound.tsx"
+import About from "./pages/About.tsx"
 
 const Layout = () => {
   return (
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Navigate replace to="/Rezepte" />
+        element: <Navigate replace to="/About" />
+      },
+      {
+        path: "/About/",
+        element: <About></About>
       },
       {
         path: "/Rezepte/",
