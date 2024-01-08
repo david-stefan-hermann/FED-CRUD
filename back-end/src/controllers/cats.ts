@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { connectDB, closeDB } from "../db.ts"
+import { db } from "../db.ts"
 
 const collectionName = "recipes"
 
@@ -9,8 +9,7 @@ export const getCats = async (req: Request, res: Response) => {
     console.log("GET /cats")
 
     try {
-        const database = await connectDB()
-        const collection = database.collection(collectionName)
+        const collection = db.collection(collectionName)
         const query = {}
 
         const result = collection.find(query).project({category: 1, _id: 0}).sort({category: 1})
@@ -24,9 +23,6 @@ export const getCats = async (req: Request, res: Response) => {
     } catch (err) {
         // Log any errors to the console
         console.log(err)
-    } finally {
-        // Close the database connection
-        await closeDB()
     }
 }
 

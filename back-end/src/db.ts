@@ -1,23 +1,22 @@
 // Import MongoClient from the mongodb package
-import { MongoClient } from "mongodb"
+import { Db, MongoClient } from "mongodb"
 
 // Define the URI for the MongoDB instance
 const uri = "mongodb://localhost:27017"
 
-// Create a new MongoClient instance with the defined URI
-const client = new MongoClient(uri)
+let client: MongoClient
+export let db: Db
 
 // This function is used to connect to the MongoDB database
 export async function connectDB() {
     try {
         // Attempt to establish a connection to the MongoDB instance
+        client = new MongoClient(uri)
         await client.connect()
-
-        // If the connection is successful, select the 'fed' database
-        const database = client.db('fed')
+        db = client.db("fed")
 
         // Return the database instance for further operations
-        return database
+        // return db
     } catch (error) {
         // If there's an error during the connection, log it and re-throw
         console.error("Error connecting to database: ", error)

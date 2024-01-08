@@ -4,6 +4,8 @@ import Blog from "./pages/Blog.tsx"
 import Header from "./components/Header.tsx"
 import Footer from "./components/Footer.tsx"
 import PostEditor from "./pages/PostEditor.tsx"
+import ErrorBoundary from "./pages/ErrorBoundary.tsx"
+import NotFound from "./pages/NotFound.tsx"
 
 const Layout = () => {
   return (
@@ -18,7 +20,7 @@ const Layout = () => {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout></Layout>,
+    element: <ErrorBoundary><Layout></Layout></ErrorBoundary>,
     children: [
       {
         path: "/",
@@ -47,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/Rezepte/:id/:title/edit",
         element: <PostEditor creatingNewPost={false}></PostEditor>
+      },
+      {
+        path: "*", // 404
+        element: <NotFound></NotFound>
       }
     ]
   }

@@ -29,7 +29,7 @@ const useGetItems = () => {
         }
         fetchData()
 
-        const intervalId = setInterval(fetchData, 10000) // fetch data every 60 seconds
+        const intervalId = setInterval(fetchData, 60000) // fetch data every 60 seconds
 
         return () => clearInterval(intervalId) // clear interval on component unmount
     }, [])

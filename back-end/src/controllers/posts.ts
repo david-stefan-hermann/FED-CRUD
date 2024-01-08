@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { connectDB, closeDB } from "../db.ts"
+import { db } from "../db.ts"
 import { ObjectId } from "mongodb"
 
 const collectionName = "recipes"
@@ -9,8 +9,7 @@ export const getPosts = async (req: Request, res: Response) => {
     console.log("getPosts: called")
 
     try {
-        const database = await connectDB()
-        const collection = database.collection(collectionName)
+        const collection = db.collection(collectionName)
         const query = {}
 
         const result = await collection.find(query).sort({title: 1}).toArray()
@@ -21,9 +20,6 @@ export const getPosts = async (req: Request, res: Response) => {
     } catch (err) {
         // Log any errors to the console
         console.log(err)
-    } finally {
-        // Close the database connection
-        await closeDB()
     }
 }
 
@@ -32,8 +28,7 @@ export const getPost = async (req: Request, res: Response) => {
     console.log("getPost: called")
 
     try {
-        const database = await connectDB()
-        const collection = database.collection(collectionName)
+        const collection = db.collection(collectionName)
         const query = {_id: new ObjectId(req.params.id)}
 
         const result = await collection.findOne(query)
@@ -42,8 +37,6 @@ export const getPost = async (req: Request, res: Response) => {
         res.status(200).json(result)
     } catch (err) {
         console.log(err)
-    } finally {
-        await closeDB()
     }
 }
 
@@ -58,9 +51,7 @@ export const addPost = async (req: Request, res: Response) => {
     }
 
     try {
-        console.log("newPost yes")
-        const database = await connectDB()
-        const collection = database.collection(collectionName)
+        const collection = db.collection(collectionName)
         
         console.log("Add Post: " + req.body.newPost.title)
         
@@ -85,8 +76,6 @@ export const addPost = async (req: Request, res: Response) => {
         res.status(201).json(id)
     } catch (err) {
         console.log(err)
-    } finally {
-        await closeDB()
     }
 }
 
@@ -95,8 +84,7 @@ export const deletePost = async (req: Request, res: Response) => {
     console.log("deletePost: called")
 
     try {
-        const database = await connectDB()
-        const collection = database.collection(collectionName)
+        const collection = db.collection(collectionName)
 
         const query = {_id: new ObjectId(req.params.id)}
 
@@ -104,8 +92,6 @@ export const deletePost = async (req: Request, res: Response) => {
         res.status(204).end()
     } catch (err) {
         console.log(err)
-    } finally {
-        await closeDB()
     }
 }
 
@@ -120,8 +106,7 @@ export const updatePost = async (req: Request, res: Response) => {
     }
     
     try {
-        const database = await connectDB()
-        const collection = database.collection(collectionName)
+        const collection = db.collection(collectionName)
         
         const filter = {_id: new ObjectId(req.params.id)}
 
@@ -147,7 +132,5 @@ export const updatePost = async (req: Request, res: Response) => {
         res.status(201).json(req.body.id)
     } catch (err) {
         console.log(err)
-    } finally {
-        await closeDB()
     }
 }

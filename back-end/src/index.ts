@@ -8,6 +8,8 @@ import postRoutes from "./routes/posts.ts"
 import linkRoutes from "./routes/links.ts"
 import catsRoutes from "./routes/cats.ts"
 
+import { connectDB, closeDB } from "./db.ts"
+
 // Creating an instance of an Express application
 const app = express()
 
@@ -32,7 +34,14 @@ app.use("/api/essi", postRoutes)  // Routes for handling post-related operations
 app.use("/api/links", linkRoutes) // Routes for handling link-related operations
 app.use("/api/cats", catsRoutes)  // Routes for handling cat-related operations
 
-// Starting the Express server on port 8800
-app.listen(8800, () => {
-    console.log("Running on port 8800")
+
+connectDB().then(() => {
+    // Starting the Express server on port 8800
+    app.listen(8800, () => {
+        console.log("Running on port 8800")
+    })
+}).catch(err => {
+    // If there's an error during the connection, log it and re-throw
+    console.error("Error connecting to database: ", err)
+    process.exit(1)
 })
