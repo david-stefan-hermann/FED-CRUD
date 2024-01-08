@@ -17,14 +17,25 @@ import { usePostContext } from "../context/postContext.tsx"
 import CustomClickableBadgeHandler from "../components/inputs/CustomClickableBadge.tsx"
 import RecipeMetaData from "../components/RecipeMetaData.tsx"
 import remarkGfm from 'remark-gfm'
+import { newBlankPost } from "../interfaces/postInterface.tsx"
 
 
 const PostEditor = (props: {creatingNewPost: boolean}) => {
     const navigate = useNavigate()
     const [ isLoading, setIsLoading ] = useState(true)
     const { newPost, setNewPost, replaceSpaces } = usePostContext()
-    
+    const location = useLocation()
+
     const postIdFromUrl = useLocation().pathname.split("/")[2]
+    
+    const resetNewPost = () => {
+        setNewPost(newBlankPost)
+    }
+
+    useEffect(() => {
+        if(props.creatingNewPost)
+            resetNewPost()
+    }, [location.pathname])
     
     // check if there is a post from url
     useEffect(() => {
@@ -56,7 +67,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
 
         try {
             await axios.delete("http://localhost:8800/api/essi/" + postIdFromUrl)
-            navigate("/")
+            navigate("/Rezepte/")
         } catch(err) {
             console.log(err)
         }
@@ -88,12 +99,14 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
 
             try {
                 const response = await axios.put("http://localhost:8800/api/essi/" + postIdFromUrl, {newPost})
-                const location = response.headers.location
                 navigate("/Rezepte/" + postIdFromUrl + "/" + replaceSpaces(newPost.title))
             } catch(err) {
                 console.log(err)
             }
         }
+
+        // reset newPost
+        resetNewPost()
     }
 
     useEffect(() => {
@@ -105,7 +118,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
     return (
         <>
         { isLoading ? <LoadingSpinner></LoadingSpinner> : <>
-        <ControlBar creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} ></ControlBar>
+        <ControlBar id={props.creatingNewPost ? "" : newPost._id} creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} ></ControlBar>
             <Row className="p-3 m-3">                
                 <Col sm={6}>
                     {/* title */}
@@ -159,7 +172,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{newPost?.recipe}</ReactMarkdown>
                 </Col>
             </Row>
-            <ControlBar creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} ></ControlBar>
+            <ControlBar id={props.creatingNewPost ? "" : newPost._id} creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} ></ControlBar>
         </> }
         </>
     )
@@ -170,11 +183,11 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
 export default PostEditor
 
 
-const ControlBar = (props: {creatingNewPost: boolean; handleDelete: () => void; handleUpdate: () => void }) => {
+const ControlBar = (props: {id: string; creatingNewPost: boolean; handleDelete: () => void; handleUpdate: () => void }) => {
     return (
         <Row className="p-3 m-3">
             <Col sm={12}>
-                <Link to="/" className="text-decoration-none me-3"><ArrowLeftCircleFill />&nbsp; zurück</Link>
+                <Link to={"/Rezepte/" + props.id} className="text-decoration-none me-3"><ArrowLeftCircleFill />&nbsp; zurück</Link>
                 {
                     props.creatingNewPost == true ?
                     "" :
