@@ -8,6 +8,11 @@ import PostEditor from "./pages/PostEditor.tsx"
 import ErrorBoundary from "./pages/ErrorBoundary.tsx"
 import NotFound from "./pages/NotFound.tsx"
 import About from "./pages/About.tsx"
+import Auth from "./pages/Auth.tsx"
+import Register from "./components/auth/Register.tsx"
+import Login from "./components/auth/Login.tsx"
+import Logout from "./components/auth/Logout.tsx"
+
 
 const Layout = () => {
   return (
@@ -24,6 +29,18 @@ const router = createBrowserRouter([
     path: "/",
     element: <ErrorBoundary><Layout></Layout></ErrorBoundary>,
     children: [
+      {
+        path: "/Register",
+        element: <Auth><Register></Register></Auth>
+      },
+      {
+        path: "/Login",
+        element: <Auth><Login></Login></Auth>
+      },
+      {
+        path: "/Logout",
+        element: <Auth><Logout></Logout></Auth>
+      },
       {
         path: "/",
         element: <Navigate replace to="/About" />
