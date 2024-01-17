@@ -4,6 +4,7 @@ import axios from "axios"
 
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
+import { Link } from "react-router-dom"
 
 
 const Header = () => {
@@ -21,6 +22,10 @@ const Header = () => {
         }
         fetchData()
     }, [])
+
+    let currentUser = {
+        username: "test"
+    }
 
     return (
         <header>
@@ -48,9 +53,14 @@ const Header = () => {
                     <Navbar.Brand
                         className="background-color-text ms-auto fs-small"
                     >
-                        <h6>
-                            your ip: {IpAddress}
-                        </h6>
+                        <Navbar.Collapse className="justify-content-end">
+                            {!currentUser &&
+                                <Navbar.Text><Link className="background-color-text" to="/login">zum Login..</Link></Navbar.Text>
+                            }
+                            {currentUser &&
+                                <Navbar.Text>Hallo <Link to="/logout">{currentUser.username}</Link>!</Navbar.Text>
+                            }
+                        </Navbar.Collapse>
                     </Navbar.Brand>
                 </Container>
             </Navbar>
