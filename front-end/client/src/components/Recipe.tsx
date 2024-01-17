@@ -14,12 +14,14 @@ import RecipeMetaData from "./RecipeMetaData.tsx"
 import RecipeImage from "./RecipeImage.tsx"
 import PostInterface from "../interfaces/postInterface.tsx"
 import remarkGfm from 'remark-gfm'
+import { useAuthContext } from "../context/authContext.tsx"
 
 
 const Recipe = () => {
     const [ isLoading, setIsLoading ] = useState(true)
     const [ post, setPost ] = useState<PostInterface | null>()
     const { currentPostId } = usePostContext()
+    const { currentUser } = useAuthContext()
 
     useEffect(() => {
         console.log(" >> Recipe: id: " + currentPostId)
@@ -52,10 +54,12 @@ const Recipe = () => {
                 noDate={false}
                 ></RecipeMetaData>
 
+                { currentUser ?
                 <Link 
                     to={"edit"}
                     className="text-decoration-none mb-4" 
                 ><PencilFill /> Diesen Beitrag bearbeiten</Link>
+                : null }
            
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.short}</ReactMarkdown>
 

@@ -5,7 +5,7 @@ import axios from "axios"
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { Link } from "react-router-dom"
-import { AuthContext } from "../context/authContext"
+import { useAuthContext } from "../context/authContext"
 
 
 const Header = () => {
@@ -13,7 +13,7 @@ const Header = () => {
     // just for fun
     console.log("Your IP is: " + IpAddress)
 
-    const { currentUser } = useContext(AuthContext) || {}
+    const { currentUser } = useAuthContext()
 
     // get and set user IP
     useEffect(() => {

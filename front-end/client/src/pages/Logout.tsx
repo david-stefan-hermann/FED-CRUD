@@ -16,7 +16,7 @@ const Logout = () => {
         e.preventDefault()
         try {
             logout()
-            navigate("/")
+            navigate("/Rezepte/")
         } catch(err: Error | any) {
             setError(err.message)
         }

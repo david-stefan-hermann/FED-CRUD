@@ -10,12 +10,15 @@ import { Link } from "react-router-dom"
 import { usePostContext } from "../context/postContext.tsx"
 import LinkInterface from "../interfaces/linkInterface.tsx"
 import { Container } from "react-bootstrap"
+import { useAuthContext } from "../context/authContext.tsx"
 
 
 const TableOfContent = () => {
     const { replaceSpaces, currentPostId } = usePostContext()
     const [ isLoading, setIsLoading ] = useState(true)
     const [ postLinks, setPostLinks ] = useState<LinkInterface[]>()
+    const { currentUser } = useAuthContext()
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -47,6 +50,7 @@ const TableOfContent = () => {
                     </Row>
                 )
             }) : ""}
+            { currentUser ?
             <Row className="toc-row mt-3">
                 <Col sm={12}>
                     <Link 
@@ -55,6 +59,7 @@ const TableOfContent = () => {
                     ><DatabaseFillAdd /> Beitrag hinzufügen</Link>
                 </Col>
             </Row>
+            : ""}
         </Container>
     )
 }

@@ -17,7 +17,7 @@ const Auth = ({ children }: { children: React.ReactNode }) => {
                         <Stack gap={2} className="mx-5 align-items-center">
                             {children}
                             <hr className="mt-4 mb-3 w-100"></hr>
-                            <Link to="/" className="text-decoration-none"><ArrowLeftCircleFill />&nbsp; zurück</Link>
+                            <Link to="/Rezepte/" className="text-decoration-none"><ArrowLeftCircleFill />&nbsp; zurück</Link>
                         </Stack>
                     </Card>
                 </Col>
