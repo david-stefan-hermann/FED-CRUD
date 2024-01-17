@@ -18,13 +18,22 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({childre
         const [currentUser, setCurrentUser] = useState<string | null>(JSON.parse(localStorage.getItem("user") as string) ?? null)
 
         const login = async(inputs: LoginInputs) => {
+            try {
                 const res = await axios.post("/auth/login", inputs)
                 setCurrentUser(res.data)
+            } catch (err) {
+                console.error(err)
+                throw new Error("Fehler beim kommunizieren mit dem Server. Versuchen Sie es später erneut.")
+            }
         }
         
         const logout = async() => {
+            try {
                 await axios.post("/auth/logout")
                 setCurrentUser(null)
+            } catch (err) {
+                console.error(err)
+            }
         }
 
         useEffect(() => {
