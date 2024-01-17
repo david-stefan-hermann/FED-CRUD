@@ -26,21 +26,31 @@ const Layout = () => {
 
 const router = createBrowserRouter([
   {
+    path: "/Auth",
+    element: <Auth children={<Outlet></Outlet>}></Auth>,
+    children: [
+      {
+        path: "/Auth/Register",
+        element: <Register></Register>
+      },
+      {
+        path: "/Auth/Login",
+        element: <Login></Login>
+      },
+      {
+        path: "/Auth/Logout",
+        element: <Logout></Logout>
+      },
+      {
+        path: "/Auth/*",
+        element: <Navigate replace to="/Auth/Login" />
+      }
+    ]
+  },
+  {
     path: "/",
     element: <ErrorBoundary><Layout></Layout></ErrorBoundary>,
     children: [
-      {
-        path: "/Register",
-        element: <Auth><Register></Register></Auth>
-      },
-      {
-        path: "/Login",
-        element: <Auth><Login></Login></Auth>
-      },
-      {
-        path: "/Logout",
-        element: <Auth><Logout></Logout></Auth>
-      },
       {
         path: "/",
         element: <Navigate replace to="/About" />
