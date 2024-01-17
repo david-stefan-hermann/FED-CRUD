@@ -56,10 +56,10 @@ const Header = () => {
                     >
                         <Navbar.Collapse className="justify-content-end">
                             {!currentUser &&
-                                <Navbar.Text><Link className="background-color-text" to="/login">zum Login..</Link></Navbar.Text>
+                                <Navbar.Text><Link className="background-color-text" to="/Auth/Login">zum Login..</Link></Navbar.Text>
                             }
                             {currentUser &&
-                                <Navbar.Text>Hallo {currentUser.username}, <Link to="/logout">ausloggen?</Link></Navbar.Text>
+                                <Navbar.Text>Hallo {currentUser.username}, <Link to="/Auth/Logout">ausloggen?</Link></Navbar.Text>
                             }
                         </Navbar.Collapse>
                     </Navbar.Brand>

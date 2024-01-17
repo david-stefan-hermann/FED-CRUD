@@ -2,10 +2,12 @@ import React, { useState } from "react"
 import { Alert, Form, InputGroup } from "react-bootstrap"
 import Button from 'react-bootstrap/Button'
 import { Link, useNavigate } from "react-router-dom"
+import { useAuthContext } from "../context/authContext"
 
 const Login = () => {
     const navigate = useNavigate()
-    
+    const { login } = useAuthContext()
+
     const [err, setError] = useState(null)
     const [inputs, setInputs] = useState({
         username:"",
@@ -20,6 +22,7 @@ const Login = () => {
         e.preventDefault()
         try {
             console.log("login")
+            login(inputs)
             navigate("/")
         } catch(err) {
             setError((err as any).response.data)
@@ -50,7 +53,7 @@ const Login = () => {
             {err && 
             <Alert key="warning" variant="warning">{err}</Alert>}
             <Button onClick={handleSubmit}>Anmelden</Button>
-            <p className="my-3">Kein Konto? <Link to="/register">Hier registrieren..</Link></p>    
+            <p className="my-3">Kein Konto? <Link to="Auth/Register">Hier registrieren..</Link></p>    
         </>
     )
 }

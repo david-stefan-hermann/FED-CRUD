@@ -10,10 +10,10 @@ import { Link } from "react-router-dom"
 
 const Auth = ({ children }: { children: React.ReactNode }) => {
     return (
-        <Container fluid className="secondary-color" data-bs-theme="dark">
-            <Row className="myAuto vh-100 align-items-center justify-content-center">
+        <Container fluid>
+            <Row className="background-dark vh-100 align-items-center justify-content-center">
                 <Col sm={6}>
-                    <Card className="py-5 my-5 bg-dark">
+                    <Card className="background-light py-5 my-5">
                         <Stack gap={2} className="mx-5 align-items-center">
                             {children}
                             <hr className="mt-4 mb-3 w-100"></hr>

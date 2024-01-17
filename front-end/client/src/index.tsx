@@ -7,6 +7,8 @@ import App from './App.tsx'
 import { disableReactDevTools } from "@fvilers/disable-react-devtools"
 
 import { PostContextProvider } from './context/postContext.tsx'
+import Auth from './pages/Auth.tsx'
+import { AuthContextProvider } from './context/authContext.tsx'
 
 if (process.env.NODE_ENV === 'production') disableReactDevTools()
 
@@ -14,8 +16,10 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
   <React.StrictMode>
-    <PostContextProvider>
-      <App />
-    </PostContextProvider>
+    <AuthContextProvider>
+      <PostContextProvider>
+        <App />
+      </PostContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 )
