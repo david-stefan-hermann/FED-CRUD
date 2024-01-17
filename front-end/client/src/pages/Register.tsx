@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { Alert, Form, InputGroup } from "react-bootstrap"
 import Button from 'react-bootstrap/Button'
-import { Link, useNavigate } from "react-router-dom"
-import { useAuthContext } from "../context/authContext"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
+
 
 const Register = () => {
     const navigate = useNavigate()
@@ -22,13 +22,11 @@ const Register = () => {
     const handleSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault()
         try {
-            await axios.post("/auth/register", inputs);
+            await axios.post("/auth/register", inputs)
             
             navigate("/Auth/Login")
         } catch(err: Error | any) {
-            
-                setError(err.message)
-            
+            setError(err.message)
         }
     }
     
