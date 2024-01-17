@@ -12,6 +12,7 @@ import Auth from "./pages/Auth.tsx"
 import Register from "./pages/Register.tsx"
 import Login from "./pages/Login.tsx"
 import Logout from "./pages/Logout.tsx"
+import ProtectedRoute from "./components/ProtectedRoute.tsx"
 
 
 const Layout = () => {
@@ -73,15 +74,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/Rezepte/create",
-        element: <PostEditor creatingNewPost={true}></PostEditor>
+        element: <ProtectedRoute><PostEditor creatingNewPost={true}></PostEditor></ProtectedRoute>
       },
       {
         path: "/Rezepte/:id/edit",
-        element: <PostEditor creatingNewPost={false}></PostEditor>
+        element: <ProtectedRoute><PostEditor creatingNewPost={false}></PostEditor></ProtectedRoute>
       },
       {
         path: "/Rezepte/:id/:title/edit",
-        element: <PostEditor creatingNewPost={false}></PostEditor>
+        element: <ProtectedRoute><PostEditor creatingNewPost={false}></PostEditor></ProtectedRoute>
       },
       {
         path: "*", // 404
