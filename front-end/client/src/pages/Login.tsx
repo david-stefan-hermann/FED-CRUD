@@ -22,9 +22,7 @@ const Login = () => {
 
     const handleSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault()
-        try {
-            console.log("login")
-            
+        try {            
             await login(inputs)
             
             navigate("/")

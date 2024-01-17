@@ -4,6 +4,7 @@ import LoginInputs from "../interfaces/loginInputsInterface"
 
 interface AuthContextType {
     currentUser: any | null
+    register: (inputs: LoginInputs) => Promise<void>
     login: (inputs: LoginInputs) => Promise<void>
     logout: () => void
 }
@@ -19,8 +20,17 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({childre
 
         const login = async(inputs: LoginInputs) => {
             try {
-                const res = await axios.post("/auth/login", inputs)
+                const res = await axios.post("http://localhost:8800/api/auth/login", inputs)
                 setCurrentUser(res.data)
+            } catch (err) {
+                console.error(err)
+                throw new Error("Fehler beim kommunizieren mit dem Server. Versuchen Sie es später erneut.")
+            }
+        }
+
+        const register = async(inputs: LoginInputs) => {
+            try {
+                await axios.post("http://localhost:8800/api/auth/register", inputs)
             } catch (err) {
                 console.error(err)
                 throw new Error("Fehler beim kommunizieren mit dem Server. Versuchen Sie es später erneut.")
@@ -29,7 +39,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({childre
         
         const logout = async() => {
             try {
-                await axios.post("/auth/logout")
+                await axios.post("http://localhost:8800/api/auth/logout")
                 setCurrentUser(null)
             } catch (err) {
                 console.error(err)
@@ -40,7 +50,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({childre
                 localStorage.setItem("user", JSON.stringify(currentUser))
         }, [currentUser])
 
-    return <AuthContext.Provider value={{currentUser, login, logout}}>
+    return <AuthContext.Provider value={{currentUser, login, logout, register}}>
         {children}
     </AuthContext.Provider>
 }
