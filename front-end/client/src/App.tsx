@@ -9,9 +9,9 @@ import ErrorBoundary from "./pages/ErrorBoundary.tsx"
 import NotFound from "./pages/NotFound.tsx"
 import About from "./pages/About.tsx"
 import Auth from "./pages/Auth.tsx"
-import Register from "./components/auth/Register.tsx"
-import Login from "./components/auth/Login.tsx"
-import Logout from "./components/auth/Logout.tsx"
+import Register from "./pages/Register.tsx"
+import Login from "./pages/Login.tsx"
+import Logout from "./pages/Logout.tsx"
 
 
 const Layout = () => {

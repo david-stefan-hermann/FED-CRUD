@@ -1,14 +1,19 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { Link } from "react-router-dom"
+import { AuthContext } from "../context/authContext"
 
 
 const Header = () => {
     const [IpAddress, setIpAddress] = useState<String>("")
+    // just for fun
+    console.log("Your IP is: " + IpAddress)
+
+    const { currentUser } = useContext(AuthContext) || {}
 
     // get and set user IP
     useEffect(() => {
@@ -22,10 +27,6 @@ const Header = () => {
         }
         fetchData()
     }, [])
-
-    let currentUser = {
-        username: "test"
-    }
 
     return (
         <header>
