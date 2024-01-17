@@ -58,7 +58,7 @@ const Header = () => {
                                 <Navbar.Text><Link className="background-color-text" to="/login">zum Login..</Link></Navbar.Text>
                             }
                             {currentUser &&
-                                <Navbar.Text>Hallo <Link to="/logout">{currentUser.username}</Link>!</Navbar.Text>
+                                <Navbar.Text>Hallo {currentUser.username}, <Link to="/logout">ausloggen?</Link></Navbar.Text>
                             }
                         </Navbar.Collapse>
                     </Navbar.Brand>
