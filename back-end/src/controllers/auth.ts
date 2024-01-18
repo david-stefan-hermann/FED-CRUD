@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { db } from "../db.ts"
 import bcrypt from "bcryptjs"
+import jwt from 'jsonwebtoken'
 
 const collectionName = "users"
 
@@ -20,16 +21,23 @@ export const login = async (req: Request, res: Response) => {
         const user = await collection.findOne(query)
 
         // terminate if user not found, same error message to prevent username guessing
-        if (user === null) return res.status(404).json("Falscher Benutzername oder Passwort.")
+        if (user === null) return res.status(401).json("Falscher Benutzername oder Passwort.")
 
         // Check Password
         const isPasswordCorrect = bcrypt.compareSync(req.body.password, user.password);
-        if (!isPasswordCorrect) return res.status(400).json("Falscher Benutzername oder Passwort.")
+        if (!isPasswordCorrect) return res.status(401).json("Falscher Benutzername oder Passwort.")
 
+        // set cookie and local storage
+        const token = jwt.sign({ id: user._id }, "jwtkey")
+    
+        res.cookie("access_token", token, {
+            httpOnly: true
+        }).status(200).json({id: user._id, username: user.username})
+    
+        return res.status(200).json("Willkommen " + user.username)
     } catch(err) {
         console.log(err)
     }
-
 }
 
 export const logout = async (req: Request, res: Response) => {
