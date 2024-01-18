@@ -42,6 +42,11 @@ export const login = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
     console.log("logout: called")
+
+    res.clearCookie("access_token",{
+        sameSite:"none",
+        secure:true
+    }).status(200).json("logged out")
 }
 
 export const register = async (req: Request, res: Response) => {
