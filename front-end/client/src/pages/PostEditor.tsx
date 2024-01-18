@@ -17,26 +17,23 @@ import { usePostContext } from "../context/postContext.tsx"
 import CustomClickableBadgeHandler from "../components/inputs/CustomClickableBadge.tsx"
 import RecipeMetaData from "../components/RecipeMetaData.tsx"
 import remarkGfm from 'remark-gfm'
+import { useAuthContext } from "../context/authContext.tsx"
 import { newBlankPost } from "../interfaces/postInterface.tsx"
 
 
 const PostEditor = (props: {creatingNewPost: boolean}) => {
+    const { currentUser } = useAuthContext()
+
     const navigate = useNavigate()
     const [ isLoading, setIsLoading ] = useState(true)
     const { newPost, setNewPost, replaceSpaces } = usePostContext()
-    const location = useLocation()
 
     const postIdFromUrl = useLocation().pathname.split("/")[2]
     
     const resetNewPost = () => {
-        setNewPost(newBlankPost)
+        setNewPost({...newBlankPost})
     }
 
-    useEffect(() => {
-        if(props.creatingNewPost)
-            resetNewPost()
-    }, [location.pathname])
-    
     // check if there is a post from url
     useEffect(() => {
         if (!props.creatingNewPost) {
@@ -50,13 +47,17 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                 }
             }
             fetchData()
+        } else {
+            resetNewPost()
         }
+
         setIsLoading(false)
 
         // set updated as a fallback value for the case that it wont load on time when presing button
         setNewPost({
             ...newPost,
-            updated: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
+            updated: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+            author: currentUser?.username
         })
 
     }, [props.creatingNewPost])
@@ -118,7 +119,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
     return (
         <>
         { isLoading ? <LoadingSpinner></LoadingSpinner> : <>
-        <ControlBar id={props.creatingNewPost ? "" : newPost._id} creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} ></ControlBar>
+        <ControlBar id={props.creatingNewPost ? "" : newPost._id} creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} handleOnclick={resetNewPost} ></ControlBar>
             <Row className="p-3 m-3">                
                 <Col sm={6}>
                     {/* title */}
@@ -172,7 +173,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{newPost?.recipe}</ReactMarkdown>
                 </Col>
             </Row>
-            <ControlBar id={props.creatingNewPost ? "" : newPost._id} creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} ></ControlBar>
+            <ControlBar id={props.creatingNewPost ? "" : newPost._id} creatingNewPost={props.creatingNewPost} handleDelete={handleDelete} handleUpdate={handleUpdate} handleOnclick={resetNewPost} ></ControlBar>
         </> }
         </>
     )
@@ -183,11 +184,11 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
 export default PostEditor
 
 
-const ControlBar = (props: {id: string; creatingNewPost: boolean; handleDelete: () => void; handleUpdate: () => void }) => {
+const ControlBar = (props: {id: string; creatingNewPost: boolean; handleDelete: () => void; handleUpdate: () => void; handleOnclick: () => void }) => {
     return (
         <Row className="p-3 m-3">
             <Col sm={12}>
-                <Link to={"/Rezepte/" + props.id} className="text-decoration-none me-3"><ArrowLeftCircleFill />&nbsp; zurück</Link>
+                <Link to={"/Rezepte/" + props.id} onClick={e => props.handleOnclick()} className="text-decoration-none me-3"><ArrowLeftCircleFill />&nbsp; zurück</Link>
                 {
                     props.creatingNewPost == true ?
                     "" :

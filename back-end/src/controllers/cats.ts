@@ -33,6 +33,7 @@ const csvArrayToUniqueValues = (csvArray: string[]): string[] => {
     const allValues = csvArray
         .filter(csv => csv !== null)
         .flatMap(csv => csv.split(","))
+        .map(value => value.toLocaleLowerCase())
         .filter((value, index, self) => self.indexOf(value) === index)
 
     // Return the array of unique values
