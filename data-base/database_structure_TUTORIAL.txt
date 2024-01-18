@@ -1,0 +1,5 @@
+1. Install MongoDB
+2. Create Database: "fed"
+3. Add Collections: "recipes", "users"
+4. import data into recipes: database_backup_recipes.csv
+5. create user: use UI to register
