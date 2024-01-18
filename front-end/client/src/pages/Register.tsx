@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import { Alert, Form, InputGroup } from "react-bootstrap"
 import Button from 'react-bootstrap/Button'
 import { useNavigate } from "react-router-dom"
-import axios from "axios"
 import { useAuthContext } from "../context/authContext"
+import { Eye, EyeSlash } from "react-bootstrap-icons"
 
 
 const Register = () => {
@@ -32,6 +32,8 @@ const Register = () => {
         }
     }
     
+    const [showPassword, setShowPassword] = useState(false)
+
     return (
         <>
             <h3 className="my-4">Registrieren</h3>
@@ -51,7 +53,11 @@ const Register = () => {
                 placeholder="..."
                 name="password"
                 onChange={handleChange}
+                type={showPassword ? "text" : "password"}
                 />
+                <InputGroup.Text onClick={ () => setShowPassword(!showPassword)} >
+                { showPassword ? <Eye/> : <EyeSlash/> }
+                </InputGroup.Text>
             </InputGroup>
             {err && 
             <Alert key="warning" variant="warning">{err}</Alert>}

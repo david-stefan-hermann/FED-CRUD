@@ -3,7 +3,7 @@ import { Alert, Form, InputGroup } from "react-bootstrap"
 import Button from 'react-bootstrap/Button'
 import { Link, useNavigate } from "react-router-dom"
 import { useAuthContext } from "../context/authContext"
-
+import { Eye, EyeSlash } from "react-bootstrap-icons"
 
 const Login = () => {
     const navigate = useNavigate()
@@ -30,6 +30,8 @@ const Login = () => {
             setError(err.response.data)
         }
     }
+
+    const [showPassword, setShowPassword] = useState(false)
     
     return (
         <>
@@ -50,7 +52,11 @@ const Login = () => {
                 placeholder="..."
                 name="password"
                 onChange={handleChange}
+                type={showPassword ? "text" : "password"}
                 />
+                <InputGroup.Text onClick={ () => setShowPassword(!showPassword)} >
+                { showPassword ? <Eye/> : <EyeSlash/> }
+                </InputGroup.Text>
             </InputGroup>
             {err && 
             <Alert key="warning" variant="warning">{err}</Alert>}
