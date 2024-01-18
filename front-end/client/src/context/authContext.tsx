@@ -24,17 +24,13 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({childre
                 setCurrentUser(res.data)
             } catch (err) {
                 console.error(err)
+                throw err
                 throw new Error("Fehler beim kommunizieren mit dem Server. Versuchen Sie es später erneut.")
             }
         }
 
         const register = async(inputs: LoginInputs) => {
-            try {
-                await axios.post("http://localhost:8800/api/auth/register", inputs)
-            } catch (err) {
-                console.error(err)
-                throw new Error("Fehler beim kommunizieren mit dem Server. Versuchen Sie es später erneut.")
-            }
+            await axios.post("http://localhost:8800/api/auth/register", inputs)
         }
         
         const logout = async() => {
@@ -42,6 +38,7 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({childre
                 await axios.post("http://localhost:8800/api/auth/logout")
                 setCurrentUser(null)
             } catch (err) {
+                throw err
                 console.error(err)
             }
         }

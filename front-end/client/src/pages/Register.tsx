@@ -28,7 +28,7 @@ const Register = () => {
             
             navigate("/Auth/Login")
         } catch(err: Error | any) {
-            setError(err.message)
+            setError(err.response.data)
         }
     }
     

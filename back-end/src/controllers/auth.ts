@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import { db } from "../db.ts"
-import { ObjectId } from "mongodb"
 import bcrypt from "bcryptjs"
 
 const collectionName = "users"
@@ -16,7 +15,28 @@ export const logout = async (req: Request, res: Response) => {
 export const register = async (req: Request, res: Response) => {
     console.log("register: called")
 
+    // check if empty
+    if (req.body.username === "" || req.body.password === "") {
+        return res.status(422).json("Benutzername oder Passwort fehlt.");
+    }
+
+    // check if user exists
     const collection = db.collection(collectionName)
+    const query = { username: req.body.username }
+
+    // get users with the same username
+    let existingUsers: any[]
+    try {
+        existingUsers = await collection.find(query).toArray()
+    } catch (err) {
+        return res.status(500).json("Verbindungsfehler zur Datenbank.")
+    }
+
+    // if there are users with the same username, return error
+    if (existingUsers && existingUsers.length > 0) {
+        return res.status(409).json("Benutzername ist bereits vergeben.")
+    }
+
 
     // Hash the password with bcryptjs
     const salt = bcrypt.genSaltSync(10)
@@ -28,10 +48,8 @@ export const register = async (req: Request, res: Response) => {
             username: req.body.username,
             password: hash
         })
-        console.log("register: user created successfully")
-        res.status(200).json("User has been created.")
+        res.status(200).json("Benutzer erfolgreich erstellt.")
     } catch(err) {
-        console.error("register: error during user creation:", err)
-        res.status(500).json("Server error while creating the user.")
+        res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }
