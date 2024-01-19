@@ -30,19 +30,18 @@ export const CustomClickableBadgeHandler = (props: {name: string; title: string}
             try {
                 const res = await axios.get("http://localhost:8800/api/cats/")
                 setPostCategories(res.data)
+                setIsLoading(false)
             } catch(err) {
                 console.log(err)
             }
         }
         fetchData()
-        setIsLoading(false)
     }, [props.name])
 
     return (
-        <>
         <Col sm={12} className="mb-3">
             <Form.Label className="me-2 mb-3 vw-100">{props.title}</Form.Label>
-            { isLoading ? <LoadingSpinner></LoadingSpinner> :
+            { (isLoading && newPost.category) ? <LoadingSpinner></LoadingSpinner> :
                 postCategories.map(cat => {
                     return (
                         <CustomClickableBadge key={"clickable-badge-" + replaceSpaces(cat)} clicked={newPost.category.includes(cat) ? true : false} title={cat} categoryArray={categoryArray} setCategoryArray={setCategoryArray} ></CustomClickableBadge>
@@ -50,7 +49,6 @@ export const CustomClickableBadgeHandler = (props: {name: string; title: string}
                 })
             }
         </Col>
-        </>
     )
 }
 
