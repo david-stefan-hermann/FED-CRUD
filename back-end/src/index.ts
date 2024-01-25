@@ -8,6 +8,7 @@ import postRoutes from "./routes/posts.ts"
 import linkRoutes from "./routes/links.ts"
 import catsRoutes from "./routes/cats.ts"
 import authRoutes from "./routes/auth.ts"
+import likesRoutes from "./routes/likes.ts"
 
 import { connectDB, closeDB } from "./db.ts"
 
@@ -35,6 +36,7 @@ app.use("/api/essi", postRoutes)  // Routes for handling post-related operations
 app.use("/api/links", linkRoutes) // Routes for handling link-related operations
 app.use("/api/cats", catsRoutes)  // Routes for handling cat-related operations
 app.use("/api/auth", authRoutes)  // Routes for handling auth-related operations"
+app.use("/api/likes", likesRoutes)  // Routes for handling likes-related operations"
 
 
 connectDB().then(() => {

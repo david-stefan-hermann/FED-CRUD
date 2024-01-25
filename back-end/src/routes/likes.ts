@@ -1,16 +1,15 @@
 // Import Express module for routing
 import express from "express"
 
-// Import the getAuth controller function
-import { login, logout, register } from "../controllers/auth.ts"
+// Import the getLinks controller function
+import { getLikes, addLike } from "../controllers/likes.ts"
 
 // Create a new Express router
 const router = express.Router()
 
 // Define POST routes for auth methods
-router.post("/login/", login)
-router.post("/logout/", logout)
-router.post("/register/", register)
+router.get("/", getLikes)
+router.put("/", addLike)
 
 // Export the configured router
 export default router

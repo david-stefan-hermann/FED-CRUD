@@ -66,7 +66,7 @@ export const register = async (req: Request, res: Response) => {
     if (req.body.username.match(/[^a-zA-Z0-9]/)) {
         return res.status(422).json("Benutzername darf nur Buchstaben und Zahlen enthalten.")
     }
-    
+
     // check if password too short
     if (req.body.password.length < 8) {
         return res.status(422).json("Passwort zu kurz, mindestens 8 Stellen.")
@@ -107,7 +107,8 @@ export const register = async (req: Request, res: Response) => {
     try {
         await collection.insertOne({
             username: req.body.username,
-            password: hash
+            password: hash,
+            likes: ""
         })
         res.status(200).json("Benutzer erfolgreich erstellt.")
     } catch(err) {

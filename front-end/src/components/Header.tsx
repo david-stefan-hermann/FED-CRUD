@@ -32,7 +32,7 @@ const Header = () => {
     return (
         <header>
             <Navbar expand="lg" className="c-dark background-dark">
-                <Container className="background-color-text me-auto">
+                <Container className="background-color-text me-auto px-4">
                     <Navbar.Brand href="/Rezepte/"><img
                         alt="Bits&Bites Logo"
                         src={process.env.PUBLIC_URL + "/fed-logo.png"}
