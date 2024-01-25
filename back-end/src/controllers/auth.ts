@@ -62,6 +62,11 @@ export const register = async (req: Request, res: Response) => {
         return res.status(422).json("Benutzername zu kurz, mindestens 4 Stellen")
     }
 
+    // check if username contains special characters
+    if (req.body.username.match(/[^a-zA-Z0-9]/)) {
+        return res.status(422).json("Benutzername darf nur Buchstaben und Zahlen enthalten.")
+    }
+    
     // check if password too short
     if (req.body.password.length < 8) {
         return res.status(422).json("Passwort zu kurz, mindestens 8 Stellen.")

@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import { Link } from "react-router-dom"
 import { useAuthContext } from "../context/authContext"
+import { Nav } from "react-bootstrap"
 
 
 const Header = () => {
@@ -31,38 +32,36 @@ const Header = () => {
     return (
         <header>
             <Navbar expand="lg" className="c-dark background-dark">
-                <Container>
-                    <Navbar.Brand
-                        href="/"
-                    ><img
-                            alt=""
-                            src={process.env.PUBLIC_URL + "/fed-logo.png"}
-                            width="70"
-                            height="70"
-                            className=""
-                        /></Navbar.Brand>
-                    <Navbar.Brand
-                        className="background-color-text me-auto"
-                        href="/"
-                    ><span className="fw-bold">
-                            Bits<span className="not-active">&</span>Bites &nbsp;
-                        </span>
-                        <span>
-                            –&nbsp; IT Studenten entdecken die Kochwelt
-                        </span>
-                    </Navbar.Brand>
-                    <Navbar.Brand
-                        className="background-color-text ms-auto fs-small"
-                    >
-                        <Navbar.Collapse className="justify-content-end">
-                            {!currentUser &&
-                                <Navbar.Text><Link className="background-color-text" to="/Auth/Login">zum Login..</Link></Navbar.Text>
-                            }
-                            {currentUser &&
-                                <Navbar.Text>Hallo {currentUser.username}, <Link to="/Auth/Logout">ausloggen?</Link></Navbar.Text>
-                            }
-                        </Navbar.Collapse>
-                    </Navbar.Brand>
+                <Container className="background-color-text me-auto">
+                    <Navbar.Brand href="/Rezepte/"><img
+                        alt="Bits&Bites Logo"
+                        src={process.env.PUBLIC_URL + "/fed-logo.png"}
+                        width="70"
+                        height="70"
+                        className=""
+                    /></Navbar.Brand>
+                    <Navbar.Brand href="/" className={
+                            window.location.pathname.split('/')[1] === "About" ? 
+                            "header-link header-link-active" :
+                            "header-link"}>IT Studenten entdecken die Kochwelt
+                        </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="me-auto">
+                        <Nav.Link href="/Rezepte/" className={
+                            window.location.pathname.split('/')[1] === "Rezepte" ? 
+                            "header-link header-link-active" :
+                            "header-link"}>Rezepte
+                        </Nav.Link>
+                    </Nav>
+                    <Nav className="ms-auto">
+                        { currentUser ?
+                            <Navbar.Text>Hallo {currentUser.username}, <Link to="/Auth/Logout">ausloggen?</Link></Navbar.Text>
+                            :
+                            <Navbar.Text><Link className="background-color-text" to="/Auth/Login">zum Login..</Link></Navbar.Text>
+                        }
+                    </Nav>
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
         </header>

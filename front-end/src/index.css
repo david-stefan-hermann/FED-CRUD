@@ -17,11 +17,17 @@ p {
   text-align: justify;
 }
 
-a {
+a, .custom-link {
   color: var(--yellow);
+  text-decoration: none;
 }
 
-a:active {
+a:hover, .custom-link:hover {
+  color: var(--yellow);
+  text-decoration: underline;
+}
+
+a:active, .custom-link:active {
   color: var(--yellow-dark);
 }
 
@@ -37,6 +43,11 @@ code {
 .toc-row {
   overflow: hidden;
   position: relative;
+}
+
+.toc-row:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--yellow);
 }
 
 .before-toc-link {
@@ -77,4 +88,23 @@ code {
 th, td {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.header-link-active {
+  color: var(--yellow);
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 0.2em;
+}
+
+.header-link-active:hover {
+  color: var(--dark) !important;
+}
+
+.header-link:hover {
+  color: var(--yellow);
+}
+
+.header-link:active {
+  color: var(--yellow-dark);
 }
