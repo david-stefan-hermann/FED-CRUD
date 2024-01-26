@@ -52,6 +52,7 @@ const Recipe = () => {
                 author={post.author}
                 updated={post.updated}
                 noDate={false}
+                id={post._id}
                 ></RecipeMetaData>
 
                 { currentUser ?

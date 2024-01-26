@@ -71,6 +71,7 @@ const Recipes = () => {
                                     author={post.author}
                                     updated={post.updated}
                                     noDate={false}
+                                    id={post._id}
                                     ></RecipeMetaData>
 
                                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.short}</ReactMarkdown>

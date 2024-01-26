@@ -8,8 +8,8 @@ import { getLikes, addLike } from "../controllers/likes.ts"
 const router = express.Router()
 
 // Define POST routes for auth methods
-router.get("/", getLikes)
-router.put("/", addLike)
+router.get("/:id", getLikes)
+router.put("/:id", addLike)
 
 // Export the configured router
 export default router

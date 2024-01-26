@@ -6,7 +6,7 @@ import axios from "axios"
 import LoadingSpinner from "./LoadingSpinner"
 
 
-const RecipeImage = (props: { image: string; title: string }) => {
+const RecipeImage = (props: { image: string; title: string}) => {
     const [ isLoading, setIsLoading ] = useState(false)
     const [ imageExists, setImageExists ] = useState(false)
     

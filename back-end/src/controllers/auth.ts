@@ -32,7 +32,7 @@ export const login = async (req: Request, res: Response) => {
     
         res.cookie("access_token", token, {
             httpOnly: true
-        }).status(200).json({id: user._id, username: user.username})
+        }).status(200).json({id: user._id, username: user.username, likes: user.likes})
     
         return res.status(200).json("Willkommen " + user.username)
     } catch(err) {

@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb"
 const collectionName = "users"
 
 
-// Export a function named getCats that handles HTTP requests for cat categories
+// Export a function named getLikes that handles HTTP requests to get likes for a specific post
 export const getLikes = async (req: Request, res: Response) => {
     console.log("GET likes")
 
@@ -14,17 +14,16 @@ export const getLikes = async (req: Request, res: Response) => {
         const query = {}
 
         const result = collection.find(query).project({likes: 1, _id: 0}).sort({likes: 1})
-        const result_array = await result.toArray()
-        const likes = result_array.map(item => item.likes)
+        const resultArray = await result.toArray()
+        const likes = resultArray.map(item => item.likes)
         
-        // Convert the array of CSV strings to an array of values
-        const likesAsArray = csvArrayToValues(likes)
-
         // Count the number of likes
-        const likeCount = likesAsArray.filter(item => item === req.body.id).length
+        const likeCount = likes.filter(item => item === req.params.id)
         
+        // console.log("get likes: " + likesAsArray + " - " + req.params.id)
+
         // Return the query results as a JSON response with status 200
-        res.status(200).json(likeCount)
+        res.status(200).json(likeCount.length)
     } catch (err) {
         // Log any errors to the console
         console.log(err)
@@ -61,9 +60,9 @@ const csvArrayToUniqueValues = (csvArray: string[]): number => {
 
 // Export a function named addLike to handle HTTP PUT requests for updating an likes
 export const addLike = async (req: Request, res: Response) => {
-    console.log("updatePost: called")
+    console.log("addLike: called")
 
-    if (!req.body._id) {
+    if (!req.body.userID) {
         console.log("Error: newPost object not found in request body")
         res.status(400).send("Error: newPost object not found in request body")
         return
@@ -71,20 +70,36 @@ export const addLike = async (req: Request, res: Response) => {
     
     try {
         const collection = db.collection(collectionName)
+        const currentUser = await collection.findOne({_id: new ObjectId(req.body.userID)})
         
-        const filter = {_id: new ObjectId(req.params.id)}
-
-        const newPost = req.body.newPost
+        if (!currentUser) {
+            console.log("Error: user not found")
+            res.status(400).send("Error: user not found")
+            return
+        }
         
-        const update = {
-            $set: {
-                likes: ""
-            }
+        const currentUserLikesArray = currentUser.likes
+        
+        if (currentUserLikesArray.includes(req.params.id)) {
+            // Get the index of the post ID in the user's likes
+            const index = currentUserLikesArray.indexOf(req.params.id)
+            // Remove the post ID from the user's likes
+            currentUserLikesArray.splice(index, 1)
+        } else {
+            // Add the post ID to the user's likes
+            currentUserLikesArray.push(req.params.id)
         }
 
+        const update = {
+            $set: {
+                likes: currentUserLikesArray
+            }
+        }
+        
+        const filter = {_id: new ObjectId(req.body.userID)}
         await collection.updateOne(filter, update)
 
-        res.status(201).json(req.body.id)
+        res.status(201).json("Updted likes")
     } catch (err) {
         console.log(err)
     }

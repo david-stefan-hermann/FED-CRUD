@@ -143,6 +143,7 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                     author={newPost?.author}
                     updated={newPost?.updated}
                     noDate={true}
+                    id={newPost?._id}
                     ></RecipeMetaData>
                     
                     <Row>
