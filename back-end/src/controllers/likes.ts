@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { db } from "../db.ts"
 import { ObjectId } from "mongodb"
+import jwt from 'jsonwebtoken'
 
 const collectionName = "users"
 
@@ -18,45 +19,23 @@ export const getLikes = async (req: Request, res: Response) => {
         const likes = resultArray.map(item => item.likes)
         
         // Count the number of likes
-        const likeCount = likes.filter(item => item === req.params.id)
+        const likeCount = likes.filter(item => item.includes(req.params.id)).length
         
-        // console.log("get likes: " + likesAsArray + " - " + req.params.id)
+        let likedByUser = false
+        if (req.body.userID) {
+            const currentUser = await collection.findOne({_id: new ObjectId(req.body.userID)})
+            currentUser?.likes.includes(req.params.id) ? likedByUser = true : likedByUser = false
+        }
+
+        console.log("liked", likedByUser)
 
         // Return the query results as a JSON response with status 200
-        res.status(200).json(likeCount.length)
+        res.status(200).json({likes: likeCount, liked: likedByUser})
     } catch (err) {
         // Log any errors to the console
         console.log(err)
     }
 }
-
-// Define a helper function to convert an array of CSV strings to an array of unique values
-const csvArrayToValues = (csvArray: string[]): string[] => {    
-    // Filter out null values, split each CSV string into individual values, 
-    // flatten them into a single array, and filter out duplicates
-    const allValues = csvArray
-        .filter(csv => csv !== null)
-        .flatMap(csv => csv.split(","))
-        .map(value => value.toLocaleLowerCase())
-
-    // Return the array of unique values
-    return allValues
-}
-
-// Define a helper function to convert an array of CSV strings to an array of unique values
-const csvArrayToUniqueValues = (csvArray: string[]): number => {    
-    // Filter out null values, split each CSV string into individual values, 
-    // flatten them into a single array, and filter out duplicates
-    const allValues = csvArray
-        .filter(csv => csv !== null)
-        .flatMap(csv => csv.split(","))
-        .map(value => value.toLocaleLowerCase())
-        .filter((value, index, self) => self.indexOf(value) === index)
-
-    // Return the array of unique values
-    return allValues.length
-}
-
 
 // Export a function named addLike to handle HTTP PUT requests for updating an likes
 export const addLike = async (req: Request, res: Response) => {

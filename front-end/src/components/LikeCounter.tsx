@@ -4,18 +4,22 @@ import { useEffect, useState } from "react"
 import { HandThumbsUpFill, HandThumbsUp } from "react-bootstrap-icons"
 import { useAuthContext } from "../context/authContext"
 
+
 const LikeCounter = (props: {title: string, id: string}) => {
     const { currentUser } = useAuthContext()
     
     const [ userLiked, setUserLiked ] = useState(false)
     const [ likes, setLikes ] = useState(0)
 
+    const [ observe, setObserve ] = useState(false)
+
     useEffect(() => {
         const fetchData = async () => {
             // fetch likes from database
             try {
-                const res = await axios.get("http://localhost:8800/api/likes/" + props.id)
-                setLikes(res.data)
+                const res = await axios.post("http://localhost:8800/api/likes/" + props.id, {userID: currentUser?.id})
+                setLikes(res.data.likes)
+                setUserLiked(res.data.liked)
             } catch(err) {
                 console.log(err)
             }
@@ -24,29 +28,24 @@ const LikeCounter = (props: {title: string, id: string}) => {
         }
 
         fetchData()
-    }, [likes])
+    }, [observe])
 
     const handleChange = async () => {
         // change liked status
-        setUserLiked(!userLiked)
         try {
             await axios.put("http://localhost:8800/api/likes/" + props.id, {userID: currentUser.id})
+            setObserve(!observe)
         } catch(err) {
             console.log(err)
         }
     }
-
-    useEffect(() => {
-        setUserLiked(false)
-        setLikes(0)
-    }, [props.title])
 
     return (
         <h6 className="float-end">
             <span className="c-dark">{likes}</span>
             {
                 currentUser ?
-                    <span className="cursor-pointer likes" onClick={handleChange}>{ currentUser?.likes.includes(props.id) ? <HandThumbsUpFill className="active"></HandThumbsUpFill> : <HandThumbsUp className="c-dark"></HandThumbsUp> }</span>
+                    <span className="cursor-pointer likes" onClick={handleChange}>{ userLiked ? <HandThumbsUpFill className="active"></HandThumbsUpFill> : <HandThumbsUp className="c-dark"></HandThumbsUp> }</span>
                 : ""
             }
         </h6>

@@ -33,7 +33,7 @@ export const login = async (req: Request, res: Response) => {
         res.cookie("access_token", token, {
             httpOnly: true
         }).status(200).json({id: user._id, username: user.username, likes: user.likes})
-    
+
         return res.status(200).json("Willkommen " + user.username)
     } catch(err) {
         console.log(err)
@@ -108,7 +108,7 @@ export const register = async (req: Request, res: Response) => {
         await collection.insertOne({
             username: req.body.username,
             password: hash,
-            likes: ""
+            likes: []
         })
         res.status(200).json("Benutzer erfolgreich erstellt.")
     } catch(err) {

@@ -38,8 +38,8 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({childre
                 await axios.post("http://localhost:8800/api/auth/logout")
                 setCurrentUser(null)
             } catch (err) {
-                throw err
                 console.error(err)
+                throw err
             }
         }
 
