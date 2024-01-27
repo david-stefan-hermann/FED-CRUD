@@ -6,7 +6,7 @@ const collectionName = "recipes"
 
 // Export a function named getCats that handles HTTP requests for cat categories
 export const getCats = async (req: Request, res: Response) => {
-    console.log("GET /cats")
+    console.log("cats: getCats called")
 
     try {
         const collection = db.collection(collectionName)
@@ -27,13 +27,13 @@ export const getCats = async (req: Request, res: Response) => {
         // filter out duplicates
         const unique_categories = [...new Set(filtered_categories)]
 
-        console.log("getcats resarray: " + result)
+        // console.log("getcats resarray: " + result)
 
         // Return the query results as a JSON response with status 200
         res.status(200).json(unique_categories)
         // res.status(200).json(csvArrayToUniqueValues(categories))
     } catch (err) {
         // Log any errors to the console
-        console.log(err)
+        return res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }

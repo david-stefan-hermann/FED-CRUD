@@ -6,7 +6,7 @@ const collectionName = "recipes"
 
 // Export a function named getPosts to handle HTTP GET requests for retrieving posts
 export const getPosts = async (req: Request, res: Response) => {
-    console.log("getPosts: called")
+    console.log("posts: getPosts called")
 
     try {
         const collection = db.collection(collectionName)
@@ -19,13 +19,15 @@ export const getPosts = async (req: Request, res: Response) => {
         res.status(200).json(result)
     } catch (err) {
         // Log any errors to the console
-        console.log(err)
+        // console.log(err)
+
+        res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }
 
 // Export a function named getPost to handle HTTP GET requests for a specific post by id
 export const getPost = async (req: Request, res: Response) => {
-    console.log("getPost: called")
+    console.log("posts: getPost called")
 
     try {
         const collection = db.collection(collectionName)
@@ -36,16 +38,17 @@ export const getPost = async (req: Request, res: Response) => {
         // console.log(result)
         res.status(200).json(result)
     } catch (err) {
-        console.log(err)
+        // console.log(err)
+        res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }
 
 // Export a function named addPost to handle HTTP POST requests for adding a new post
 export const addPost = async (req: Request, res: Response) => {
-    console.log("addPost: called")
+    console.log("posts: addPost called")
 
     if (!req.body.newPost) {
-        console.log("Error: newPost object not found in request body")
+        // console.log("Error: newPost object not found in request body")
         res.status(400).send("Error: newPost object not found in request body")
         return
     }
@@ -53,7 +56,7 @@ export const addPost = async (req: Request, res: Response) => {
     try {
         const collection = db.collection(collectionName)
         
-        console.log("Add Post: " + req.body.newPost.title)
+        // console.log("Add Post: " + req.body.newPost.title)
         
         const newPost = req.body.newPost
 
@@ -75,13 +78,14 @@ export const addPost = async (req: Request, res: Response) => {
         res.location(`/Rezepte/${id}`)
         res.status(201).json(id)
     } catch (err) {
-        console.log(err)
+        //console.log(err)
+        res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }
 
 // Export a function named deletePost to handle HTTP DELETE requests for deleting a post by id
 export const deletePost = async (req: Request, res: Response) => {
-    console.log("deletePost: called")
+    console.log("posts: deletePost called")
 
     try {
         const collection = db.collection(collectionName)
@@ -91,16 +95,16 @@ export const deletePost = async (req: Request, res: Response) => {
         await collection.deleteOne(query)
         res.status(204).end()
     } catch (err) {
-        console.log(err)
+        res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }
 
 // Export a function named updatePost to handle HTTP PUT requests for updating an existing post
 export const updatePost = async (req: Request, res: Response) => {
-    console.log("updatePost: called")
+    console.log("posts: updatePost called")
 
     if (!req.body.newPost) {
-        console.log("Error: newPost object not found in request body")
+        // console.log("Error: newPost object not found in request body")
         res.status(400).send("Error: newPost object not found in request body")
         return
     }
@@ -131,6 +135,7 @@ export const updatePost = async (req: Request, res: Response) => {
         res.location(`/Rezepte/${new ObjectId(req.body.id)}`)
         res.status(201).json(req.body.id)
     } catch (err) {
-        console.log(err)
+        // console.log(err)
+        res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }

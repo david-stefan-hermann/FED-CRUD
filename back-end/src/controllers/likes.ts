@@ -8,7 +8,7 @@ const collectionName = "users"
 
 // Export a function named getLikes that handles HTTP requests to get likes for a specific post
 export const getLikes = async (req: Request, res: Response) => {
-    console.log("GET likes")
+    console.log("likes: getLikes called")
 
     try {
         const collection = db.collection(collectionName)
@@ -27,22 +27,22 @@ export const getLikes = async (req: Request, res: Response) => {
             currentUser?.likes.includes(req.params.id) ? likedByUser = true : likedByUser = false
         }
 
-        console.log("liked", likedByUser)
+        // console.log("liked", likedByUser)
 
         // Return the query results as a JSON response with status 200
         res.status(200).json({likes: likeCount, liked: likedByUser})
     } catch (err) {
         // Log any errors to the console
-        console.log(err)
+        res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }
 
 // Export a function named addLike to handle HTTP PUT requests for updating an likes
 export const addLike = async (req: Request, res: Response) => {
-    console.log("addLike: called")
+    console.log("likes: addLike called")
 
     if (!req.body.userID) {
-        console.log("Error: newPost object not found in request body")
+        // console.log("Error: newPost object not found in request body")
         res.status(400).send("Error: newPost object not found in request body")
         return
     }
@@ -52,7 +52,7 @@ export const addLike = async (req: Request, res: Response) => {
         const currentUser = await collection.findOne({_id: new ObjectId(req.body.userID)})
         
         if (!currentUser) {
-            console.log("Error: user not found")
+            // console.log("Error: user not found")
             res.status(400).send("Error: user not found")
             return
         }
@@ -80,6 +80,6 @@ export const addLike = async (req: Request, res: Response) => {
 
         res.status(201).json("Updted likes")
     } catch (err) {
-        console.log(err)
+        res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }

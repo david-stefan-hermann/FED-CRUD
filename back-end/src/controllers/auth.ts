@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 const collectionName = "users"
 
 export const login = async (req: Request, res: Response) => {
-    console.log("login: called")
+    console.log("auth: login called")
 
     // check empty
     if (req.body.username == "" || req.body.password == "") {
@@ -30,18 +30,20 @@ export const login = async (req: Request, res: Response) => {
         // set cookie and local storage
         const token = jwt.sign({ id: user._id }, "jwtkey")
     
-        res.cookie("access_token", token, {
-            httpOnly: true
-        }).status(200).json({id: user._id, username: user.username, likes: user.likes})
-
-        return res.status(200).json("Willkommen " + user.username)
+        res.cookie("access_token", token, { httpOnly: true })
+            .status(200)
+            .json({
+                id: user._id,
+                username: user.username,
+                likes: user.likes
+            })
     } catch(err) {
-        console.log(err)
+        return res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }
 
 export const logout = async (req: Request, res: Response) => {
-    console.log("logout: called")
+    console.log("auth: logout called")
 
     res.clearCookie("access_token",{
         sameSite:"none",
@@ -50,7 +52,7 @@ export const logout = async (req: Request, res: Response) => {
 }
 
 export const register = async (req: Request, res: Response) => {
-    console.log("register: called")
+    console.log("auth: register called")
 
     // check if empty
     if (req.body.username === "" || req.body.password === "") {

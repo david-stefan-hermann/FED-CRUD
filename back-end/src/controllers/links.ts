@@ -10,12 +10,13 @@ export const getLinks = async (req: Request, res: Response) => {
         const query = {}
 
         const result = await collection.find(query).sort({title: 1}).project({id: 1, title: 1}).toArray()
+        
         // Log the query results to the console
-        console.log(result)
+        // console.log(result)
+
         // Return the query results as a JSON response with status 200
         res.status(200).json(result)
     } catch (err) {
-        // Log any errors to the console
-        console.log(err)
+        res.status(500).json("Verbindungsfehler zur Datenbank.")
     }
 }
