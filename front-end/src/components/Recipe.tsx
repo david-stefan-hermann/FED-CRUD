@@ -5,7 +5,7 @@ import axios from "axios"
 
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import { PencilFill } from "react-bootstrap-icons"
+import { ArrowLeftCircleFill, PencilFill } from "react-bootstrap-icons"
 
 import { usePostContext } from "../context/postContext.tsx"
 import LoadingSpinner from "./LoadingSpinner.tsx"

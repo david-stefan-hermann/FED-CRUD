@@ -41,19 +41,17 @@ const RecipeMetaData = (props: { big: boolean; noDate: boolean; post: PostInterf
             }
             
             {/* rating, display 5 stars and |rating| * filled star */}
-            <Row className="align-items-center">
-                <h6>
-                {
-                Array.from({ length: 5 }, (_, idx) => (
-                    <span key={"rating-star-" + idx} >
-                        {idx < props.post?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
-                    </span>
-                ))
-                }
+            <h6>
+            {
+            Array.from({ length: 5 }, (_, idx) => (
+                <span key={"rating-star-" + idx} >
+                    {idx < props.post?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
+                </span>
+            ))
+            }
 
-                { props.noDate ? "" : <LikeCounter title={props.post?.title} id={props.post?._id}></LikeCounter> }
-                </h6>
-            </Row>
+            { props.noDate ? "" : <LikeCounter title={props.post?.title} id={props.post?._id}></LikeCounter> }
+            </h6>
 
             {/* display different badge per category. categories are hard coded */}
             <h6>

@@ -36,7 +36,7 @@ const TableOfContent = () => {
 
     return (
         <Container className="px-5">
-            <h3>Table Of Contents</h3>
+            <h3>Alle Rezepte</h3>
             { isLoading ? <LoadingSpinner></LoadingSpinner> : null }
             { postLinks ? postLinks.map(link => {  
                 return (
