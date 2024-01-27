@@ -1,7 +1,7 @@
 import axios from "axios"
 import React from "react"
 import { useEffect, useState } from "react"
-import { HandThumbsUpFill, HandThumbsUp } from "react-bootstrap-icons"
+import { HandThumbsUpFill, HandThumbsUp, HeartFill, Heart } from "react-bootstrap-icons"
 import { useAuthContext } from "../context/authContext"
 
 
@@ -45,8 +45,10 @@ const LikeCounter = (props: {title: string, id: string}) => {
             <span className="c-dark">{likes}</span>
             {
                 currentUser ?
-                    <span className="cursor-pointer likes" onClick={handleChange}>{ userLiked ? <HandThumbsUpFill className="active"></HandThumbsUpFill> : <HandThumbsUp className="c-dark"></HandThumbsUp> }</span>
-                : ""
+                    <span className="cursor-pointer likes" onClick={handleChange}>{ userLiked ? 
+                    <HeartFill className="active"></HeartFill> : 
+                    <Heart className="c-dark"></Heart> }</span>
+                : <span> <HeartFill className="active"></HeartFill></span>
             }
         </span>
     )
