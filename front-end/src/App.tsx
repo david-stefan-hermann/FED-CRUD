@@ -54,7 +54,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Navigate replace to="/About" />
+        element: <Navigate replace to="/About/" />
       },
       {
         path: "/About/",

@@ -4,13 +4,15 @@ import axios from "axios"
 
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useAuthContext } from "../context/authContext"
 import { Nav } from "react-bootstrap"
 
 
 const Header = () => {
     const [IpAddress, setIpAddress] = useState<String>("")
+    const location = useLocation()
+
     // just for fun
     console.log("Your IP is: " + IpAddress)
 
@@ -41,7 +43,7 @@ const Header = () => {
                         className=""
                     /></Navbar.Brand>
                     <Navbar.Brand href="/" className={
-                            window.location.pathname.split('/')[1] === "About" ? 
+                            location.pathname.split('/')[1] === "About" ? 
                             "header-link header-link-active" :
                             "header-link"}>IT Studenten entdecken die Kochwelt
                         </Navbar.Brand>
@@ -49,7 +51,7 @@ const Header = () => {
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link href="/Rezepte/" className={
-                            window.location.pathname.split('/')[1] === "Rezepte" ? 
+                            location.pathname.split('/')[1] === "Rezepte" ? 
                             "header-link header-link-active" :
                             "header-link"}>Rezepte
                         </Nav.Link>
