@@ -14,28 +14,26 @@ export const getCats = async (req: Request, res: Response) => {
 
         const result = collection.find(query).project({category: 1, _id: 0}).sort({category: 1})
         const result_array = await result.toArray()
-        const categories = result_array.map(item => item.category)
 
-        // Log the query results to the console
-        console.log(csvArrayToUniqueValues(categories))
+        // make one array of all categories
+        const all_categories = result_array.map(item => item.category).flat()
+
+        // filter out empty strings
+        const filtered_categories = all_categories.filter(item => item !== "")
+
+        // add custom categories
+        filtered_categories.push("Fleisch", "Gemüse", "Obst", "Milchprodukte", "Getreideprodukte", "Fisch", "Hülsenfrüchte", "Süßigkeiten", "Gewürze", "Nüsse und Samen", "Vollkornprodukte", "Pilze", "Öle und Fette", "Eier", "Alkoholische Getränke", "Softdrinks", "Tiefkühlkost", "Konserven", "Bio-Lebensmittel", "Snacks")
+
+        // filter out duplicates
+        const unique_categories = [...new Set(filtered_categories)]
+
+        console.log("getcats resarray: " + result)
+
         // Return the query results as a JSON response with status 200
-        res.status(200).json(csvArrayToUniqueValues(categories))
+        res.status(200).json(unique_categories)
+        // res.status(200).json(csvArrayToUniqueValues(categories))
     } catch (err) {
         // Log any errors to the console
         console.log(err)
     }
-}
-
-// Define a helper function to convert an array of CSV strings to an array of unique values
-const csvArrayToUniqueValues = (csvArray: string[]): string[] => {    
-    // Filter out null values, split each CSV string into individual values, 
-    // flatten them into a single array, and filter out duplicates
-    const allValues = csvArray
-        .filter(csv => csv !== null)
-        .flatMap(csv => csv.split(","))
-        .map(value => value.toLocaleLowerCase())
-        .filter((value, index, self) => self.indexOf(value) === index)
-
-    // Return the array of unique values
-    return allValues
 }

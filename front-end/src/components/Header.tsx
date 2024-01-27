@@ -35,21 +35,23 @@ const Header = () => {
         <header>
             <Navbar expand="lg" className="c-dark background-dark">
                 <Container className="background-color-text me-auto px-4">
-                    <Navbar.Brand href="/Rezepte/"><img
+                    <Navbar.Brand href="/"><img
                         alt="Bits&Bites Logo"
                         src={process.env.PUBLIC_URL + "/fed-logo.png"}
                         width="70"
                         height="70"
                         className=""
                     /></Navbar.Brand>
-                    <Navbar.Brand href="/" className={
-                            location.pathname.split('/')[1] === "About" ? 
-                            "header-link header-link-active" :
-                            "header-link"}>IT Studenten entdecken die Kochwelt
+                    <Navbar.Brand href="/" className="">IT Studenten entdecken die Kochwelt
                         </Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
+                        <Nav.Link href="/" className={
+                            location.pathname.split('/')[1] === "About" ? 
+                            "header-link header-link-active" :
+                            "header-link"}>Über uns
+                        </Nav.Link>
                         <Nav.Link href="/Rezepte/" className={
                             location.pathname.split('/')[1] === "Rezepte" ? 
                             "header-link header-link-active" :

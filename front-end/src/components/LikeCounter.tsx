@@ -41,14 +41,14 @@ const LikeCounter = (props: {title: string, id: string}) => {
     }
 
     return (
-        <h6 className="float-end">
+        <span className="float-end">
             <span className="c-dark">{likes}</span>
             {
                 currentUser ?
                     <span className="cursor-pointer likes" onClick={handleChange}>{ userLiked ? <HandThumbsUpFill className="active"></HandThumbsUpFill> : <HandThumbsUp className="c-dark"></HandThumbsUp> }</span>
                 : ""
             }
-        </h6>
+        </span>
     )
 }
 

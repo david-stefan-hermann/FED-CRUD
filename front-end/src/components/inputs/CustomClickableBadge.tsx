@@ -15,12 +15,9 @@ export const CustomClickableBadgeHandler = (props: {name: string; title: string}
         // remove duplicates
         const uniqueArray = [...new Set(categoryArray)]
 
-        // turn category array into csv string
-        const categoriesAsCSV = uniqueArray.join(",").toLocaleLowerCase()
-
         setNewPost({
             ...newPost,
-            [props.name]: categoriesAsCSV
+            [props.name]: uniqueArray
         })
     }, [categoryArray])
 
@@ -60,9 +57,9 @@ const CustomClickableBadge = (props: { clicked: boolean; title: string; category
 
     useEffect(() => {
         isClicked ?
-        props.setCategoryArray(prevItems => [...prevItems, props.title.toLocaleLowerCase()])
+        props.setCategoryArray(prevItems => [...prevItems, props.title])
         :
-        props.setCategoryArray(prevItems => prevItems.filter(item => item !== props.title.toLocaleLowerCase()))
+        props.setCategoryArray(prevItems => prevItems.filter(item => item !== props.title))
     }, [isClicked])
 
     const handleChange = () => {

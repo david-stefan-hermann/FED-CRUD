@@ -137,13 +137,8 @@ const PostEditor = (props: {creatingNewPost: boolean}) => {
                     {/* title, rating, categories, author, rating */}
                     <RecipeMetaData
                     big={true}
-                    title={newPost?.title}
-                    rating={newPost?.rating} 
-                    category={newPost?.category}
-                    author={newPost?.author}
-                    updated={newPost?.updated}
                     noDate={true}
-                    id={newPost?._id}
+                    post={newPost}
                     ></RecipeMetaData>
                     
                     <Row>

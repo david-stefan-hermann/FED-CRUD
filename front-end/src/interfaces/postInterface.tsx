@@ -4,7 +4,7 @@ export default interface PostInterface {
   author: string;
   updated: string;
   rating: number;
-  category: string;
+  category: string[];
   image: string;
   short: string;
   recipe: string;
@@ -16,7 +16,7 @@ export const newBlankPost: PostInterface = {
   author: "",
   updated: "",
   rating: 0,
-  category: "",
+  category: [""],
   image: "",
   short: "",
   recipe: "",

@@ -4,26 +4,40 @@ import Badge from 'react-bootstrap/Badge'
 import Moment from 'moment'
 import LikeCounter from "./LikeCounter"
 import { Row } from "react-bootstrap"
+import PostInterface from "../interfaces/postInterface"
 
 
-const RecipeMetaData = (props: { id: string; big: boolean; title: string; rating: number; category: string; author: string; updated: string; noDate: boolean}) => {
+const RecipeMetaData = (props: { big: boolean; noDate: boolean; post: PostInterface}) => {
     
     // categories for badges
     const categories: Record<string, string> = {
-        "fleisch": "danger",
-        "ungesund": "danger",
-        "koriander": "warning",
-        "veggie": "success",
-        "gesund": "success",
-        "herzhaft": "info",
-        "pfui": "warning"
+        "fleisch": "info",
+        "gemüse": "success",
+        "obst": "success",
+        "milchprodukte": "info",
+        "getreideprodukte": "info",
+        "fisch": "success",
+        "hülsenfrüchte": "success",
+        "süßigkeiten": "danger",
+        "gewürze": "info",
+        "nüsse und samen": "success",
+        "vollkornprodukte": "success",
+        "pilze": "info",
+        "öle und fette": "warning",
+        "eier": "info",
+        "alkoholische getränke": "danger",
+        "softdrinks": "danger",
+        "tiefkühlkost": "warning",
+        "konserven": "warning",
+        "bio-lebensmittel": "success",
+        "snacks": "danger"
     }
 
     return (
         <>
             {props.big ? 
-                <h1>{props?.title}</h1> :
-                <h3 className='font-weight-light'>{props?.title}</h3>
+                <h1>{props.post?.title}</h1> :
+                <h3 className='font-weight-light'>{props.post?.title}</h3>
             }
             
             {/* rating, display 5 stars and |rating| * filled star */}
@@ -32,19 +46,19 @@ const RecipeMetaData = (props: { id: string; big: boolean; title: string; rating
                 {
                 Array.from({ length: 5 }, (_, idx) => (
                     <span key={"rating-star-" + idx} >
-                        {idx < props?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
+                        {idx < props.post?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
                     </span>
                 ))
                 }
 
-                { props.noDate ? "" : <LikeCounter title={props.title} id={props.id}></LikeCounter> }
+                { props.noDate ? "" : <LikeCounter title={props.post?.title} id={props.post?._id}></LikeCounter> }
                 </h6>
             </Row>
 
             {/* display different badge per category. categories are hard coded */}
             <h6>
             {
-                props?.category?.split(',').map((cat, idx) => (
+                props.post?.category && props.post.category.map((cat, idx) => (
                     <span key={"cat-badge-" + idx}>
                         <Badge bg={cat.trim().toLowerCase() in categories ? categories[cat.toLowerCase().trim()] : "info"}>{cat.trim()}</Badge>&nbsp;
                     </span>
@@ -54,8 +68,8 @@ const RecipeMetaData = (props: { id: string; big: boolean; title: string; rating
             
             {/* Author and last updated */}
             <h6>
-            { props.author }
-            { props.noDate ? "" : <>,&nbsp;{Moment(props.updated).format("DD.MM.YYYY, HH:mm")}</> }
+            { props.post?.author }
+            { props.noDate ? "" : <>,&nbsp;{Moment(props.post?.updated).format("DD.MM.YYYY, HH:mm")}</> }
             </h6>
         </>
     )

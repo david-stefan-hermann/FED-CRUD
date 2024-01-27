@@ -46,13 +46,8 @@ const Recipe = () => {
             <Row>
                 <RecipeMetaData
                 big={true}
-                title={post.title}
-                rating={post.rating} 
-                category={post.category}
-                author={post.author}
-                updated={post.updated}
                 noDate={false}
-                id={post._id}
+                post={post}
                 ></RecipeMetaData>
 
                 { currentUser ?

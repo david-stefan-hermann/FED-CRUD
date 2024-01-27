@@ -65,13 +65,8 @@ const Recipes = () => {
                                 <Col sm={7}>
                                     <RecipeMetaData
                                     big={false}
-                                    title={post.title} 
-                                    rating={post.rating} 
-                                    category={post.category}
-                                    author={post.author}
-                                    updated={post.updated}
                                     noDate={false}
-                                    id={post._id}
+                                    post={post}
                                     ></RecipeMetaData>
 
                                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.short}</ReactMarkdown>

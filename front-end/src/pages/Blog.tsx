@@ -24,18 +24,6 @@ const Blog = () => {
         console.log("> Blog: new cpi: " + currentPostId)
     }, [location])
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await axios.get("/essi/")
-                console.log(res)
-            } catch(err) {
-                console.log(err)
-            }
-        }
-        fetchData()
-    }, [currentPostId])
-
     return (
         <main>
             <Container>
