@@ -15,7 +15,7 @@ import EditorInputText, { EditorInputFile, EditorInputRating } from "../componen
 import { EditorPreviewFile } from "../components/inputs/EditorPreview.tsx"
 import { usePostContext } from "../context/postContext.tsx"
 import CustomClickableBadgeHandler from "../components/inputs/CustomClickableBadge.tsx"
-import RecipeMetaData from "../components/RecipeMetaData.tsx"
+import RecipeMetaData from "../components/recipes/RecipeMetaData.tsx"
 import remarkGfm from 'remark-gfm'
 import { useAuthContext } from "../context/authContext.tsx"
 import { newBlankPost } from "../interfaces/postInterface.tsx"

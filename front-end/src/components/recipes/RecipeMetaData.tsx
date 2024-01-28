@@ -2,9 +2,9 @@ import React from "react"
 import { StarFill, Star } from "react-bootstrap-icons"
 import Badge from 'react-bootstrap/Badge'
 import Moment from 'moment'
-import LikeCounter from "./LikeCounter"
+import LikeCounter from "../LikeCounter"
 import { Row } from "react-bootstrap"
-import PostInterface from "../interfaces/postInterface"
+import PostInterface from "../../interfaces/postInterface"
 
 
 const RecipeMetaData = (props: { big: boolean; noDate: boolean; post: PostInterface}) => {

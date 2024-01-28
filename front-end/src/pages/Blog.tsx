@@ -7,8 +7,8 @@ import Col from 'react-bootstrap/Col'
 import axios from "axios"
 import { useLocation } from "react-router-dom"
 import TableOfContent from "../components/TableOfContent.tsx"
-import Recipe from "../components/Recipe.tsx"
-import Recipes from "../components/Recipes.tsx"
+import Recipe from "../components/recipes/Recipe.tsx"
+import Recipes from "../components/recipes/Recipes.tsx"
 import { usePostContext } from '../context/postContext.tsx'
 import { Card } from "react-bootstrap"
 

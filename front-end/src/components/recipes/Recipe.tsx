@@ -7,14 +7,14 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { ArrowLeftCircleFill, PencilFill } from "react-bootstrap-icons"
 
-import { usePostContext } from "../context/postContext.tsx"
-import LoadingSpinner from "./LoadingSpinner.tsx"
+import { usePostContext } from "../../context/postContext.tsx"
+import LoadingSpinner from "../LoadingSpinner.tsx"
 import ReactMarkdown from 'react-markdown'
 import RecipeMetaData from "./RecipeMetaData.tsx"
 import RecipeImage from "./RecipeImage.tsx"
-import PostInterface from "../interfaces/postInterface.tsx"
+import PostInterface from "../../interfaces/postInterface.tsx"
 import remarkGfm from 'remark-gfm'
-import { useAuthContext } from "../context/authContext.tsx"
+import { useAuthContext } from "../../context/authContext.tsx"
 
 
 const Recipe = () => {

@@ -1,9 +1,9 @@
 import React from "react"
 import { useEffect, useState } from "react"
 import Image from "react-bootstrap/esm/Image"
-import { usePostContext } from "../context/postContext"
+import { usePostContext } from "../../context/postContext"
 import axios from "axios"
-import LoadingSpinner from "./LoadingSpinner"
+import LoadingSpinner from "../LoadingSpinner"
 
 
 const RecipeImage = (props: { image: string; title: string}) => {

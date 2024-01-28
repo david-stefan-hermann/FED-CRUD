@@ -1,6 +1,6 @@
 import React from "react"
 import { Badge } from "react-bootstrap"
-import RecipeImage from "../RecipeImage"
+import RecipeImage from "../recipes/RecipeImage"
 import { usePostContext } from "../../context/postContext"
 import PostInterface from "../../interfaces/postInterface"
 
