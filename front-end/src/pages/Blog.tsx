@@ -10,6 +10,7 @@ import TableOfContent from "../components/TableOfContent.tsx"
 import Recipe from "../components/Recipe.tsx"
 import Recipes from "../components/Recipes.tsx"
 import { usePostContext } from '../context/postContext.tsx'
+import { Card } from "react-bootstrap"
 
 
 const Blog = () => {

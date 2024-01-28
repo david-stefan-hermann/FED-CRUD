@@ -74,3 +74,19 @@ const RecipeMetaData = (props: { big: boolean; noDate: boolean; post: PostInterf
 }
 
 export default RecipeMetaData
+
+
+export const RecipeMetaDataRating = (props: {post: PostInterface}) => {
+    return (
+        <h6>
+            {
+            Array.from({ length: 5 }, (_, idx) => (
+                <span key={"rating-star-" + idx} >
+                    {idx < props.post?.rating ? <StarFill className="not-active"></StarFill> : <Star className="dark"></Star>}
+                </span>
+            ))
+            }
+            <LikeCounter title={props.post?.title} id={props.post?._id}></LikeCounter>
+            </h6>
+    )
+}

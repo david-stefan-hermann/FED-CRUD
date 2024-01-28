@@ -51,12 +51,12 @@ code {
 }
 
 .before-toc-link {
-  padding-right: .25ch;
+  padding-right: 0.25ch;
 }
 
 .toc-link::after {
   position: absolute;
-  padding-left: .25ch;
+  padding-left: 0.25ch;
   content: " . . . . . . . . . . . . . . . . . . . "
       ". . . . . . . . . . . . . . . . . . . . . . . "
       ". . . . . . . . . . . . . . . . . . . . . . . "
@@ -107,4 +107,19 @@ th, td {
 
 .header-link:active {
   color: var(--yellow-dark);
+}
+
+/* CUSTOM RECIPE CARD STYLING */
+.recipes-card {
+  height: 600px;
+  overflow: hidden;
+}
+
+.recipes-card a {
+  position: absolute;
+  bottom: 0px;
+  background-color: white;
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 65%, rgba(255,255,255,0) 100%);
+  width: 100%;
+  padding: 26px 0 16px 0;
 }

@@ -5,6 +5,7 @@ import PostInterface, { newBlankPost } from '../interfaces/postInterface'
 
 interface PostContextType {
   replaceSpaces: (str: string) => string | undefined
+  validateImage: (str: string) => string | undefined
   newPost: PostInterface
   setNewPost: React.Dispatch<React.SetStateAction<PostInterface>>
   currentPostTitle: string
@@ -32,8 +33,16 @@ export const PostContextProvider: FunctionComponent<PostContextProviderProps> = 
     return str.replace(/ /g, '-')
   }
 
+  // Validates image url
+  const validateImage = (imageString: string): string => {
+    if(imageString === "") {
+      return process.env.PUBLIC_URL + ("/no-image.png")
+    }
+    return imageString
+  }
+
   return (
-    <PostContext.Provider value={{ replaceSpaces, newPost, setNewPost, currentPostTitle, setCurrentPostTitle, currentPostId, setCurrentPostId }}>
+    <PostContext.Provider value={{ replaceSpaces, validateImage, newPost, setNewPost, currentPostTitle, setCurrentPostTitle, currentPostId, setCurrentPostId }}>
       {children}
     </PostContext.Provider>
   )
