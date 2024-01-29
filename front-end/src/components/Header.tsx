@@ -57,6 +57,11 @@ const Header = () => {
                             "header-link header-link-active" :
                             "header-link"}>Rezepte
                         </Nav.Link>
+                        <Nav.Link href="/Threejs/" className={
+                            location.pathname.split('/')[1] === "Threejs" ? 
+                            "header-link header-link-active" :
+                            "header-link"}>Threejs
+                        </Nav.Link>
                     </Nav>
                     <Nav className="ms-auto">
                         { currentUser ?

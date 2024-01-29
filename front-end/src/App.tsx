@@ -13,6 +13,7 @@ import Register from "./pages/Register.tsx"
 import Login from "./pages/Login.tsx"
 import Logout from "./pages/Logout.tsx"
 import ProtectedRoute from "./components/ProtectedRoute.tsx"
+import Threejs from "./pages/Threejs.tsx"
 
 
 const Layout = () => {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: "/Rezepte/:id/:title/edit",
         element: <ProtectedRoute><PostEditor creatingNewPost={false}></PostEditor></ProtectedRoute>
+      },
+      {
+        path: "/Threejs/",
+        element: <Threejs></Threejs>
       },
       {
         path: "*", // 404
