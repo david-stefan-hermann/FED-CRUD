@@ -1,9 +1,12 @@
-import React, { Suspense, useEffect, useState } from "react"
+import React, { Suspense, useEffect, useRef, useState } from "react"
 import { Canvas, useFrame, useLoader } from "@react-three/fiber"
 import LoadingSpinner from "../components/LoadingSpinner"
 import { OrbitControls } from "@react-three/drei/core/OrbitControls"
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { Environment } from "@react-three/drei/core/Environment"
+import LoadModel from "../components/threejs/LoadModel"
+// import LowPolyDungeon from "../components/threejs/models/LowPolyDungeon"
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 
 
 const Threejs = () => {
@@ -11,7 +14,9 @@ const Threejs = () => {
     const [ availableHeight, setAvailableHeight ] = useState(0)
 
     const gltf_dungeon = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/LowPolyDungeon.glb')
+    const gltf_book = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/LowPolyDungeonBook.glb')
 
+    // set canvas to height
     useEffect(() => {
         const updateHeight = () => {
             console.log("update height")
@@ -31,7 +36,6 @@ const Threejs = () => {
         updateHeight()
     }, [])
 
-
     return (
         <>
             {isLoading ? <LoadingSpinner></LoadingSpinner> :
@@ -46,10 +50,12 @@ const Threejs = () => {
                         
                         <ambientLight intensity={0.1} />
                         <directionalLight color="green" position={[0, 0, 5]} />
-
-                        <primitive object={gltf_dungeon.scene} scale={1} position={[0, 0, 0]} />
                         
+                        <LoadModel model="LowPolyDungeon.glb" reactive={false} />
+                        <LoadModel model="LowPolyDungeonBook.glb" reactive={true} />
+
                         {false ? <><mesh position={[3, 0, 0]}><boxGeometry /><meshStandardMaterial /></mesh>
+                        <primitive object={gltf_dungeon.scene} scale={1} position={[0, 0, 0]} />
                         <mesh position={[-3, 0, 0]}><boxGeometry /><meshStandardMaterial /></mesh>
                         <mesh position={[0, 0, -3]}><boxGeometry /><meshStandardMaterial /></mesh>
                         <mesh position={[0, 0, 3]}><boxGeometry /><meshStandardMaterial /></mesh></> : <></>}
@@ -68,6 +74,7 @@ const Threejs = () => {
                             target={[0, 1.5, 0]}
                             minPolarAngle={Math.PI / 2 - 0.4} // limit the vertical rotation (up and down)
                             maxPolarAngle={Math.PI / 2 + 0.4}
+                            rotateSpeed={0.2}
                         />
                         </Suspense>
                     </Canvas>
