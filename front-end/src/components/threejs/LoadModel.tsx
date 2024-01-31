@@ -56,12 +56,16 @@ const LoadModel = (props: {model: string, reactive: boolean}) => {
 
 
     return (
-        <mesh
-            onPointerEnter={(e) => props.reactive ? setHover(true) : null}
-            onPointerLeave={(e) => props.reactive ? setHover(false) : null}
-        >
-            <primitive ref={ref} object={model.scene} scale={1} position={[0, 0, 0]} />
-        </mesh>
+        <>
+        { model ? 
+            <mesh
+                onPointerEnter={(e) => props.reactive ? setHover(true) : null}
+                onPointerLeave={(e) => props.reactive ? setHover(false) : null}
+            >
+                <primitive ref={ref} object={model.scene} scale={1} position={[0, 0, 0]} />
+            </mesh>
+        : null }
+        </>
     )
 }
 

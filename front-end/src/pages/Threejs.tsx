@@ -53,6 +53,14 @@ const Threejs = () => {
                         
                         <LoadModel model="LowPolyDungeon.glb" reactive={false} />
                         <LoadModel model="LowPolyDungeonBook.glb" reactive={true} />
+                        <LoadModel model="LowPolyDungeonBookshelf.glb" reactive={true} />
+                        <LoadModel model="LowPolyDungeonBarrels.glb" reactive={true} />
+                        <LoadModel model="LowPolyDungeonChest.glb" reactive={true} />
+                        <LoadModel model="LowPolyDungeonFireplace.glb" reactive={true} />
+                        <LoadModel model="LowPolyDungeonScale.glb" reactive={true} />
+                        <LoadModel model="LowPolyDungeonShield.glb" reactive={true} />
+                        
+
 
                         {false ? <><mesh position={[3, 0, 0]}><boxGeometry /><meshStandardMaterial /></mesh>
                         <primitive object={gltf_dungeon.scene} scale={1} position={[0, 0, 0]} />
