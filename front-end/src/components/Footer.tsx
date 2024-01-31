@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container'
 
 const Footer = () => {
     return (
-        <footer id="footer" className="py-5 fw-normal background-dark">
+        <footer id="footer" className="py-2 fw-normal background-dark">
             <Container className="px-4">
                 <p className="my-0 text-center">
                     <span>Bits&Bites</span>
