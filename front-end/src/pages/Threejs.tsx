@@ -42,8 +42,10 @@ const Threejs = () => {
                 <div style={{height: availableHeight}}>
                     {
                     <Canvas
-                        className="w-full h-screen bg-transparent"
-                        camera={{ fov: 55, position: [0, 0, 0], near: 0.1, far: 1000 }}
+                    className="w-full h-screen bg-transparent"
+                    camera={{ fov: 55, position: [0, 0, 0], near: 0.1, far: 1000 }}
+                    shadows
+                    
                     >
                         {false ? <Environment preset="sunset" background /> : null}
                         <Suspense fallback={<></>}>

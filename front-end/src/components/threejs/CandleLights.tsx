@@ -53,7 +53,13 @@ const CandleLights = (props: {model: string}) => {
         <>
         {vertices.map((vertex, index) => (
             <group position={vertex} key={index}>
-                <pointLight ref={lightRefs[index]} color={0xffa500} distance={20} intensity={2} />
+                <pointLight 
+                    ref={lightRefs[index]}
+                    color={0xffa500}
+                    distance={10}
+                    intensity={3}
+                    >
+                    </pointLight>
             </group>
         ))}
         </>

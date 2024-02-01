@@ -25,7 +25,7 @@ const CustomCameraControls = ({ children }: { children: ReactNode }) => {
         control.polarAngle = 1
 
         const handler = () => {
-            const currentDistance = control?.target.distanceTo(camera.position);
+            const currentDistance = control?.target.distanceTo(camera.position)
             if (currentDistance !== prevDistance) {
                 // The distance changed during user interaction, so the user was zooming
                 console.log("User was zooming")

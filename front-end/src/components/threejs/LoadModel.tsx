@@ -14,6 +14,18 @@ const LoadModel = (props: {model: string, reactive: boolean}) => {
     const camera = useCamera()
     const controls = useControls()
 
+    // enable shadows
+    useEffect(() => {
+        if (ref.current) {
+            (ref.current as any).traverse((node: { isMesh: any, castShadow: boolean, receiveShadow: boolean }) => {
+                if (node.isMesh) {
+                    node.castShadow = true
+                    node.receiveShadow = true
+                }
+            })
+        }
+    }, [])
+
     // store original materials, so we can reset them on hover out | not currently used
     useEffect(() => {
         if (ref.current && props.reactive) {
@@ -52,10 +64,15 @@ const LoadModel = (props: {model: string, reactive: boolean}) => {
         <>
         { model ? 
             <mesh
-                onPointerEnter={(e) => props.reactive ? setHover(true) : null}
-                onPointerLeave={(e) => props.reactive ? setHover(false) : null}
+            onPointerEnter={(e) => props.reactive ? setHover(true) : null}
+            onPointerLeave={(e) => props.reactive ? setHover(false) : null}
             >
-                <primitive ref={ref} object={model.scene} scale={1} position={[0, 0, 0]} />
+                <primitive
+                ref={ref} 
+                object={model.scene} 
+                scale={1} 
+                position={[0, 0, 0]} 
+                />
             </mesh>
         : null }
         </>
