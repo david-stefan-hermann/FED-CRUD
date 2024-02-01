@@ -60,7 +60,7 @@ const Header = () => {
                         <Nav.Link href="/Threejs/" className={
                             location.pathname.split('/')[1] === "Threejs" ? 
                             "header-link header-link-active" :
-                            "header-link"}>Threejs
+                            "header-link"}>Weiteres
                         </Nav.Link>
                     </Nav>
                     <Nav className="ms-auto">
