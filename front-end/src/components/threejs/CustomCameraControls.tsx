@@ -1,12 +1,13 @@
 import { extend, useFrame, useThree } from '@react-three/fiber'
-import { useEffect, useRef } from 'react'
+import React, { ReactNode, useEffect, useRef } from 'react'
 import { OrbitControls } from "@react-three/drei/core/OrbitControls"
+import { CameraAndControlsProvider } from "../../context/threeContext"
 
 
 extend({ OrbitControls })
 
 
-const CustomCameraControls = () =>{
+const CustomCameraControls = ({ children }: { children: ReactNode }) => {
     const {
         camera,
         gl: { domElement },
@@ -15,12 +16,24 @@ const CustomCameraControls = () =>{
     const animationFrameId = useRef<number | null>(null) // Store the ID of the animation frame
     const timeoutId = useRef<NodeJS.Timeout | null>(null) // Store the ID of the timeout
 
+    const [ prevDistance, setPrevDistance ] = React.useState((controls.current as any)?.target.distanceTo(camera.position))
+   
 
     useEffect(() => {
         const control = controls.current as any
         let start: number | null = null
         control.polarAngle = 1
+
         const handler = () => {
+            const currentDistance = control?.target.distanceTo(camera.position);
+            if (currentDistance !== prevDistance) {
+                // The distance changed during user interaction, so the user was zooming
+                console.log("User was zooming")
+                setPrevDistance(control?.target.distanceTo(camera.position)) // Store the new distance
+                return
+            }
+
+
             if (control) {
                 control.polarAngle = Math.PI / 2    // Set the polar angle to the desired value
 
@@ -80,7 +93,7 @@ const CustomCameraControls = () =>{
     useFrame(() => (controls as any).current?.update())
 
     return (
-    <>
+    <CameraAndControlsProvider camera={camera} controls={controls}>
         <OrbitControls
             ref={controls}
             args={[camera, domElement]}
@@ -88,7 +101,10 @@ const CustomCameraControls = () =>{
             enableRotate
             reverseOrbit
             enablePan={false}
-            enableZoom={false}
+            enableZoom={true}
+            minDistance={0.01}
+            maxDistance={1}
+            zoomSpeed={6}
             dampingFactor={0.06}
             position={[0, 0, 0]}
             target={[0, 1.7, 0]}
@@ -98,7 +114,8 @@ const CustomCameraControls = () =>{
             autoRotate // Enable automatic rotation
             autoRotateSpeed={-0.5} // Speed of the automatic rotation
         />
-    </>
+        {children}
+    </CameraAndControlsProvider>
     )
 }
 

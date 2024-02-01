@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { useFrame, useLoader } from "@react-three/fiber"
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { ShaderMaterial } from 'three'
 import * as THREE from 'three'
+import { useCamera, useControls } from "../../context/threeContext"
 
 
 const LoadModel = (props: {model: string, reactive: boolean}) => {
@@ -10,12 +11,10 @@ const LoadModel = (props: {model: string, reactive: boolean}) => {
     const [ hover, setHover ] = useState(false)
     const ref = useRef()
     const originalMaterials = useRef<{ [id: number]: THREE.Material }>({})
-    
-    useEffect(() => {
-        console.log(props.model + " hover: " + hover)
-    }, [hover])
+    const camera = useCamera()
+    const controls = useControls()
 
-
+    // store original materials, so we can reset them on hover out | not currently used
     useEffect(() => {
         if (ref.current && props.reactive) {
             (ref.current as any).traverse((node: { isMesh: any, id: number, material: any }) => {
@@ -27,10 +26,9 @@ const LoadModel = (props: {model: string, reactive: boolean}) => {
         }
     }, [])
     
-
+    // set material emissive color on hover
     useEffect(() => {
         try {
-
             if (ref.current && props.reactive) {
                 (ref.current as any).traverse((node: { isMesh: any, id: number, material: any }) => {
                     if (node.isMesh && node.material) {
@@ -48,8 +46,6 @@ const LoadModel = (props: {model: string, reactive: boolean}) => {
             console.log(e)
         }
     }, [hover])
-
-
     
 
     return (

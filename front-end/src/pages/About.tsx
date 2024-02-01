@@ -52,7 +52,7 @@ const About = () => {
                         Lebensmittelverschwendung und fördert nachhaltige Praktiken. In einer Welt, in der die Grenzen zwischen 
                         digital und real zunehmend verschwimmen, bietet die Verbindung von IT und Essen eine spannende Perspektive, 
                         wie Technologie unsere grundlegendsten menschlichen Erfahrungen bereichern und transformieren kann.</p>
-                    <Link to="/Threejs"><Button variant="primary">Weitere Projekte</Button></Link>
+                    <a href="/Threejs"><Button variant="primary">Weitere Projekte</Button></a>
                 </Col>
                 <Col md={6}>
                     <Image 

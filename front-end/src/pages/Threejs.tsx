@@ -26,10 +26,10 @@ const Threejs = () => {
             
             if (headerElem && footerElem) {
                 setAvailableHeight(window.innerHeight - headerElem.clientHeight - footerElem.clientHeight)
+                                
+                console.log("height: " + availableHeight)
                 
                 setIsLoading(false)
-                
-                console.log("height: " + availableHeight)
             }
         }
         updateHeight()
@@ -50,17 +50,17 @@ const Threejs = () => {
                         
                         <ambientLight intensity={0.4} />
                         
-                        <LoadModel model="LowPolyDungeon.glb" reactive={false} />
-                        <LoadModel model="LowPolyDungeonBook.glb" reactive={true} />
-                        <LoadModel model="LowPolyDungeonBookshelf.glb" reactive={true} />
-                        <LoadModel model="LowPolyDungeonBarrels.glb" reactive={true} />
-                        <LoadModel model="LowPolyDungeonChest.glb" reactive={true} />
-                        <LoadModel model="LowPolyDungeonFireplace.glb" reactive={true} />
-                        <LoadModel model="LowPolyDungeonScale.glb" reactive={true} />
-                        <LoadModel model="LowPolyDungeonShield.glb" reactive={true} />
-                        <CandleLights model="LowPolyDungeonLights.glb" />
-
-                        <CustomCameraControls />
+                        <CustomCameraControls>
+                            <LoadModel model="LowPolyDungeon.glb" reactive={false} />
+                            <LoadModel model="LowPolyDungeonBook.glb" reactive={true} />
+                            <LoadModel model="LowPolyDungeonBookshelf.glb" reactive={true} />
+                            <LoadModel model="LowPolyDungeonBarrels.glb" reactive={true} />
+                            <LoadModel model="LowPolyDungeonChest.glb" reactive={true} />
+                            <LoadModel model="LowPolyDungeonFireplace.glb" reactive={true} />
+                            <LoadModel model="LowPolyDungeonScale.glb" reactive={true} />
+                            <LoadModel model="LowPolyDungeonShield.glb" reactive={true} />
+                            <CandleLights model="LowPolyDungeonLights.glb" />
+                        </CustomCameraControls>
                         
                         </Suspense>
                     </Canvas>
