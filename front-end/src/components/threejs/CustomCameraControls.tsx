@@ -1,9 +1,10 @@
 import { extend, useFrame, useThree } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
 import { OrbitControls } from "@react-three/drei/core/OrbitControls"
-import { Vector3 } from 'three'
+
 
 extend({ OrbitControls })
+
 
 const CustomCameraControls = () =>{
     const {
@@ -14,10 +15,11 @@ const CustomCameraControls = () =>{
     const animationFrameId = useRef<number | null>(null) // Store the ID of the animation frame
     const timeoutId = useRef<NodeJS.Timeout | null>(null) // Store the ID of the timeout
 
+
     useEffect(() => {
         const control = controls.current as any
         let start: number | null = null
-
+        control.polarAngle = 1
         const handler = () => {
             if (control) {
                 control.polarAngle = Math.PI / 2    // Set the polar angle to the desired value
@@ -44,11 +46,14 @@ const CustomCameraControls = () =>{
                     // Gradually increase autoRotateSpeed to its final value over 2 seconds
                     const duration = 2000 // Duration in milliseconds
                     const finalSpeed = -0.5 // Final auto rotate speed
+                    const initialPolarAngle = control.polarAngle // Initial polar angle
+                    const finalPolarAngle = Math.PI / 2 // Final polar angle
 
                     const animate = (timestamp: number) => {
                         if (!start) start = timestamp
                         const progress = Math.min((timestamp - start) / duration, 1)
                         control.autoRotateSpeed = progress * finalSpeed
+                        control.polarAngle = initialPolarAngle + progress * (finalPolarAngle - initialPolarAngle)
                         if (progress < 1) {
                             animationFrameId.current = requestAnimationFrame(animate)
                         }
@@ -84,12 +89,12 @@ const CustomCameraControls = () =>{
             reverseOrbit
             enablePan={false}
             enableZoom={false}
-            dampingFactor={0.1}
+            dampingFactor={0.06}
             position={[0, 0, 0]}
-            target={[0, 1.5, 0]}
-            minPolarAngle={Math.PI / 2 - 0.4} // limit the vertical rotation (up and down)
-            maxPolarAngle={Math.PI / 2 + 0.4}
-            rotateSpeed={0.1}
+            target={[0, 1.7, 0]}
+            minPolarAngle={Math.PI / 2 -0.1} // limit the vertical rotation (up and down)
+            maxPolarAngle={Math.PI / 2 -0.1}
+            rotateSpeed={0.2}
             autoRotate // Enable automatic rotation
             autoRotateSpeed={-0.5} // Speed of the automatic rotation
         />

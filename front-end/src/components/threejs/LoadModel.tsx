@@ -1,27 +1,15 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useFrame, useLoader } from "@react-three/fiber"
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { MeshStandardMaterial, ShaderMaterial } from "three"
+import { ShaderMaterial } from 'three'
+import * as THREE from 'three'
+
 
 const LoadModel = (props: {model: string, reactive: boolean}) => {
     const model = useLoader(GLTFLoader, process.env.PUBLIC_URL + '/models/' + props.model)
     const [ hover, setHover ] = useState(false)
     const ref = useRef()
     const originalMaterials = useRef<{ [id: number]: THREE.Material }>({})
-
-    const shaderMaterial = new ShaderMaterial({
-        vertexShader: `
-          void main() {
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `,
-        fragmentShader: `
-          void main() {
-            gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); // red color
-          }
-        `,
-      })
-      
     
     useEffect(() => {
         console.log(props.model + " hover: " + hover)
@@ -37,23 +25,32 @@ const LoadModel = (props: {model: string, reactive: boolean}) => {
             }
           })
         }
-      }, [])
+    }, [])
     
 
     useEffect(() => {
-        if (ref.current && props.reactive) {
-            (ref.current as any).traverse((node: { isMesh: any, id: number, material: any }) => {
-                if (node.isMesh) {
-                    if (hover) {
-                        node.material = shaderMaterial
-                    } else {
-                        node.material = originalMaterials.current[node.id]
+        try {
+
+            if (ref.current && props.reactive) {
+                (ref.current as any).traverse((node: { isMesh: any, id: number, material: any }) => {
+                    if (node.isMesh && node.material) {
+                        if (hover) {
+                            //node.material = shaderMaterial
+                            node.material.emissive.setHex(0x0000ff)
+                        } else {
+                            //node.material = originalMaterials.current[node.id]
+                            node.material.emissive.setHex(0x000000)
+                        }
                     }
-                }
-            })
+                })
+            }
+        } catch (e) {
+            console.log(e)
         }
     }, [hover])
 
+
+    
 
     return (
         <>

@@ -5,6 +5,7 @@ import Image from "react-bootstrap/esm/Image"
 
 
 const About = () => {
+    
     return (
         <Container className="my-4">
             <Row className="align-items-center py-3">

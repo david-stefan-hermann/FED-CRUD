@@ -1,12 +1,11 @@
-import React, { Suspense, useEffect, useRef, useState } from "react"
-import { Canvas, useFrame, useLoader } from "@react-three/fiber"
+import React, { Suspense, useEffect, useState } from "react"
+import { Canvas, useLoader } from "@react-three/fiber"
 import LoadingSpinner from "../components/LoadingSpinner"
-import { OrbitControls } from "@react-three/drei/core/OrbitControls"
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { Environment } from "@react-three/drei/core/Environment"
 import LoadModel from "../components/threejs/LoadModel"
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import CustomCameraControls from "../components/threejs/CustomCameraControls"
+import CandleLights from "../components/threejs/CandleLights"
 
 
 const Threejs = () => {
@@ -46,11 +45,10 @@ const Threejs = () => {
                         className="w-full h-screen bg-transparent"
                         camera={{ fov: 55, position: [0, 0, 0], near: 0.1, far: 1000 }}
                     >
-                        <Environment preset="sunset" background />
+                        {false ? <Environment preset="sunset" background /> : null}
                         <Suspense fallback={<></>}>
                         
-                        <ambientLight intensity={0.1} />
-                        <directionalLight color="green" position={[0, 0, 5]} />
+                        <ambientLight intensity={0.4} />
                         
                         <LoadModel model="LowPolyDungeon.glb" reactive={false} />
                         <LoadModel model="LowPolyDungeonBook.glb" reactive={true} />
@@ -60,14 +58,7 @@ const Threejs = () => {
                         <LoadModel model="LowPolyDungeonFireplace.glb" reactive={true} />
                         <LoadModel model="LowPolyDungeonScale.glb" reactive={true} />
                         <LoadModel model="LowPolyDungeonShield.glb" reactive={true} />
-                        
-
-
-                        {false ? <><mesh position={[3, 0, 0]}><boxGeometry /><meshStandardMaterial /></mesh>
-                        <primitive object={gltf_dungeon.scene} scale={1} position={[0, 0, 0]} />
-                        <mesh position={[-3, 0, 0]}><boxGeometry /><meshStandardMaterial /></mesh>
-                        <mesh position={[0, 0, -3]}><boxGeometry /><meshStandardMaterial /></mesh>
-                        <mesh position={[0, 0, 3]}><boxGeometry /><meshStandardMaterial /></mesh></> : <></>}
+                        <CandleLights model="LowPolyDungeonLights.glb" />
 
                         <CustomCameraControls />
                         
